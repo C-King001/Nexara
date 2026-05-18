@@ -4,15 +4,15 @@ import { useRef } from "react";
 const miniCases = [
   {
     icon: "🍷",
-    title: "Replacing the Manual Grind",
-    body: "A wine consultancy drowning in manual follow-ups got a fully automated lead nurture system — freeing them to actually focus on consulting.",
-    metric: "3x more consultations in 60 days",
+    title: "No Data Left Behind",
+    body: "Sustaina Wines was migrating off a platform and couldn't take their customer records with them. We scraped every contact and detail into their own Google Sheets — fully owned, clean, and accessible from anywhere.",
+    metric: "Full database recovered, 0 records lost",
   },
   {
-    icon: "🚀",
-    title: "Building the Launch Engine",
-    body: "When Popin launched, we built the entire backend that captured and onboarded founding members — without a single manual touchpoint.",
-    metric: "2,400+ members onboarded, 0 manual steps",
+    icon: "📡",
+    title: "The Always-On Receptionist",
+    body: "A publishing company was losing leads across Facebook, Instagram, WhatsApp, and phone calls. We built one AI brain that answers every message, transcribes every voice note, and pings the boss the moment a hot lead appears.",
+    metric: "4 channels covered, 0 missed inquiries",
   },
   {
     icon: "🏢",
