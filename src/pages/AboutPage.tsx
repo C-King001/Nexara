@@ -73,15 +73,19 @@ const AboutPage = () => {
             and built a way through it — for thousands of founders.
           </motion.p>
 
-          {/* Photo placeholder */}
+          {/* Founder photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.9 }}
             className="inline-block mt-6"
           >
-            <div className="w-28 h-28 rounded-full border-2 border-primary/30 bg-surface-2 flex items-center justify-center text-4xl mx-auto shadow-glow">
-              🧠
+            <div className="w-36 h-36 rounded-full border-2 border-primary/40 shadow-glow mx-auto overflow-hidden">
+              <img
+                src="/images/founder.jpg"
+                alt="Faithful Nyama"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             <p className="font-mono text-xs text-dim mt-3">Faithful Nyama · Founder, Nexara</p>
           </motion.div>
