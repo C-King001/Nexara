@@ -2,10 +2,10 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const stats = [
-  { value: "2,400+", label: "Leads Captured" },
-  { value: "3x", label: "More Consultations Booked" },
-  { value: "+140%", label: "Lead Capture Rate" },
-  { value: "12+ hrs", label: "Saved Per Week" },
+  { value: "24/7", label: "AI Receptionist, Every Channel" },
+  { value: "0", label: "Leads Lost to Slow Response" },
+  { value: "100%", label: "Follow-ups Running Automatically" },
+  { value: "10", label: "Workflows Powering One Pipeline" },
 ];
 
 const ProofStrip = () => {

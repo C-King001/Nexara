@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const industries = ["Real Estate", "Consultancy", "SaaS", "Agency", "E-Commerce", "Coaching"];
+const industries = ["Plumbing", "HVAC", "Electrical", "Real Estate", "Care & Repair", "Coaching"];
 
 const HeroSection = () => {
   const [currentIndustry, setCurrentIndustry] = useState(0);

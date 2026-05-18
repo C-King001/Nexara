@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -84,7 +85,8 @@ const AboutPage = () => {
               <img
                 src="/images/founder.jpg"
                 alt="Faithful Nyama"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover"
+                style={{ transform: "scale(1.8)", transformOrigin: "center 5%" }}
               />
             </div>
             <p className="font-mono text-xs text-dim mt-3">Faithful Nyama · Founder, Nexara</p>
@@ -211,6 +213,73 @@ const AboutPage = () => {
                   {tool}
                 </span>
               ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Case Studies Bridge */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <AnimatedSection>
+            <div className="module-border bg-surface-1 p-8 md:p-12 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-[350px] h-[250px] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
+              <div className="relative">
+                <span className="font-mono text-xs text-primary tracking-widest uppercase block mb-3">// The Proof</span>
+                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  Words are cheap. Systems aren't.
+                </h2>
+                <p className="text-muted-foreground mb-10 max-w-xl leading-relaxed">
+                  Every claim on this page is backed by a live, deployed workflow. Here's a sample of what we've actually built.
+                </p>
+
+                <div className="grid md:grid-cols-3 gap-4 mb-10">
+                  {[
+                    {
+                      to: "/case/publishing-ai-receptionist",
+                      tag: "PUBLISHING",
+                      stat: "0",
+                      statLabel: "Missed Inquiries",
+                      desc: "AI receptionist across 4 channels — answers every message, 24/7.",
+                    },
+                    {
+                      to: "/case/kcr-franchise-pipeline",
+                      tag: "FRANCHISE SALES",
+                      stat: "10",
+                      statLabel: "Workflows, One System",
+                      desc: "Zero manual follow-ups across 7 pipeline stages, start to close.",
+                    },
+                    {
+                      to: "/case/real-estate-lifecycle",
+                      tag: "REAL ESTATE",
+                      stat: "0",
+                      statLabel: "Manual Admin Steps",
+                      desc: "3 workflows covering the full client lifecycle, end to end.",
+                    },
+                  ].map((card) => (
+                    <Link
+                      key={card.to}
+                      to={card.to}
+                      className="group block p-5 rounded-lg border border-border hover:border-primary/40 bg-surface-2 hover:bg-surface-2/80 hover:shadow-glow transition-all duration-300"
+                    >
+                      <span className="font-mono text-xs text-primary tracking-widest block mb-3">{card.tag}</span>
+                      <div className="font-display text-3xl font-bold text-gradient mb-0.5">{card.stat}</div>
+                      <div className="font-mono text-xs text-dim mb-3">{card.statLabel}</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">{card.desc}</p>
+                      <span className="font-mono text-xs text-primary group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                        View case study →
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+
+                <Link
+                  to="/#cases"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-primary/40 text-primary font-mono text-sm rounded-md hover:bg-primary/10 hover:border-primary transition-colors"
+                >
+                  See all systems built →
+                </Link>
+              </div>
             </div>
           </AnimatedSection>
         </div>
