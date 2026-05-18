@@ -229,6 +229,13 @@ const brandPortfolio = [
     result: "400K views in 60 days in a competitive niche.",
     image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80",
   },
+  {
+    name: "Kaminskiy Care & Repair", platform: "Instagram", color: "#e1306c", category: "Home Services · California",
+    headline: "495K video views from organic content.",
+    bullets: ["495K total video views", "3,045 accounts reached organically", "+96.2% increase in reach"],
+    result: "Franchise brand visible and growing across California.",
+    image: "/social-media-results/results-instagram.png",
+  },
 ];
 
 const results = [
@@ -672,44 +679,88 @@ const BrandsContent = () => {
 };
 
 /* ═══════════════════════════════════════════
-   TESTIMONIALS
+   CLIENT MARQUEE
 ═══════════════════════════════════════════ */
-const TestimonialsSection = () => (
-  <section className="py-24 px-6" style={{ background: "#fafafa" }}>
-    <div className="max-w-6xl mx-auto">
-      <Reveal>
-        <div className="text-center mb-14">
-          <p className="font-mono text-xs tracking-[0.25em] uppercase mb-4" style={{ color: "#9ca3af" }}>Client Testimonials</p>
-          <h2 className="font-bold" style={{ fontFamily: "Poppins, sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#0a0a0a" }}>
-            What founders and brands say.
-          </h2>
+const clientBrands = [
+  { name: "POPIN", tag: "Instagram" },
+  { name: "Book Addicts", tag: "Pinterest" },
+  { name: "Book Lovers", tag: "Facebook" },
+  { name: "GlowVibe Studios", tag: "Pinterest" },
+  { name: "Kaminskiy Care & Repair", tag: "Instagram" },
+  { name: "Educato AI", tag: "Social Media" },
+  { name: "Sustaina Wines", tag: "Data & Automation" },
+];
+
+const ClientMarquee = () => {
+  const doubled = [...clientBrands, ...clientBrands];
+  return (
+    <>
+      <style>{`
+        @keyframes client-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .client-marquee-inner { animation: client-scroll 28s linear infinite; }
+        .client-marquee-inner:hover { animation-play-state: paused; }
+      `}</style>
+      <div className="py-6 overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.015)" }}>
+        <div className="client-marquee-inner flex items-center gap-10" style={{ width: "max-content" }}>
+          {doubled.map((c, i) => (
+            <div key={i} className="flex items-center gap-3 flex-shrink-0">
+              <span className="font-semibold text-sm text-white whitespace-nowrap" style={{ fontFamily: "Poppins, sans-serif" }}>{c.name}</span>
+              <span className="font-mono text-xs px-2 py-0.5 rounded-full whitespace-nowrap" style={{ background: "rgba(168,85,247,0.12)", color: "#a855f7", border: "1px solid rgba(168,85,247,0.25)" }}>{c.tag}</span>
+              <span style={{ color: "rgba(255,255,255,0.1)", fontSize: 18 }}>·</span>
+            </div>
+          ))}
         </div>
-      </Reveal>
-      <SwipeCarousel
-        items={testimonials}
-        cardWidth={380}
-        renderCard={(item) => {
-          const t = item as Testimonial;
-          return (
-            <GlowCard className="p-8 flex flex-col" style={{ minHeight: 300 }}>
-              <div className="flex gap-0.5 mb-5">{Array.from({ length: 5 }).map((_, si) => <span key={si} style={{ color: "#7c3aed", fontSize: 16 }}>★</span>)}</div>
-              <p className="text-sm leading-relaxed italic text-gray-500 mb-6 flex-1">"{t.quote}"</p>
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                {t.image
-                  ? <img src={t.image} alt={t.name} className="w-11 h-11 rounded-full object-cover flex-shrink-0" style={{ border: "2px solid rgba(124,58,237,0.3)" }} />
-                  : <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)" }}>{t.initial}</div>}
-                <div>
-                  <p className="font-semibold text-sm text-gray-900" style={{ fontFamily: "Poppins, sans-serif" }}>{t.name}</p>
-                  <p className="text-xs font-mono text-gray-400">{t.role}</p>
+      </div>
+    </>
+  );
+};
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS — INFINITE AUTO-SCROLL
+═══════════════════════════════════════════ */
+const TestimonialsSection = () => {
+  const doubled = [...testimonials, ...testimonials];
+  return (
+    <section className="py-24 overflow-hidden" style={{ background: "#fafafa" }}>
+      <style>{`
+        @keyframes testimonial-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .testimonial-strip { animation: testimonial-scroll 55s linear infinite; }
+        .testimonial-strip:hover { animation-play-state: paused; }
+      `}</style>
+      <div className="max-w-6xl mx-auto px-6 mb-14">
+        <Reveal>
+          <div className="text-center">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase mb-4" style={{ color: "#9ca3af" }}>Client Testimonials</p>
+            <h2 className="font-bold" style={{ fontFamily: "Poppins, sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#0a0a0a" }}>
+              What founders and brands say.
+            </h2>
+          </div>
+        </Reveal>
+      </div>
+      <div style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
+        <div className="testimonial-strip flex gap-6 py-3 cursor-grab" style={{ width: "max-content" }}>
+          {doubled.map((t, i) => (
+            <div key={i} className="flex-shrink-0" style={{ width: 390 }}>
+              <GlowCard className="p-8 flex flex-col" style={{ minHeight: 300, height: "100%" }}>
+                <div className="flex gap-0.5 mb-5">{Array.from({ length: 5 }).map((_, si) => <span key={si} style={{ color: "#7c3aed", fontSize: 16 }}>★</span>)}</div>
+                <p className="text-sm leading-relaxed italic text-gray-500 mb-6 flex-1">"{t.quote}"</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  {t.image
+                    ? <img src={t.image} alt={t.name} className="w-11 h-11 rounded-full object-cover flex-shrink-0" style={{ border: "2px solid rgba(124,58,237,0.3)" }} />
+                    : <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)" }}>{t.initial}</div>}
+                  <div>
+                    <p className="font-semibold text-sm text-gray-900" style={{ fontFamily: "Poppins, sans-serif" }}>{t.name}</p>
+                    <p className="text-xs font-mono text-gray-400">{t.role}</p>
+                  </div>
                 </div>
-              </div>
-            </GlowCard>
-          );
-        }}
-      />
-    </div>
-  </section>
-);
+              </GlowCard>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 /* ═══════════════════════════════════════════
    PAGE
@@ -812,6 +863,9 @@ const SocialMediaPage = () => {
           </div>
         </motion.div>
       </section>
+
+      {/* ── CLIENT MARQUEE ── */}
+      <ClientMarquee />
 
       {/* ── DYNAMIC CONTENT ── */}
       <div ref={contentRef}>

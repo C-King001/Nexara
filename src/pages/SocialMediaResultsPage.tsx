@@ -29,10 +29,10 @@ const results = [
   {
     src: "/social-media-results/results-instagram.png",
     platform: "Instagram",
-    platformColor: "#a855f7",
-    client: "POPIN",
+    platformColor: "#e1306c",
+    client: "Kaminskiy Care & Repair",
     headline: "495K Video Views",
-    metrics: ["495K total views", "3,045 accounts reached", "+96.2% reach increase"],
+    metrics: ["495K total video views", "3,045 accounts reached organically", "+96.2% increase in reach"],
   },
 ];
 

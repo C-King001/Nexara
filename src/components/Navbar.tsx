@@ -8,7 +8,6 @@ const Navbar = () => {
 
   const pageLinks = [
     { label: "Automation", to: "/automation" },
-    { label: "Social Media", to: "/social-media" },
     { label: "About", to: "/about" },
   ];
 

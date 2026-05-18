@@ -19,7 +19,6 @@ const Footer = () => {
             <p className="font-mono text-xs text-primary tracking-widest uppercase mb-4">Services</p>
             <div className="flex flex-col gap-2">
               <Link to="/automation" className="text-sm text-muted-foreground hover:text-primary transition-colors">Automation Systems</Link>
-              <Link to="/social-media" className="text-sm text-muted-foreground hover:text-primary transition-colors">Social Media</Link>
               <a href="#cases" className="text-sm text-muted-foreground hover:text-primary transition-colors">Case Studies</a>
             </div>
           </div>
@@ -44,11 +43,24 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="group cursor-default">
+            <span className="font-mono text-xs text-dim">
+              © {new Date().getFullYear()} Nexara. All rights reserved.{" "}
+            </span>
+            <Link
+              to="/social-media"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="font-mono text-xs opacity-0 group-hover:opacity-[0.15] transition-opacity duration-1000 select-none"
+              style={{ color: "hsl(330, 70%, 60%)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.85"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = ""; }}
+            >
+              ♥
+            </Link>
+          </div>
           <p className="font-mono text-xs text-dim">
-            © {new Date().getFullYear()} Nexara. All rights reserved.
-          </p>
-          <p className="font-mono text-xs text-dim">
-            Revenue Systems · Automation · Social Media
+            Revenue Systems · Automation
           </p>
         </div>
       </div>
