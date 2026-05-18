@@ -7,11 +7,12 @@ const CTASection = () => {
 
   return (
     <section id="cta" ref={ref} className="py-32 px-6 relative overflow-hidden">
-      {/* Background layers */}
       <div className="absolute inset-0" style={{ background: "hsl(var(--surface-2) / 0.5)" }} />
-      <div className="absolute inset-0 grid-pattern opacity-15" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[120px]" style={{ background: "hsl(var(--primary) / 0.06)" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full blur-[100px]" style={{ background: "hsl(var(--primary) / 0.04)" }} />
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
+        style={{ width: 700, height: 400, borderRadius: "50%", background: "hsl(var(--primary) / 0.07)", filter: "blur(100px)" }}
+      />
 
       <div className="relative max-w-3xl mx-auto text-center">
         <motion.div
@@ -32,24 +33,20 @@ const CTASection = () => {
             that actually supports your ambition.
           </p>
 
-          {/* Animated gradient border button wrapper */}
-          <div className="relative inline-block">
-            <div className="absolute -inset-[2px] rounded-xl animate-gradient-spin opacity-70" style={{ background: "conic-gradient(from 0deg, hsl(var(--primary)), hsl(190 100% 50%), hsl(var(--primary)), hsl(36 90% 55%), hsl(var(--primary)))" }} />
-            <motion.a
-              href="https://calendly.com/faithfulnyama/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="relative inline-flex items-center gap-3 px-10 py-5 font-display font-bold text-lg rounded-xl"
-              style={{ background: "hsl(var(--background))", color: "hsl(var(--foreground))" }}
-            >
-              Book a 15-Minute System Audit
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </motion.a>
-          </div>
+          <motion.a
+            href="https://calendly.com/faithfulnyama/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-3 px-12 py-5 font-display font-bold text-lg rounded-xl text-primary-foreground cta-pulse"
+            style={{ background: "linear-gradient(135deg, hsl(var(--primary)), hsl(190 100% 50%))" }}
+          >
+            Book a 15-Minute System Audit
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </motion.a>
 
           <p className="mt-8 font-mono text-xs text-dim">
             15 min · No pitch · Just clarity

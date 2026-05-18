@@ -206,9 +206,8 @@ const brandPortfolio = [
     headline: "Built a community of 470+ businesses from zero.",
     bullets: ["470+ pop-up businesses engaged", "200+ waitlist sign-ups via Stories", "500+ emails collected organically"],
     result: "Community built before the product was ready.",
-    image: "/logos/popin-logo.png",
-    isLogo: true,
-    logoBg: "#0a0a0a",
+    image: "/social-media-images/popin-app-cover.jpg",
+    isLogo: false,
   },
   {
     name: "Book Addicts", platform: "Pinterest", color: "#7c3aed", category: "Content Community",
