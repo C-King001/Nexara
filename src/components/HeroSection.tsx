@@ -3,6 +3,30 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const industries = ["Plumbing", "HVAC", "Electrical", "Real Estate", "Care & Repair", "Coaching"];
 
+const liveCards = [
+  {
+    status: "LIVE",
+    color: "hsl(170 100% 45%)",
+    title: "New Lead Captured",
+    sub: "Mike J. · Plumbing · Urgent repair",
+    tag: "Auto-qualified → Stage 1",
+  },
+  {
+    status: "AUTO",
+    color: "hsl(170 100% 45%)",
+    title: "Follow-up Triggered",
+    sub: "Sarah W. · HVAC quote · 24hr timer",
+    tag: "3 touchpoints queued",
+  },
+  {
+    status: "CLOSED",
+    color: "hsl(36 90% 55%)",
+    title: "Deal Won — $4,200",
+    sub: "Real Estate CRM · Onboarding flow",
+    tag: "Contract + welcome email sent",
+  },
+];
+
 const HeroSection = () => {
   const [currentIndustry, setCurrentIndustry] = useState(0);
 
@@ -19,8 +43,46 @@ const HeroSection = () => {
       <div className="absolute inset-0 grid-pattern opacity-40" />
 
       {/* Glow orbs */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] animate-pulse-glow" />
-      <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] rounded-full bg-primary/3 blur-[80px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-primary/5 blur-[140px] animate-pulse-glow" />
+      <div className="absolute bottom-1/4 left-1/4 w-[350px] h-[350px] rounded-full bg-primary/3 blur-[90px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+      <div className="absolute top-1/2 right-1/4 w-[250px] h-[250px] rounded-full bg-accent/3 blur-[80px] animate-pulse-glow" style={{ animationDelay: "3s" }} />
+
+      {/* Floating live dashboard cards — desktop only */}
+      <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-3 pointer-events-none" style={{ zIndex: 5 }}>
+        {liveCards.map((card, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55, delay: 1.6 + i * 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="w-68 rounded-xl border backdrop-blur-sm p-4"
+            style={{
+              width: 280,
+              background: "hsl(220 18% 10% / 0.92)",
+              borderColor: "hsl(var(--primary) / 0.25)",
+              boxShadow: "0 4px 24px hsl(var(--primary) / 0.08)",
+            }}
+          >
+            <div className="flex items-center gap-2 mb-2.5">
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse-glow"
+                style={{ background: card.color }}
+              />
+              <span className="font-mono text-[10px] tracking-widest uppercase" style={{ color: card.color }}>
+                {card.status}
+              </span>
+            </div>
+            <p className="font-display font-semibold text-sm text-foreground mb-1">{card.title}</p>
+            <p className="font-mono text-[10px] text-dim mb-2.5">{card.sub}</p>
+            <div
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md font-mono text-[10px]"
+              style={{ background: "hsl(var(--primary) / 0.08)", color: "hsl(var(--primary))" }}
+            >
+              <span>→</span> {card.tag}
+            </div>
+          </motion.div>
+        ))}
+      </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <motion.div

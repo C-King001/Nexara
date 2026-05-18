@@ -50,19 +50,24 @@ const TestimonialsSection = () => {
   const allTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section ref={ref} className="py-32 overflow-hidden">
-      <div className="px-6">
+    <section ref={ref} className="py-32 overflow-hidden relative">
+      {/* Section background */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "hsl(var(--surface-2) / 0.3)" }} />
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(to right, transparent, hsl(var(--border)), transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(to right, transparent, hsl(var(--border)), transparent)" }} />
+
+      <div className="px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-14"
+          className="text-center mb-16"
         >
-          <span className="font-mono text-xs text-primary tracking-widest uppercase block mb-4">// Trust</span>
+          <span className="font-mono text-xs text-primary tracking-widest uppercase block mb-4">// Verified</span>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4">
-            What Clients Say
+            The Receipts
           </h2>
-          <p className="text-muted-foreground text-lg">Real people. Real brands. Real results.</p>
+          <p className="text-muted-foreground text-lg">Real clients. Real outcomes. Unedited.</p>
         </motion.div>
       </div>
 
@@ -73,15 +78,16 @@ const TestimonialsSection = () => {
         className="relative"
       >
         {/* Left fade */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, hsl(var(--background)), transparent)" }} />
         {/* Right fade */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, hsl(var(--background)), transparent)" }} />
 
         <div className="marquee-track-slow flex items-stretch gap-6 px-6">
           {allTestimonials.map((t, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[380px] module-border bg-surface-1 p-8 flex flex-col justify-between hover:border-primary/40 transition-colors"
+              className="flex-shrink-0 w-[390px] rounded-xl border p-8 flex flex-col justify-between transition-colors hover:border-primary/40"
+              style={{ background: "hsl(var(--surface-1))", borderColor: "hsl(var(--border))" }}
             >
               <div>
                 <StarRating />
@@ -94,13 +100,12 @@ const TestimonialsSection = () => {
                   <img
                     src={t.image}
                     alt={t.name}
-                    className="w-10 h-10 rounded-full object-cover ring-2 ring-primary/30 flex-shrink-0"
+                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                    style={{ boxShadow: "0 0 0 2px hsl(var(--primary) / 0.3)" }}
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center flex-shrink-0">
-                    <span className="text-primary font-display font-bold text-sm">
-                      {t.initial}
-                    </span>
+                  <div className="w-10 h-10 rounded-full border border-glow flex items-center justify-center flex-shrink-0" style={{ background: "hsl(var(--primary) / 0.15)" }}>
+                    <span className="text-primary font-display font-bold text-sm">{t.initial}</span>
                   </div>
                 )}
                 <div>

@@ -155,7 +155,7 @@ const SwipeCarousel = ({ items, renderCard, cardWidth = 400 }: {
 const industryFounders = [
   {
     name: "Natalee Barnett", handle: "@nataleebarnett", niche: "Fitness · UK",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80",
+    image: "/social-media-images/natalee.webp",
     headline: "7,000 women joined the waitlist before she built a single wall.",
     story: "A Black British fitness creator posted raw, personal TikTok content about gym safety. Women resonated. Gymshark sent £20,000 — unprompted. The gym sold out before it opened.",
     stats: [
@@ -166,7 +166,7 @@ const industryFounders = [
   },
   {
     name: "Lottie Whyte", handle: "MyoMaster, Dragons' Den", niche: "Health Tech · UK",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=700&q=80",
+    image: "/social-media-images/lottie.webp",
     headline: "BBC called it 'the most masterful pitch they'd ever seen.'",
     story: "She documented building a startup — the rejections, the newborn, the grind — on LinkedIn. When she walked into the Dragons' Den, the audience already trusted her. £100K secured.",
     stats: [
@@ -177,7 +177,7 @@ const industryFounders = [
   },
   {
     name: "Rachel Ama", handle: "2× Cookbook Author", niche: "Food & Lifestyle · UK",
-    image: "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?auto=format&fit=crop&w=700&q=80",
+    image: "/social-media-images/rachel-ama.jpeg",
     headline: "First batch sold out within hours. Zero marketing budget.",
     story: "497K Instagram. 700K YouTube. Built on authenticity — her Caribbean roots, her kitchen. When Ama's Sauces launched, one post to her personal audience cleared the entire first run.",
     stats: [
@@ -188,7 +188,7 @@ const industryFounders = [
   },
   {
     name: "Evangelina Petrakis", handle: "@evangelina", niche: "Luxury Jewellery · USA",
-    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80",
+    image: "/social-media-images/evangelina-petrakis.avif",
     headline: "$3.1M revenue. Age 21. No paid ads. Ever.",
     story: "Personal account: 1M followers. Brand account: 109K. The gap is the entire strategy. People didn't buy EP Jewels because of a product page — they bought because they'd been watching Evangelina for years.",
     stats: [
@@ -206,7 +206,9 @@ const brandPortfolio = [
     headline: "Built a community of 470+ businesses from zero.",
     bullets: ["470+ pop-up businesses engaged", "200+ waitlist sign-ups via Stories", "500+ emails collected organically"],
     result: "Community built before the product was ready.",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=700&q=80",
+    image: "/logos/popin-logo.png",
+    isLogo: true,
+    logoBg: "#0a0a0a",
   },
   {
     name: "Book Addicts", platform: "Pinterest", color: "#7c3aed", category: "Content Community",
@@ -214,6 +216,7 @@ const brandPortfolio = [
     bullets: ["1M+ monthly views — organic only", "Pinterest SEO mastered from scratch", "Creator Hub status achieved"],
     result: "From zero to 1M views. No ad spend.",
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=700&q=80",
+    isLogo: false,
   },
   {
     name: "Book Lovers", platform: "Facebook", color: "#5146d9", category: "Affiliate Community",
@@ -221,6 +224,7 @@ const brandPortfolio = [
     bullets: ["10× follower growth in 4 months", "Affiliate revenue integrated seamlessly", "Zero trust erosion through monetisation"],
     result: "10× growth. Community and revenue coexist.",
     image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=700&q=80",
+    isLogo: false,
   },
   {
     name: "GlowVibe Studios", platform: "Pinterest", color: "#9333ea", category: "Beauty",
@@ -228,13 +232,16 @@ const brandPortfolio = [
     bullets: ["400K monthly views in 2 months", "Competitive beauty niche cracked from zero", "Organic growth — no paid promotion"],
     result: "400K views in 60 days in a competitive niche.",
     image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80",
+    isLogo: false,
   },
   {
     name: "Kaminskiy Care & Repair", platform: "Instagram", color: "#e1306c", category: "Home Services · California",
     headline: "495K video views from organic content.",
     bullets: ["495K total video views", "3,045 accounts reached organically", "+96.2% increase in reach"],
     result: "Franchise brand visible and growing across California.",
-    image: "/social-media-results/results-instagram.png",
+    image: "/logos/kaminskiy-logo.png",
+    isLogo: true,
+    logoBg: "#ffffff",
   },
 ];
 
@@ -313,7 +320,7 @@ const FoundersContent = () => {
         <div className="grid md:grid-cols-2" style={{ minHeight: "min(80vh, 680px)" }}>
           <div className="relative overflow-hidden" style={{ minHeight: 400 }}>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Steven_Bartlett_%28cropped%29.jpg"
+              src="/social-media-images/steven.png"
               alt="Steven Bartlett"
               className="absolute inset-0 w-full h-full object-cover object-top"
               style={{ filter: "grayscale(20%) brightness(0.6)" }}
@@ -534,12 +541,18 @@ const BrandsContent = () => {
             {brandPortfolio.map((b, i) => (
               <Reveal key={b.name} delay={i * 0.1}>
                 <GlowCard className="overflow-hidden flex flex-col h-full">
-                  <div className="relative h-48 overflow-hidden">
-                    <img src={b.image} alt={b.category} className="w-full h-full object-cover" style={{ filter: "brightness(0.6)" }} />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%)" }} />
+                  <div className="relative h-48 overflow-hidden" style={{ background: b.isLogo ? (b.logoBg || "#111") : undefined }}>
+                    {b.isLogo ? (
+                      <div className="absolute inset-0 flex items-center justify-center p-8">
+                        <img src={b.image} alt={b.name} style={{ maxWidth: "70%", maxHeight: "100%", objectFit: "contain" }} />
+                      </div>
+                    ) : (
+                      <img src={b.image} alt={b.category} className="w-full h-full object-cover" style={{ filter: "brightness(0.6)" }} />
+                    )}
+                    {!b.isLogo && <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%)" }} />}
                     <span className="absolute top-4 left-5 text-xs font-mono font-bold text-white px-3 py-1 rounded-full" style={{ background: b.color }}>{b.platform}</span>
                     <div className="absolute bottom-4 left-5 right-5">
-                      <p className="text-xs font-mono text-gray-300">{b.category}</p>
+                      <p className="text-xs font-mono" style={{ color: b.isLogo ? "#9ca3af" : "#d1d5db" }}>{b.category}</p>
                     </div>
                   </div>
                   <div className="p-7 flex flex-col flex-1">
