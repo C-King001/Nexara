@@ -16,9 +16,9 @@ const miniCases = [
   },
   {
     icon: "🏢",
-    title: "The Content Pipeline",
-    body: "For a real estate team, we connected their social content directly to a CRM pipeline that followed up with every lead automatically.",
-    metric: "+140% lead capture rate",
+    title: "The Leakproof Pipeline",
+    body: "A real estate agency had no unified system — leads arrived from multiple sources, follow-ups were forgotten, and post-sale paperwork was fully manual. We built 3 interconnected workflows that handle intake, follow-up, and document collection automatically.",
+    metric: "3 workflows, 0 manual admin steps",
   },
 ];
 
