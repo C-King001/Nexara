@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const results = [
@@ -120,7 +120,7 @@ const SocialMediaResultsPage = () => (
           Want results like these?
         </h2>
         <p className="text-gray-400 mb-8 max-w-lg mx-auto">Let's talk about what's possible for your brand in the next 90 days.</p>
-        <a href="https://calendly.com/faithfulnyama/30min" target="_blank" rel="noopener noreferrer"
+        <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-bold text-white transition-all hover:opacity-90"
           style={{ background: "linear-gradient(135deg, #7c3aed, #a855f7)", fontFamily: "Poppins, sans-serif" }}>
           Book a Free Consultation

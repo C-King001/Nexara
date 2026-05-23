@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+﻿import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const systems = [
@@ -115,7 +115,7 @@ const CapabilitiesSection = () => {
           </div>
           <div className="text-center mt-10">
             <a
-              href="https://calendly.com/faithfulnyama/30min"
+              href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-display font-semibold rounded-lg shadow-glow hover:shadow-[0_0_50px_-5px_hsl(170_100%_45%_/_0.5)] transition-shadow"

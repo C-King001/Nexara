@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const industries = ["Plumbing", "HVAC", "Electrical", "Real Estate", "Care & Repair", "Coaching"];
@@ -84,7 +84,7 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a
-            href="https://calendly.com/faithfulnyama/30min"
+            href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-4 bg-primary text-primary-foreground font-display font-semibold rounded-md hover:shadow-glow transition-all text-base"

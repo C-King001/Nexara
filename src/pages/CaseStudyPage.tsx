@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+﻿import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { caseStudies } from "@/data/caseStudies";
 import Navbar from "@/components/Navbar";
@@ -194,7 +194,7 @@ const CaseStudyPage = () => {
             <p className="font-display text-xl font-bold text-foreground mb-2">Want results like these?</p>
             <p className="text-muted-foreground text-sm mb-6">Let's find the biggest revenue leak in your system.</p>
             <a
-              href="https://calendly.com/faithfulnyama/30min"
+              href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-display font-semibold rounded-md hover:shadow-glow transition-shadow"

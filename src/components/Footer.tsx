@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -27,7 +27,7 @@ const Footer = () => {
             <p className="font-mono text-xs text-primary tracking-widest uppercase mb-4">Connect</p>
             <div className="flex flex-col gap-2">
               <a
-                href="https://calendly.com/faithfulnyama/30min"
+                href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"

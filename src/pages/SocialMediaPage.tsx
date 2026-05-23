@@ -1,4 +1,4 @@
-import {
+﻿import {
   motion,
   AnimatePresence,
   useInView,
@@ -25,7 +25,7 @@ const DarkNavbar = () => {
         <div className="hidden md:flex items-center gap-8">
           <Link to="/automation" className="text-sm font-mono uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Automation</Link>
           <Link to="/about" className="text-sm font-mono uppercase tracking-widest text-gray-400 hover:text-white transition-colors">About</Link>
-          <a href="https://calendly.com/faithfulnyama/30min" target="_blank" rel="noopener noreferrer"
+          <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer"
             className="px-5 py-2 rounded-full text-sm font-semibold text-white"
             style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)", fontFamily: "Poppins, sans-serif" }}>
             Book Audit
@@ -42,7 +42,7 @@ const DarkNavbar = () => {
         <div className="md:hidden px-6 py-4 flex flex-col gap-4" style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <Link to="/automation" onClick={() => setOpen(false)} className="text-sm text-gray-400 hover:text-white font-mono">Automation</Link>
           <Link to="/about" onClick={() => setOpen(false)} className="text-sm text-gray-400 hover:text-white font-mono">About</Link>
-          <a href="https://calendly.com/faithfulnyama/30min" target="_blank" rel="noopener noreferrer"
+          <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer"
             className="px-5 py-2 rounded-full text-sm font-semibold text-white text-center"
             style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)" }}>Book Audit</a>
         </div>
@@ -453,7 +453,7 @@ const FoundersContent = () => {
           </div>
           <Reveal delay={0.3}>
             <div className="text-center mt-12">
-              <a href="https://calendly.com/faithfulnyama/30min" target="_blank" rel="noopener noreferrer"
+              <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-9 py-4 rounded-full font-bold text-white hover:opacity-90 transition-all"
                 style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)", fontFamily: "Poppins, sans-serif" }}>
                 Build My Personal Brand
@@ -675,7 +675,7 @@ const BrandsContent = () => {
           </div>
           <Reveal delay={0.3}>
             <div className="text-center mt-12">
-              <a href="https://calendly.com/faithfulnyama/30min" target="_blank" rel="noopener noreferrer"
+              <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-9 py-4 rounded-full font-bold text-white hover:opacity-90 transition-all"
                 style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)", fontFamily: "Poppins, sans-serif" }}>
                 Build My Brand's System
@@ -929,7 +929,7 @@ const SocialMediaPage = () => {
             <p className="text-gray-400 text-lg mb-10 max-w-lg mx-auto leading-relaxed">
               The only thing missing is the system that connects them.
             </p>
-            <a href="https://calendly.com/faithfulnyama/30min" target="_blank" rel="noopener noreferrer"
+            <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-lg transition-all hover:opacity-90 hover:shadow-[0_0_60px_rgba(168,85,247,0.35)]"
               style={{ background: "linear-gradient(135deg,#7c3aed,#a855f7)", color: "#ffffff", fontFamily: "Poppins, sans-serif" }}>
               Start the Conversation

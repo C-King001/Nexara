@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+﻿import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const CTASection = () => {
@@ -34,7 +34,7 @@ const CTASection = () => {
           </p>
 
           <motion.a
-            href="https://calendly.com/faithfulnyama/30min"
+            href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.03 }}

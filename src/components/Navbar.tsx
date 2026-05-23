@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const Navbar = () => {
             </Link>
           ))}
           <a
-            href="https://calendly.com/faithfulnyama/30min"
+            href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-2 bg-primary text-primary-foreground text-sm font-display font-semibold rounded-md hover:shadow-glow transition-shadow"
@@ -82,7 +82,7 @@ const Navbar = () => {
               </Link>
             ))}
             <a
-              href="https://calendly.com/faithfulnyama/30min"
+              href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsOpen(false)}
