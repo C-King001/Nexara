@@ -59,9 +59,20 @@ const Footer = () => {
               ♥
             </Link>
           </div>
-          <p className="font-mono text-xs text-dim">
-            Revenue Systems · Automation
-          </p>
+          <div className="group cursor-default">
+            <span className="font-mono text-xs text-dim">Revenue Systems · Automation</span>
+            <Link
+              to="/fn"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="font-mono text-xs ml-1 opacity-0 group-hover:opacity-[0.12] transition-opacity duration-1000 select-none"
+              style={{ color: "#00c6ff" }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.85"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = ""; }}
+            >
+              ✦
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

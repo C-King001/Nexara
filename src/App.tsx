@@ -10,6 +10,7 @@ import SocialMediaPage from "./pages/SocialMediaPage.tsx";
 import SocialMediaResultsPage from "./pages/SocialMediaResultsPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import PersonalPage from "./pages/PersonalPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/social-media/results" element={<SocialMediaResultsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/case/:slug" element={<CaseStudyPage />} />
+          <Route path="/fn" element={<PersonalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
