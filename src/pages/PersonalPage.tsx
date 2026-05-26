@@ -173,6 +173,31 @@ const STYLES = `
 /* Footer */
 .fn3-footer { border-top:1px solid var(--b0); padding:36px 32px; }
 @media(max-width:768px){.fn3-footer{padding:28px 20px 80px;}}
+
+/* Portfolio modal */
+.fn3-modal-backdrop { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,.72); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:20px; }
+.fn3-modal { background:var(--card); border:1px solid var(--b1); border-radius:18px; max-width:740px; width:100%; max-height:90vh; overflow-y:auto; position:relative; animation:fn3-modal-in .25s cubic-bezier(.22,1,.36,1); }
+@keyframes fn3-modal-in { from{opacity:0;transform:scale(.96) translateY(12px)} to{opacity:1;transform:none} }
+.fn3-modal-hero { width:100%; height:220px; overflow:hidden; border-radius:18px 18px 0 0; }
+.fn3-modal-hero img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
+.fn3-modal-body { padding:28px 32px 40px; }
+@media(max-width:540px){.fn3-modal-body{padding:20px 20px 32px;}}
+.fn3-modal-close { position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; background:rgba(0,0,0,.55); border:none; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; line-height:1; z-index:10; }
+.fn3-modal-close:hover { background:rgba(0,0,0,.8); }
+.fn3-modal-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:24px; }
+@media(max-width:420px){.fn3-modal-metrics{grid-template-columns:1fr 1fr;}}
+.fn3-modal-metric { background:var(--card2); border:1px solid var(--b0); border-radius:10px; padding:14px 10px; text-align:center; }
+.fn3-modal-metric-val { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; color:var(--pri); line-height:1; }
+.fn3-modal-metric-lbl { font-size:11px; color:var(--t3); margin-top:4px; line-height:1.3; }
+.fn3-modal-section-label { font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--pri); margin-bottom:10px; display:block; }
+.fn3-modal-bullet { display:flex; gap:10px; margin-bottom:9px; font-size:14px; line-height:1.65; color:var(--t2); }
+.fn3-modal-bullet-dot { flex-shrink:0; width:6px; height:6px; background:var(--pri); border-radius:50%; margin-top:8px; }
+.fn3-modal-result-check { flex-shrink:0; font-size:13px; color:var(--pri); margin-top:2px; }
+.fn3-modal-img-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:540px){.fn3-modal-img-grid{grid-template-columns:1fr;}}
+.fn3-modal-img-card { border-radius:9px; overflow:hidden; border:1px solid var(--b0); }
+.fn3-modal-img-card img { width:100%; height:140px; object-fit:cover; object-position:top left; display:block; }
+.fn3-modal-img-cap { padding:6px 10px; font-size:11px; color:var(--t3); line-height:1.4; }
 `;
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -236,34 +261,144 @@ const STATS = [
   { value: 4,    prefix: "",  suffix: "",    label: "Channels automated · AI receptionist system" },
 ];
 
-const PORTFOLIO = [
+interface PMetric { label: string; value: string; }
+interface PImage  { src: string; caption: string; }
+interface PItem {
+  tag: string; name: string; desc: string; metric: string; img: string;
+  metrics: PMetric[]; tools: string[]; challenge: string;
+  bullets: string[]; results: string[]; images: PImage[];
+}
+
+const PORTFOLIO: PItem[] = [
   {
     tag: "Franchise Sales",
     name: "Kaminskiy Care & Repair",
     desc: "10 GoHighLevel workflows across 7 pipeline stages — automated follow-ups, no-show recovery, and Sales-to-Ops handoff on deal closure.",
     metric: "10 workflows · 0 manual follow-ups",
     img: "/images/automations/kcr/01-workflow-list.png",
+    metrics: [
+      { label: "GHL Workflows Built", value: "10" },
+      { label: "Pipeline Stages",     value: "7" },
+      { label: "Manual Follow-ups",   value: "0" },
+    ],
+    tools: ["GoHighLevel"],
+    challenge: "The franchise sales team ran a complex multi-step evaluation — from first inquiry to signed agreement — with no reliable system behind it. Follow-ups were manual, show rates suffered from inconsistent reminders, no-shows weren't automatically recovered, and the team often didn't know where each candidate stood in the pipeline.",
+    bullets: [
+      "Mapped the full franchise evaluation journey across 7 pipeline stages before touching a single workflow",
+      "New Lead: form submission → tag + assign + create opportunity + immediate email & SMS confirmation",
+      "Intro Call: booking confirmation with 24hr and 1hr reminders; separate no-show recovery workflow detects missed appointments and prompts rescheduling automatically",
+      "Business Overview, Territory Overview, Founder Call, Agreement Review: each stage has its own booking flow with next-step emails, confirmation, 24hr and 1hr reminders — all stage-appropriate in tone",
+      "Closed Won: automatic internal notification to Sales + Ops, and a welcome/onboarding handoff email to the new franchisee",
+    ],
+    results: [
+      "Sales team has real-time visibility into where every franchise candidate sits — no digging through notes",
+      "Every candidate receives consistent, stage-appropriate communication from first inquiry to close",
+      "No-show recovery is automatic — missed calls are flagged and rescheduling prompts go out immediately",
+      "Show rates improved through guaranteed 24hr and 1hr reminders at every call stage",
+      "Sales-to-Ops handoff at deal closure happens automatically — no dropped balls between teams",
+    ],
+    images: [
+      { src: "/images/automations/kcr/01-workflow-list.png",       caption: "All 10 workflows in GoHighLevel — New Lead through Closed Won" },
+      { src: "/images/automations/kcr/09-new-leads-builder.jpeg",  caption: "New Leads workflow: form submission → tag → assign → opportunity → email + SMS" },
+      { src: "/images/automations/kcr/05-no-show-recovery.jpeg",   caption: "No-Show Recovery: Appointment 'No-Show' → update opportunity → SMS + email to reschedule" },
+      { src: "/images/automations/kcr/02-appointment-booking.jpeg",caption: "Appointment Booked: update opportunity → assign → send email + internal notification" },
+    ],
   },
   {
     tag: "Real Estate",
-    name: "Full Client Lifecycle",
-    desc: "3-workflow n8n system for a UK real estate agency — AI lead intake, automated 48hr follow-ups, and post-sale document collection.",
+    name: "Full Client Lifecycle · UK Agency",
+    desc: "3-workflow n8n system — AI lead intake with instant response, automated 48hr follow-ups, and fully automated post-sale document collection.",
     metric: "3 workflows · 0 admin steps",
     img: "/images/automations/real-estate/wf1-concierge.jpeg",
+    metrics: [
+      { label: "Workflows Built",      value: "3" },
+      { label: "Follow-up Trigger",    value: "48hr" },
+      { label: "Manual Admin Steps",   value: "0" },
+    ],
+    tools: ["n8n", "Google Sheets", "Gmail", "Tally", "Gemini"],
+    challenge: "The agency had no unified system across the client lifecycle. Inquiries arrived from multiple sources, responses were slow and inconsistent, follow-ups depended on someone remembering to send them, and post-sale document collection was entirely manual. Each stage operated in isolation.",
+    bullets: [
+      "Designed three interconnected workflows — every workflow feeds into the next through a shared Google Sheets CRM layer",
+      "WF1 – AI Concierge: Gmail + webhook triggers capture leads, Gemini extracts key details, logs to CRM, personalized reply fires instantly",
+      "WF2 – Profit Protector: daily schedule reads CRM, filters leads silent 48+ hours, generates AI follow-up via Gemini, sends and updates CRM status",
+      "WF3A – Onboarding Sender: polls CRM every 15 min for leads marked 'Accepted' → sends Tally document collection form + updates status",
+      "WF3B – Document Processor: Tally submission webhook → match CRM lead → create Google Drive folder → store all attachments → notify agent",
+    ],
+    results: [
+      "Every inbound lead receives an instant AI-generated response — no delays regardless of time of inquiry",
+      "48-hour follow-ups run automatically without anyone needing to remember or manually check",
+      "Post-sale document collection is fully automated: form delivery → Drive storage → agent notification",
+      "One source of truth for every lead's status, conversation history, and documents",
+      "Admin work eliminated across all three separate stages of the client journey",
+    ],
+    images: [
+      { src: "/images/automations/real-estate/wf1-concierge.jpeg",  caption: "WF1 – AI Concierge: Gmail/webhook → Gemini extraction → CRM dedup → instant personalized email" },
+      { src: "/images/automations/real-estate/wf2-followup.jpeg",   caption: "WF2 – Profit Protector: daily schedule → CRM scan → filter 48hr+ silent leads → AI follow-up → send + update" },
+      { src: "/images/automations/real-estate/wf3a-onboarding.jpeg",caption: "WF3A – Onboarding Sender: polls CRM every 15 min → finds 'Accepted' leads → sends Tally form" },
+      { src: "/images/automations/real-estate/wf3b-docs.jpeg",      caption: "WF3B – Document Processor: Tally webhook → match lead → create Drive folder → store docs → notify agent" },
+    ],
   },
   {
     tag: "Instagram Growth",
-    name: "POPIN",
-    desc: "Built a community of 470+ pop-up businesses from zero — 200+ waitlist sign-ups via Stories, 500+ emails collected organically. Community built before the product was ready.",
+    name: "POPIN · London Food-Tech",
+    desc: "Built a community of 470+ pop-up businesses from zero before the product was even ready — 200+ waitlist sign-ups via Stories, 500+ emails collected organically.",
     metric: "470+ businesses engaged",
     img: "/social-media-images/popin-app-cover.jpg",
+    metrics: [
+      { label: "Businesses Engaged",  value: "470+" },
+      { label: "Waitlist Sign-ups",   value: "200+" },
+      { label: "Emails Collected",    value: "500+" },
+    ],
+    tools: ["Instagram", "Content Strategy", "Community Building", "Stories"],
+    challenge: "POPIN was a London food-tech startup with no audience and no product ready to ship. They needed to build community trust and a waitlist before launch — with no ad budget and no existing following.",
+    bullets: [
+      "Built a community-first Instagram strategy targeting London pop-up food and event businesses",
+      "Created content that spoke directly to the pain points of pop-up business owners — not product features",
+      "Activated 470+ businesses through direct engagement, comment management, and targeted outreach",
+      "Drove 200+ waitlist sign-ups through Instagram Stories CTAs and strategic link-in-bio architecture",
+      "Collected 500+ emails organically through content-led lead generation without a single paid post",
+    ],
+    results: [
+      "470+ pop-up businesses actively engaged with the brand before product launch",
+      "200+ waitlist sign-ups generated entirely through Stories — no ads",
+      "500+ emails collected organically, building a warm launch list",
+      "Community trust and brand authority established before the product was ready to ship",
+    ],
+    images: [
+      { src: "/social-media-images/popin-app-cover.jpg", caption: "POPIN — London food-tech community built before launch" },
+    ],
   },
   {
     tag: "Pinterest Strategy",
     name: "Book Addicts",
-    desc: "Zero to 1M monthly views in 4 months through Pinterest SEO mastered from scratch. Creator Hub status achieved. Organic only — no ad spend.",
+    desc: "Zero to 1M monthly views in 4 months through Pinterest SEO built from scratch. Creator Hub status achieved. Organic only — zero ad spend.",
     metric: "1M+ monthly views in 4 months",
     img: "/social-media-results/results-book-addicts-analytics.webp",
+    metrics: [
+      { label: "Monthly Views",  value: "1M+" },
+      { label: "Timeline",       value: "4 months" },
+      { label: "Ad Spend",       value: "£0" },
+    ],
+    tools: ["Pinterest", "SEO", "Content Strategy", "Analytics"],
+    challenge: "Book Addicts was a content community starting from absolute zero on Pinterest in a competitive book-content niche. The goal was to build massive organic reach with no budget and no existing account history.",
+    bullets: [
+      "Conducted full Pinterest keyword research and built a board architecture optimized for the algorithm",
+      "Created a consistent content calendar aligned with Pinterest's distribution signals",
+      "Optimized every pin for SEO — title, description, alt text, and visual design for click-through",
+      "Grew from zero to 1M+ monthly views in under 4 months through compounding organic reach",
+      "Achieved Creator Hub status — Pinterest's recognition tier for top-performing accounts",
+    ],
+    results: [
+      "1M+ monthly views achieved in 4 months — organic, zero paid promotion",
+      "Creator Hub status earned — a recognition tier for top Pinterest accounts",
+      "+140% month-on-month impression growth at peak",
+      "539K total audience built from scratch",
+      "+326% impression growth verified in Pinterest analytics dashboard",
+    ],
+    images: [
+      { src: "/social-media-results/results-book-addicts-analytics.webp", caption: "Book Addicts Pinterest Analytics: 1M monthly impressions, 539K total audience, +140% growth" },
+      { src: "/social-media-results/results-book-addicts-profile.webp",   caption: "Book Addicts profile — Creator Hub status, 1M monthly views" },
+    ],
   },
 ];
 
@@ -374,6 +509,101 @@ function Marquee({ children, reverse = false, speed = "" }: { children: ReactNod
   );
 }
 
+// ─── PORTFOLIO MODAL ─────────────────────────────────────────────────────────
+function PortfolioModal({ item, onClose }: { item: PItem | null; onClose: () => void }) {
+  useEffect(() => {
+    if (!item) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [item, onClose]);
+
+  if (!item) return null;
+
+  return (
+    <div className="fn3-modal-backdrop" onClick={onClose}>
+      <div className="fn3-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="fn3-modal-close" onClick={onClose}>×</button>
+
+        {/* Hero image */}
+        <div className="fn3-modal-hero">
+          <img src={item.img} alt={item.name} />
+        </div>
+
+        <div className="fn3-modal-body">
+          <span className="fn3-porttag">{item.tag}</span>
+          <h2 className="fn3-h2" style={{ margin: "10px 0 10px" }}>{item.name}</h2>
+          <p style={{ fontSize: "15px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "24px" }}>{item.desc}</p>
+
+          {/* Metrics */}
+          <div className="fn3-modal-metrics">
+            {item.metrics.map((m) => (
+              <div key={m.label} className="fn3-modal-metric">
+                <div className="fn3-modal-metric-val">{m.value}</div>
+                <div className="fn3-modal-metric-lbl">{m.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tools */}
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "24px" }}>
+            {item.tools.map((t) => (
+              <span key={t} style={{ padding: "3px 10px", background: "var(--card2)", border: "1px solid var(--b0)", borderRadius: "100px", fontSize: "12px", color: "var(--t2)" }}>{t}</span>
+            ))}
+          </div>
+
+          {/* Challenge */}
+          <div style={{ background: "var(--card2)", border: "1px solid var(--b0)", borderRadius: "10px", padding: "16px 18px", marginBottom: "24px" }}>
+            <span className="fn3-modal-section-label">The challenge</span>
+            <p style={{ fontSize: "14px", lineHeight: "1.72", color: "var(--t2)", margin: 0 }}>{item.challenge}</p>
+          </div>
+
+          {/* Approach */}
+          <div style={{ marginBottom: "24px" }}>
+            <span className="fn3-modal-section-label">Approach</span>
+            {item.bullets.map((b, i) => (
+              <div key={i} className="fn3-modal-bullet">
+                <span className="fn3-modal-bullet-dot" />
+                {b}
+              </div>
+            ))}
+          </div>
+
+          {/* Results */}
+          <div style={{ marginBottom: item.images.length > 1 ? "28px" : "0" }}>
+            <span className="fn3-modal-section-label">Results</span>
+            {item.results.map((r, i) => (
+              <div key={i} className="fn3-modal-bullet">
+                <span className="fn3-modal-result-check">✓</span>
+                {r}
+              </div>
+            ))}
+          </div>
+
+          {/* Extra screenshots */}
+          {item.images.length > 1 && (
+            <div>
+              <span className="fn3-modal-section-label">Screenshots</span>
+              <div className="fn3-modal-img-grid">
+                {item.images.slice(1).map((img, i) => (
+                  <div key={i} className="fn3-modal-img-card">
+                    <img src={img.src} alt={img.caption} />
+                    <div className="fn3-modal-img-cap">{img.caption}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── NAVBAR ──────────────────────────────────────────────────────────────────
 function Navbar({ theme, onToggle }: { theme: string; onToggle: () => void }) {
   return (
@@ -442,13 +672,15 @@ function Hero({ word }: { word: string }) {
           <a href="#portfolio" className="fn3-btn fn3-btn-out">View my work</a>
         </div>
       </div>
-      <div className="fn3-hero-img">
-        <img
-          src="/images/faithful.jpg"
-          alt="Faithful Nyama"
-          style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.45)", transformOrigin: "center 18%" }}
-        />
-      </div>
+      <div
+        className="fn3-hero-img"
+        style={{
+          backgroundImage: "url('/images/faithful.jpg')",
+          backgroundSize: "150%",
+          backgroundPosition: "50% 5%",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
     </div>
   );
 }
@@ -632,25 +864,29 @@ function Services() {
 }
 
 // ─── PORTFOLIO ───────────────────────────────────────────────────────────────
-function Portfolio() {
+function Portfolio({ onOpen }: { onOpen: (item: PItem) => void }) {
   return (
     <div id="portfolio" className="fn3-sec">
       <Reveal>
         <span className="fn3-label">Selected Work</span>
         <h2 className="fn3-h2" style={{ marginBottom: "8px" }}>Portfolio</h2>
-        <p style={{ fontSize: "15px", color: "var(--t2)", marginBottom: "36px", maxWidth: "480px" }}>Real results for real brands.</p>
+        <p style={{ fontSize: "15px", color: "var(--t2)", marginBottom: "6px", maxWidth: "480px" }}>Real results for real brands.</p>
+        <p style={{ fontSize: "13px", color: "var(--t3)", marginBottom: "36px" }}>Click any card to see the full case study.</p>
       </Reveal>
       <div className="fn3-g2">
-        {PORTFOLIO.map(({ tag, name, desc, metric, img }, i) => (
-          <Reveal key={name} delay={i * 75}>
-            <div className="fn3-card fn3-portcard">
-              <img src={img} alt={name} className="fn3-portimg" />
+        {PORTFOLIO.map((item, i) => (
+          <Reveal key={item.name} delay={i * 75}>
+            <div className="fn3-card fn3-portcard" onClick={() => onOpen(item)} role="button" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && onOpen(item)}>
+              <img src={item.img} alt={item.name} className="fn3-portimg" />
               <div className="fn3-portbody">
-                <span className="fn3-porttag">{tag}</span>
-                <h3 className="fn3-h3" style={{ marginBottom: "8px" }}>{name}</h3>
-                <p style={{ fontSize: "13.5px", lineHeight: "1.72", color: "var(--t2)", marginBottom: "14px" }}>{desc}</p>
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--pri)" }}>
-                  <TrendingUp size={13} /> {metric}
+                <span className="fn3-porttag">{item.tag}</span>
+                <h3 className="fn3-h3" style={{ marginBottom: "8px" }}>{item.name}</h3>
+                <p style={{ fontSize: "13.5px", lineHeight: "1.72", color: "var(--t2)", marginBottom: "14px" }}>{item.desc}</p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--pri)" }}>
+                    <TrendingUp size={13} /> {item.metric}
+                  </div>
+                  <span style={{ fontSize: "12px", color: "var(--t3)", fontWeight: 500 }}>View details →</span>
                 </div>
               </div>
             </div>
@@ -761,6 +997,7 @@ export default function PersonalPage() {
   const { theme, toggle } = useTheme();
   const word = useTypewriter(["build", "design", "create", "launch"]);
   const [active, setActive] = useState("home");
+  const [selectedPortfolio, setSelectedPortfolio] = useState<PItem | null>(null);
 
   useEffect(() => {
     const ids = ["home", "about", "services", "portfolio", "reviews", "contact"];
@@ -789,12 +1026,13 @@ export default function PersonalPage() {
         <SocialStrip />
         <Stats />
         <Services />
-        <Portfolio />
+        <Portfolio onOpen={setSelectedPortfolio} />
         <Testimonials />
         <Contact />
       </main>
       <PageFooter theme={theme} onToggle={toggle} />
       <MobileNav theme={theme} onToggle={toggle} active={active} setActive={setActive} />
+      <PortfolioModal item={selectedPortfolio} onClose={() => setSelectedPortfolio(null)} />
     </div>
   );
 }
