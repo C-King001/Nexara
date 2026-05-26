@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import {
   Home, User, Zap, Briefcase, Star, Mail,
   Sun, Moon, ArrowRight, Instagram, Linkedin, TrendingUp, BarChart3, Globe,
@@ -610,9 +611,10 @@ function Navbar({ theme, onToggle }: { theme: string; onToggle: () => void }) {
     <nav className="fn3-nav">
       <a href="#home" className="fn3-serif" style={{ fontSize: "22px", fontWeight: 700, color: "var(--pri)", textDecoration: "none" }}>FN</a>
       <div className="fn3-navlinks">
-        {[["#about","About"],["#services","Services"],["#portfolio","Portfolio"],["#reviews","Reviews"],["#contact","Contact"]].map(([href, label]) => (
+        {[["#about","About"],["#services","Services"],["#reviews","Reviews"],["#contact","Contact"]].map(([href, label]) => (
           <a key={href} href={href} className="fn3-navlink">{label}</a>
         ))}
+        <Link to="/work" className="fn3-navlink">Portfolio</Link>
       </div>
       <button className="fn3-tbtn" onClick={onToggle} aria-label="Toggle theme">
         {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
@@ -623,22 +625,24 @@ function Navbar({ theme, onToggle }: { theme: string; onToggle: () => void }) {
 
 // ─── MOBILE NAV ──────────────────────────────────────────────────────────────
 const MOB_TABS = [
-  { id: "home",      label: "Home",     Icon: Home },
-  { id: "about",     label: "About",    Icon: User },
-  { id: "services",  label: "Services", Icon: Zap },
-  { id: "portfolio", label: "Work",     Icon: Briefcase },
-  { id: "reviews",   label: "Reviews",  Icon: Star },
-  { id: "contact",   label: "Contact",  Icon: Mail },
+  { id: "home",      label: "Home",     Icon: Home,     href: null },
+  { id: "about",     label: "About",    Icon: User,     href: null },
+  { id: "services",  label: "Services", Icon: Zap,      href: null },
+  { id: "portfolio", label: "Work",     Icon: Briefcase, href: "/work" },
+  { id: "reviews",   label: "Reviews",  Icon: Star,     href: null },
+  { id: "contact",   label: "Contact",  Icon: Mail,     href: null },
 ];
 
 function MobileNav({ theme, onToggle, active, setActive }: { theme: string; onToggle: () => void; active: string; setActive: (s: string) => void }) {
   const scrollTo = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setActive(id); };
   return (
     <nav className="fn3-mobnav">
-      {MOB_TABS.map(({ id, label, Icon }) => (
-        <button key={id} className={`fn3-mobtab${active === id ? " active" : ""}`} onClick={() => scrollTo(id)}>
-          <Icon size={18} /><span>{label}</span>
-        </button>
+      {MOB_TABS.map(({ id, label, Icon, href }) => (
+        href
+          ? <Link key={id} to={href} className="fn3-mobtab"><Icon size={18} /><span>{label}</span></Link>
+          : <button key={id} className={`fn3-mobtab${active === id ? " active" : ""}`} onClick={() => scrollTo(id)}>
+              <Icon size={18} /><span>{label}</span>
+            </button>
       ))}
       <button className="fn3-mobtab" onClick={onToggle}>
         {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}<span>Theme</span>
@@ -893,6 +897,14 @@ function Portfolio({ onOpen }: { onOpen: (item: PItem) => void }) {
           </Reveal>
         ))}
       </div>
+      <Reveal delay={200}>
+        <div style={{ textAlign: "center", marginTop: "40px" }}>
+          <Link to="/work" className="fn3-btn fn3-btn-pri" style={{ display: "inline-flex" }}>
+            View all work — automations & social media <ArrowRight size={14} />
+          </Link>
+          <p style={{ fontSize: "12.5px", color: "var(--t3)", marginTop: "10px" }}>6 automation systems · 5 social media projects · Full stories + results</p>
+        </div>
+      </Reveal>
     </div>
   );
 }
