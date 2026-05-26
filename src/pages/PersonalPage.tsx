@@ -197,10 +197,11 @@ const AUTO_IMAGES = [
 ];
 
 const SOCIAL_RESULTS = [
-  { src: "/social-media-results/results-instagram.png",              label: "Instagram Growth" },
-  { src: "/social-media-results/results-book-addicts-analytics.webp",label: "BookAddicts Analytics" },
-  { src: "/social-media-results/results-book-addicts-profile.webp",  label: "BookAddicts Profile Growth" },
-  { src: "/social-media-results/results-pinterest-glow.webp",        label: "Pinterest Strategy Results" },
+  { src: "/social-media-results/results-instagram.png",              label: "Kaminskiy · Instagram Reach" },
+  { src: "/social-media-results/IMG_9313.PNG",                       label: "Kaminskiy · 495K Views in 30 Days" },
+  { src: "/social-media-results/results-book-addicts-analytics.webp",label: "Book Addicts · Pinterest Analytics" },
+  { src: "/social-media-results/results-book-addicts-profile.webp",  label: "Book Addicts · 1M Monthly Views" },
+  { src: "/social-media-results/results-pinterest-glow.webp",        label: "GlowVibe · +326% Impressions" },
 ];
 
 const TESTIMONIALS = [
@@ -441,7 +442,13 @@ function Hero({ word }: { word: string }) {
           <a href="#portfolio" className="fn3-btn fn3-btn-out">View my work</a>
         </div>
       </div>
-      <div className="fn3-hero-img">FN</div>
+      <div className="fn3-hero-img">
+        <img
+          src="/images/faithful.jpg"
+          alt="Faithful Nyama"
+          style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.45)", transformOrigin: "center 18%" }}
+        />
+      </div>
     </div>
   );
 }
