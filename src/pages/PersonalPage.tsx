@@ -677,7 +677,7 @@ function Hero({ word }: { word: string }) {
         style={{
           backgroundImage: "url('/images/faithful.jpg')",
           backgroundSize: "150%",
-          backgroundPosition: "50% 5%",
+          backgroundPosition: "50% 13%",
           backgroundRepeat: "no-repeat",
         }}
       />
