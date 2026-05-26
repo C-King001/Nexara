@@ -58,10 +58,9 @@ const STYLES = `
 .fn3-mq-wrap:hover .fn3-mq-track { animation-play-state:paused; }
 
 /* Logo items */
-.fn3-logo-item { padding:0 28px; height:60px; display:flex; align-items:center; justify-content:center; flex-shrink:0; opacity:.45; filter:grayscale(1) brightness(.6); transition:opacity .25s ease, filter .25s ease; }
-.fn3-dark .fn3-logo-item { filter:grayscale(1) brightness(1.8); opacity:.4; }
-.fn3-logo-item:hover { opacity:1; filter:none; }
-.fn3-logo-item img { height:26px; width:auto; object-fit:contain; max-width:120px; }
+.fn3-logo-item { width:160px; height:80px; padding:12px 16px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin:0 8px; background:var(--card); border-radius:12px; border:1px solid var(--b0); transition:opacity .25s ease, filter .25s ease, transform .25s ease, box-shadow .25s ease; }
+.fn3-logo-item:hover { transform:scale(1.05); box-shadow:0 4px 16px var(--sh); }
+.fn3-logo-item img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; }
 
 /* Automation screenshot cards */
 .fn3-auto-card { width:320px; flex-shrink:0; margin:0 10px; border-radius:12px; overflow:hidden; background:var(--card); border:1px solid var(--b0); transition:transform .22s ease, box-shadow .22s ease; }
@@ -206,34 +205,34 @@ const SOCIAL_RESULTS = [
 
 const TESTIMONIALS = [
   {
-    name: "Pierre-Louis M.", role: "Founder, Popin",
-    photo: "/images/clients/Pierre.jpg",
-    text: "Faithful completely transformed our social presence. The content system she built is still running and generating growth months later. Genuinely one of the most strategic people I've worked with.",
-  },
-  {
-    name: "Tekla W.", role: "CEO, BookAddicts",
-    photo: "/images/clients/Tekla.jpg",
-    text: "The automation system Faithful built cut our team's manual work in half. Our email sequences now nurture leads automatically and our conversion rate went up 40%. Worth every penny.",
-  },
-  {
-    name: "Peter Douglas", role: "Managing Director, KCR",
+    name: "Peter Douglas", role: "CEO, Sustaina Wines",
     photo: "/images/clients/peter-douglas.jpeg",
-    text: "Our franchise pipeline went from a spreadsheet mess to a fully automated system. Every candidate is tracked, followed up with, and moved through the pipeline automatically. Game-changing.",
+    text: "I hired Faithful for a complex wine project after reaching the limits of what standard automation could handle. He consistently delivered creative, out-of-the-box solutions in a timely manner. I highly recommend him for anyone facing unique technical challenges.",
   },
   {
-    name: "Avantika S.", role: "CMO, BookLovers",
+    name: "Pierre-Louis Monnot", role: "Co-founder, Educato AI",
+    photo: "/images/clients/Pierre.jpg",
+    text: "Faithful did an excellent job leading our social media presence at Educato. In just a couple of weeks, he grasped our brand voice, created engaging content, and helped us grow our online presence. I highly recommend him for any social media or content marketing role!",
+  },
+  {
+    name: "Tekla Balfour", role: "CEO, POPIN",
+    photo: "/images/clients/Tekla.jpg",
+    text: "I truly appreciate your support and efforts. Your work ethic and the dedication that you have put into the Instagram page is an integral part of our journey.",
+  },
+  {
+    name: "Avantika", role: "Publishing Company",
     photo: null,
-    text: "We hired Faithful for Pinterest strategy and she delivered a full content engine. 800K impressions in 3 months and Pinterest now drives 30% of our web traffic. Incredible work.",
+    text: "He is amazing at what he does, very prompt and professional. Looking forward for future collabs.",
   },
 ];
 
 const STATS = [
-  { value: 50,  suffix: "+",  label: "Clients served" },
-  { value: 30,  suffix: "+",  label: "Systems built" },
-  { value: 6,   suffix: "",   label: "Industries served" },
-  { value: 500, suffix: "K+", label: "Content views" },
-  { value: 98,  suffix: "%",  label: "Client retention" },
-  { value: 3,   suffix: "+",  label: "Years experience" },
+  { value: 1,    prefix: "",  suffix: "M+",  label: "Monthly organic views · Book Addicts Pinterest" },
+  { value: 470,  prefix: "",  suffix: "+",   label: "Businesses engaged · POPIN Instagram" },
+  { value: 400,  prefix: "",  suffix: "K+",  label: "Monthly views in 60 days · GlowVibe Pinterest" },
+  { value: 326,  prefix: "+", suffix: "%",   label: "Impression growth · Pinterest verified" },
+  { value: 10,   prefix: "",  suffix: "",    label: "GHL workflows built · KCR franchise pipeline" },
+  { value: 4,    prefix: "",  suffix: "",    label: "Channels automated · AI receptionist system" },
 ];
 
 const PORTFOLIO = [
@@ -252,17 +251,17 @@ const PORTFOLIO = [
     img: "/images/automations/real-estate/wf1-concierge.jpeg",
   },
   {
-    tag: "Social Growth",
-    name: "Popin App",
-    desc: "Grew a social discovery app from 0 to 52K followers in 4 months through strategic content systems and community activation.",
-    metric: "52K followers in 4 months",
+    tag: "Instagram Growth",
+    name: "POPIN",
+    desc: "Built a community of 470+ pop-up businesses from zero — 200+ waitlist sign-ups via Stories, 500+ emails collected organically. Community built before the product was ready.",
+    metric: "470+ businesses engaged",
     img: "/social-media-images/popin-app-cover.jpg",
   },
   {
-    tag: "Content Automation",
-    name: "BookAddicts Community",
-    desc: "CRM + email automation for a book subscription community, paired with an Instagram growth strategy that built a loyal engaged audience.",
-    metric: "38% churn reduction",
+    tag: "Pinterest Strategy",
+    name: "Book Addicts",
+    desc: "Zero to 1M monthly views in 4 months through Pinterest SEO mastered from scratch. Creator Hub status achieved. Organic only — no ad spend.",
+    metric: "1M+ monthly views in 4 months",
     img: "/social-media-results/results-book-addicts-analytics.webp",
   },
 ];
@@ -330,7 +329,7 @@ function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }
   return <div ref={ref} className="fn3-rev">{children}</div>;
 }
 
-function StatCard({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+function StatCard({ value, prefix = "", suffix, label }: { value: number; prefix?: string; suffix: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [count, setCount] = useState(0);
   const [started, setStarted] = useState(false);
@@ -356,7 +355,7 @@ function StatCard({ value, suffix, label }: { value: number; suffix: string; lab
   }, [started, value]);
   return (
     <div ref={ref} className="fn3-card fn3-statcard">
-      <div className="fn3-statnum">{count}{suffix}</div>
+      <div className="fn3-statnum">{prefix}{count}{suffix}</div>
       <div style={{ fontSize: "13px", color: "var(--t2)", marginTop: "7px" }}>{label}</div>
     </div>
   );
@@ -468,7 +467,7 @@ function LogoMarquee() {
 // ─── ABOUT ───────────────────────────────────────────────────────────────────
 function About() {
   const tags = ["Revenue Automation", "CRM Systems", "Social Growth", "Content Strategy", "n8n", "GoHighLevel"];
-  const highlights = [["3+", "Years experience"], ["50+", "Clients served"], ["6", "Industries"]];
+  const highlights = [["1M+", "Monthly organic views"], ["470+", "Businesses engaged"], ["6", "Case studies built"]];
   return (
     <div id="about" className="fn3-sec">
       <Reveal>
@@ -562,7 +561,7 @@ function Stats() {
         <h2 className="fn3-h2" style={{ marginBottom: "36px" }}>Results that speak</h2>
       </Reveal>
       <div className="fn3-g3">
-        {STATS.map((s) => <StatCard key={s.label} {...s} />)}
+        {STATS.map((s) => <StatCard key={s.label} value={s.value} prefix={s.prefix} suffix={s.suffix} label={s.label} />)}
       </div>
     </div>
   );
