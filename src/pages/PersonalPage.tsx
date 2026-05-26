@@ -199,6 +199,22 @@ const STYLES = `
 .fn3-modal-img-card { border-radius:9px; overflow:hidden; border:1px solid var(--b0); }
 .fn3-modal-img-card img { width:100%; height:140px; object-fit:cover; object-position:top left; display:block; }
 .fn3-modal-img-cap { padding:6px 10px; font-size:11px; color:var(--t3); line-height:1.4; }
+
+/* AI video preview */
+.fn3-vid-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+@media(max-width:768px){ .fn3-vid-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:480px){ .fn3-vid-grid { grid-template-columns:1fr; } }
+.fn3-vid-card { overflow:hidden; }
+.fn3-vid-player { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; background:#000; }
+.fn3-vid-label { padding:10px 14px; }
+
+/* CMS teaser */
+.fn3-cms-wrap { display:grid; grid-template-columns:1.2fr 1fr; overflow:hidden; }
+@media(max-width:768px){ .fn3-cms-wrap { grid-template-columns:1fr; } }
+.fn3-cms-shot { width:100%; height:100%; min-height:260px; object-fit:cover; object-position:top; display:block; }
+@media(max-width:768px){ .fn3-cms-shot { min-height:180px; } }
+.fn3-cms-body { padding:32px 28px; display:flex; flex-direction:column; justify-content:center; }
+@media(max-width:768px){ .fn3-cms-body { padding:24px 20px; } }
 `;
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -867,6 +883,83 @@ function Services() {
   );
 }
 
+// ─── BUILDS PREVIEW ──────────────────────────────────────────────────────────
+const PREVIEW_VIDEOS = [
+  { src: "/videos/taya-hype-video.mp4",     title: "Taya · Brand Hype",      tool: "Claude" },
+  { src: "/videos/morning-after-video.mp4", title: "The Morning After",      tool: "Higgsfield" },
+  { src: "/videos/new-review-video.mp4",    title: "Client Review Showcase", tool: "Higgsfield · HeyGen" },
+];
+
+function BuildsPreview() {
+  return (
+    <div className="fn3-sec">
+      <Reveal>
+        <span className="fn3-label">New capabilities</span>
+        <h2 className="fn3-h2" style={{ marginBottom: "8px" }}>AI Video & Builds</h2>
+        <p style={{ fontSize: "15px", color: "var(--t2)", marginBottom: "40px", maxWidth: "480px" }}>
+          Video content produced with Higgsfield, Google Veo, and Claude — plus a custom content operations system built from scratch.
+        </p>
+      </Reveal>
+
+      {/* AI Videos */}
+      <Reveal>
+        <span style={{ fontSize: "11px", fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--t3)", display: "block", marginBottom: "16px" }}>
+          AI Video Production
+        </span>
+      </Reveal>
+      <div className="fn3-vid-grid">
+        {PREVIEW_VIDEOS.map((v, i) => (
+          <Reveal key={v.src} delay={i * 60}>
+            <div className="fn3-card fn3-vid-card">
+              <video className="fn3-vid-player" src={v.src} controls preload="metadata" playsInline />
+              <div className="fn3-vid-label">
+                <span style={{ fontSize: "12.5px", fontWeight: 600, color: "var(--t1)" }}>{v.title}</span>
+                <span style={{ fontSize: "11px", color: "var(--pri)", marginLeft: "8px" }}>{v.tool}</span>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal delay={100}>
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/work" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px" }}>
+            View all 6 videos <ArrowRight size={13} />
+          </Link>
+        </div>
+      </Reveal>
+
+      {/* CMS teaser */}
+      <Reveal delay={80}>
+        <div style={{ marginTop: "56px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--t3)", display: "block", marginBottom: "16px" }}>
+            Content Operations Platform
+          </span>
+          <div className="fn3-card fn3-cms-wrap" style={{ overflow: "hidden" }}>
+            <img src="/images/cms/cms-content-board.jpeg" alt="Content Operations Platform" className="fn3-cms-shot" />
+            <div className="fn3-cms-body">
+              <h3 className="fn3-h3" style={{ marginBottom: "12px" }}>Custom CMS built for a franchise brand.</h3>
+              <p style={{ fontSize: "14px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "20px" }}>
+                A full content pipeline — from raw idea to published post. 12 Kanban stages, AI caption generation, editorial calendar, and team collaboration baked in.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
+                {["Content Kanban (12 stages)", "AI caption generation", "Editorial calendar", "Automated publishing"].map((f) => (
+                  <div key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "var(--t2)" }}>
+                    <span style={{ width: "5px", height: "5px", background: "var(--pri)", borderRadius: "50%", flexShrink: 0 }} />
+                    {f}
+                  </div>
+                ))}
+              </div>
+              <Link to="/work" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px", width: "fit-content" }}>
+                See the full build <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  );
+}
+
 // ─── PORTFOLIO ───────────────────────────────────────────────────────────────
 function Portfolio({ onOpen }: { onOpen: (item: PItem) => void }) {
   return (
@@ -900,9 +993,9 @@ function Portfolio({ onOpen }: { onOpen: (item: PItem) => void }) {
       <Reveal delay={200}>
         <div style={{ textAlign: "center", marginTop: "40px" }}>
           <Link to="/work" className="fn3-btn fn3-btn-pri" style={{ display: "inline-flex" }}>
-            View all work — automations & social media <ArrowRight size={14} />
+            View all work <ArrowRight size={14} />
           </Link>
-          <p style={{ fontSize: "12.5px", color: "var(--t3)", marginTop: "10px" }}>6 automation systems · 5 social media projects · Full stories + results</p>
+          <p style={{ fontSize: "12.5px", color: "var(--t3)", marginTop: "10px" }}>6 automation systems · 5 social media projects · CMS build · AI videos</p>
         </div>
       </Reveal>
     </div>
@@ -1038,6 +1131,7 @@ export default function PersonalPage() {
         <SocialStrip />
         <Stats />
         <Services />
+        <BuildsPreview />
         <Portfolio onOpen={setSelectedPortfolio} />
         <Testimonials />
         <Contact />

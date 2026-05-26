@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Sun, Moon, ArrowLeft, TrendingUp, ArrowRight, ExternalLink } from "lucide-react";
+import { Sun, Moon, ArrowLeft, ArrowRight } from "lucide-react";
 import { caseStudies } from "../data/caseStudies";
 
 // ─── STYLES ──────────────────────────────────────────────────────────────────
@@ -57,9 +57,11 @@ const STYLES = `
 
 /* Sticky tabs */
 .wp-tabs { position: sticky; top: 60px; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--b0); }
-.wp-tabs-inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; display: flex; gap: 0; }
+.wp-tabs-inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.wp-tabs-inner::-webkit-scrollbar { display: none; }
 @media(max-width:640px){ .wp-tabs-inner { padding: 0 18px; } }
-.wp-tab { padding: 14px 0; margin-right: 36px; font-size: 14px; font-weight: 500; color: var(--t3); cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s ease; background: none; border-top: none; border-left: none; border-right: none; font-family: 'DM Sans', sans-serif; }
+.wp-tab { padding: 14px 0; margin-right: 36px; font-size: 14px; font-weight: 500; color: var(--t3); cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s ease; background: none; border-top: none; border-left: none; border-right: none; font-family: 'DM Sans', sans-serif; white-space: nowrap; flex-shrink: 0; }
+@media(max-width:640px){ .wp-tab { margin-right: 24px; font-size: 13px; } }
 .wp-tab:hover { color: var(--t2); }
 .wp-tab.active { color: var(--pri); border-bottom-color: var(--pri); }
 
@@ -129,6 +131,45 @@ const STYLES = `
 /* Footer */
 .wp-footer { border-top: 1px solid var(--b0); padding: 28px 32px; }
 @media(max-width:640px){ .wp-footer { padding: 24px 18px; } }
+
+/* Builds section */
+.wp-build-intro { font-size: 15px; color: var(--t2); margin-bottom: 56px; max-width: 520px; line-height: 1.75; }
+.wp-build-block { margin-bottom: 72px; }
+.wp-build-block-title { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.wp-build-block-desc { font-size: 14px; color: var(--t2); line-height: 1.7; margin-bottom: 24px; max-width: 580px; }
+.wp-tools-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 28px; }
+.wp-tool-badge { padding: 4px 12px; background: var(--card2); border: 1px solid var(--b1); border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--pri); }
+
+/* CMS screenshots */
+.wp-cms-features { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 28px; }
+@media(max-width:480px){ .wp-cms-features { grid-template-columns: 1fr; } }
+.wp-cms-feature { display: flex; gap: 10px; align-items: flex-start; background: var(--card2); border: 1px solid var(--b0); border-radius: 10px; padding: 12px 14px; }
+.wp-cms-feature-dot { flex-shrink: 0; width: 7px; height: 7px; background: var(--pri); border-radius: 50%; margin-top: 5px; }
+.wp-cms-feature-text { font-size: 13px; color: var(--t2); line-height: 1.55; }
+.wp-cms-shots { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+@media(max-width:768px){ .wp-cms-shots { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .wp-cms-shots { grid-template-columns: 1fr; } }
+.wp-cms-shot { border-radius: 10px; overflow: hidden; border: 1px solid var(--b0); transition: transform .2s ease, box-shadow .2s ease; cursor: pointer; }
+.wp-cms-shot:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--sh); }
+.wp-cms-shot img { width: 100%; height: 160px; object-fit: cover; object-position: top; display: block; }
+.wp-cms-shot-label { padding: 8px 10px; font-size: 11.5px; font-weight: 500; color: var(--t2); background: var(--card); }
+
+/* Lightbox */
+.wp-lightbox { position: fixed; inset: 0; z-index: 9000; background: rgba(0,0,0,.88); display: flex; align-items: center; justify-content: center; padding: 20px; cursor: pointer; }
+.wp-lightbox img { max-width: 100%; max-height: 90vh; border-radius: 10px; object-fit: contain; cursor: default; box-shadow: 0 24px 80px rgba(0,0,0,.5); }
+.wp-lightbox-close { position: absolute; top: 18px; right: 22px; font-size: 28px; color: #fff; cursor: pointer; line-height: 1; opacity: .75; }
+.wp-lightbox-close:hover { opacity: 1; }
+
+/* AI video grid */
+.wp-video-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+@media(max-width:900px){ .wp-video-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:500px){ .wp-video-grid { grid-template-columns: 1fr; } }
+.wp-video-card { background: var(--card); border: 1px solid var(--b0); border-radius: 12px; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease; }
+.wp-video-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px var(--sh); }
+.wp-video-player { width: 100%; aspect-ratio: 9/16; object-fit: cover; display: block; background: #000; max-height: 340px; }
+.wp-video-info { padding: 10px 12px 12px; }
+.wp-video-title { font-size: 13px; font-weight: 600; color: var(--t1); margin-bottom: 4px; }
+.wp-video-tool { font-size: 11px; color: var(--pri); font-weight: 500; }
 `;
 
 // ─── SOCIAL PORTFOLIO DATA ────────────────────────────────────────────────────
@@ -432,10 +473,151 @@ function SocialSection() {
   );
 }
 
+// ─── BUILDS SECTION DATA ─────────────────────────────────────────────────────
+const CMS_SCREENSHOTS = [
+  { src: "/images/cms/cms-dashboard.jpeg",      label: "Pipeline Dashboard" },
+  { src: "/images/cms/cms-content-board.jpeg",  label: "Content Board (Kanban)" },
+  { src: "/images/cms/cms-calendar-board.jpeg", label: "Calendar — Board View" },
+  { src: "/images/cms/cms-calendar-month.jpeg", label: "Calendar — Month View" },
+  { src: "/images/cms/cms-idea-bank.jpeg",      label: "Idea Bank" },
+  { src: "/images/cms/cms-calendar-sheet.jpeg", label: "Calendar — Sheet View" },
+  { src: "/images/cms/cms-overview.jpeg",       label: "Full Overview" },
+];
+
+const CMS_FEATURES = [
+  "12-stage content Kanban — from raw Idea to Published post",
+  "Editorial calendar in Board, Month, and Sheet views",
+  "Idea Bank for capturing raw concepts before briefs are written",
+  "Multi-format support: Reels, Carousels, AI Video, TikTok, YouTube, Website",
+  "AI-assisted caption generation and content scheduling",
+  "Team collaboration with role-based review and approval workflow",
+  "Analytics and publishing dashboard with full pipeline visibility",
+  "Automated cross-platform publishing on approved content",
+];
+
+const AI_VIDEOS = [
+  { src: "/videos/taya-hype-video.mp4",     title: "Taya · Brand Hype",      tool: "Claude" },
+  { src: "/videos/anticipation-video.mp4",  title: "Taya · Anticipation",    tool: "Claude" },
+  { src: "/videos/moodring-hype-video.mp4", title: "MoodRing · Brand Hype",  tool: "Claude" },
+  { src: "/videos/morning-after-video.mp4", title: "The Morning After",      tool: "Higgsfield" },
+  { src: "/videos/new-review-video.mp4",    title: "Client Review Showcase", tool: "Higgsfield · HeyGen" },
+  { src: "/videos/review-video.mp4",        title: "Review Video",           tool: "Claude" },
+];
+
+// ─── BUILDS SECTION ───────────────────────────────────────────────────────────
+function BuildsSection() {
+  const [lightbox, setLightbox] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightbox(null); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightbox]);
+
+  return (
+    <div className="wp-sec">
+      <Reveal>
+        <p className="wp-build-intro">
+          Beyond automation and social — a custom content operations system and a collection of AI-generated video content built with the latest generative tools.
+        </p>
+      </Reveal>
+
+      {/* ── CMS ── */}
+      <Reveal>
+        <div className="wp-build-block">
+          <div className="wp-build-block-title">
+            <span className="wp-label" style={{ margin: 0 }}>Content Operations Platform</span>
+          </div>
+          <h2 className="wp-h2" style={{ marginBottom: "14px" }}>
+            A full CMS built for a<br />
+            <span style={{ color: "var(--pri)", fontStyle: "italic" }}>home services franchise brand.</span>
+          </h2>
+          <p className="wp-build-block-desc">
+            A custom Content Management System designed to manage a franchise brand's entire social media operation — from raw idea to published post. Built to handle multi-format content across multiple platforms with team collaboration, AI-assisted caption generation, and automated scheduling baked in.
+          </p>
+
+          <div className="wp-tools-row">
+            {["Custom CMS", "Content Pipeline", "Editorial Calendar", "AI Captions", "Auto-Publishing", "Team Workflows"].map((t) => (
+              <span key={t} className="wp-tool-badge">{t}</span>
+            ))}
+          </div>
+
+          <div className="wp-cms-features">
+            {CMS_FEATURES.map((f, i) => (
+              <div key={i} className="wp-cms-feature">
+                <span className="wp-cms-feature-dot" />
+                <span className="wp-cms-feature-text">{f}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="wp-cms-shots">
+            {CMS_SCREENSHOTS.map((s) => (
+              <div key={s.src} className="wp-cms-shot" onClick={() => setLightbox(s.src)}>
+                <img src={s.src} alt={s.label} />
+                <div className="wp-cms-shot-label">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      {/* ── AI VIDEOS ── */}
+      <Reveal delay={120}>
+        <div className="wp-build-block">
+          <div className="wp-build-block-title">
+            <span className="wp-label" style={{ margin: 0 }}>AI Video Production</span>
+          </div>
+          <h2 className="wp-h2" style={{ marginBottom: "14px" }}>
+            Branded videos created<br />
+            <span style={{ color: "var(--pri)", fontStyle: "italic" }}>with generative AI.</span>
+          </h2>
+          <p className="wp-build-block-desc">
+            Short-form brand video content produced using Higgsfield, Google Veo, and Claude — from hype reels to review showcases and cinematic concept pieces. Each clip produced, directed, and refined end-to-end.
+          </p>
+
+          <div className="wp-tools-row">
+            {["Higgsfield", "Google Veo", "Claude"].map((t) => (
+              <span key={t} className="wp-tool-badge">{t}</span>
+            ))}
+          </div>
+
+          <div className="wp-video-grid">
+            {AI_VIDEOS.map((v) => (
+              <div key={v.src} className="wp-video-card">
+                <video
+                  className="wp-video-player"
+                  src={v.src}
+                  controls
+                  preload="metadata"
+                  playsInline
+                />
+                <div className="wp-video-info">
+                  <div className="wp-video-title">{v.title}</div>
+                  <div className="wp-video-tool">{v.tool}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div className="wp-lightbox" onClick={() => setLightbox(null)}>
+          <span className="wp-lightbox-close" onClick={() => setLightbox(null)}>×</span>
+          <img src={lightbox} alt="Screenshot" onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function WorkPage() {
   const { theme, toggle } = useTheme();
-  const [tab, setTab] = useState<"automation" | "social">("automation");
+  const [tab, setTab] = useState<"automation" | "social" | "builds">("automation");
 
   return (
     <div className={`wp wp-${theme}`}>
@@ -478,11 +660,16 @@ export default function WorkPage() {
           <button className={`wp-tab${tab === "social" ? " active" : ""}`} onClick={() => setTab("social")}>
             Social Media <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({SOCIAL_PORTFOLIO.length})</span>
           </button>
+          <button className={`wp-tab${tab === "builds" ? " active" : ""}`} onClick={() => setTab("builds")}>
+            Builds & Media
+          </button>
         </div>
       </div>
 
       {/* Content */}
-      {tab === "automation" ? <AutomationSection /> : <SocialSection />}
+      {tab === "automation" && <AutomationSection />}
+      {tab === "social" && <SocialSection />}
+      {tab === "builds" && <BuildsSection />}
 
       {/* CTA */}
       <div className="wp-cta">
