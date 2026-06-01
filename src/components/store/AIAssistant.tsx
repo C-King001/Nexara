@@ -106,7 +106,7 @@ export default function AIAssistant() {
     {
       id: '0',
       role: 'assistant',
-      text: "Hi! I'm Kure's AI Shopping Assistant. Tell me what you're looking for — budget, features, or brand — and I'll find the perfect device for you. 🤖",
+      text: "Hi! I'm SDK's AI Shopping Assistant. Tell me what you're looking for — budget, features, or brand — and I'll find the perfect device for you. 🤖",
     },
   ]);
   const [input, setInput] = useState('');

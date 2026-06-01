@@ -58,7 +58,7 @@ export default function AuthPage() {
               <Zap size={20} className="text-black fill-black" />
             </div>
             <div>
-              <div className="font-display font-800 text-xl text-white">KURE'S</div>
+              <div className="font-display font-800 text-xl text-white">SDK</div>
               <div className="font-code text-[9px] text-white/35 tracking-[0.2em]">PHONE STORE</div>
             </div>
           </Link>
@@ -68,7 +68,7 @@ export default function AuthPage() {
             <span className="text-lime">Your Account</span>
           </h1>
           <p className="text-white/45 font-ui text-base mb-10 leading-relaxed">
-            Join thousands of customers who trust Kure's for the latest devices.
+            Join thousands of customers who trust SDK for the latest devices.
           </p>
 
           <div className="flex flex-col gap-3">
@@ -93,7 +93,7 @@ export default function AuthPage() {
               <Zap size={18} className="text-black fill-black" />
             </div>
             <div>
-              <div className="font-display font-800 text-lg text-white">KURE'S</div>
+              <div className="font-display font-800 text-lg text-white">SDK</div>
               <div className="font-code text-[9px] text-white/35 tracking-[0.2em]">PHONE STORE</div>
             </div>
           </Link>

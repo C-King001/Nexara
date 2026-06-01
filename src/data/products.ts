@@ -732,7 +732,7 @@ export const testimonials = [
     avatar: 'AO',
     rating: 5,
     review:
-      'Ordered my iPhone 15 Pro Max and it arrived next day, sealed in original packaging. The unboxing experience was incredible. Kure\'s is now my go-to for everything tech.',
+      'Ordered my iPhone 15 Pro Max and it arrived next day, sealed in original packaging. The unboxing experience was incredible. SDK Phone Store is now my go-to for everything tech.',
     product: 'iPhone 15 Pro Max',
     date: '2024-12-01',
   },

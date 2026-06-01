@@ -48,7 +48,7 @@ export default function StoreFooter() {
                 <Zap size={18} className="text-black fill-black" />
               </div>
               <div className="leading-none">
-                <div className="font-display font-800 text-xl tracking-tight text-white">KURE'S</div>
+                <div className="font-display font-800 text-xl tracking-tight text-white">SDK</div>
                 <div className="font-code text-[9px] text-white/40 tracking-[0.2em] uppercase -mt-0.5">PHONE STORE</div>
               </div>
             </Link>
@@ -95,7 +95,7 @@ export default function StoreFooter() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-8 border-b border-white/[0.07]">
           {[
             { icon: Phone, text: '+233 20 000 0000', label: 'Call Us' },
-            { icon: Mail, text: 'hello@kuresphonestore.com', label: 'Email Us' },
+            { icon: Mail, text: 'hello@sdkphonestore.com', label: 'Email Us' },
             { icon: MapPin, text: 'Accra, Ghana', label: 'Visit Us' },
           ].map(({ icon: Icon, text, label }) => (
             <div key={label} className="flex items-center gap-3">
@@ -113,7 +113,7 @@ export default function StoreFooter() {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
           <p className="text-xs text-white/30 font-ui">
-            © {new Date().getFullYear()} Kure's Phone Store. All rights reserved.
+            © {new Date().getFullYear()} SDK Phone Store. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-xs text-white/30 font-ui">
             <span>Secure Payments</span>

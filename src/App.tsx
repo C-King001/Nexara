@@ -38,7 +38,7 @@ export default function App() {
                 <Sonner />
                 <BrowserRouter>
                   <Routes>
-                    {/* Kure's Phone Store */}
+                    {/* SDK Phone Store */}
                     <Route path="/" element={<HomePage />} />
                     <Route path="/catalog" element={<CatalogPage />} />
                     <Route path="/product/:id" element={<ProductDetailPage />} />

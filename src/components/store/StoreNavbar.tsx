@@ -88,7 +88,7 @@ export default function StoreNavbar() {
               </div>
               <div className="leading-none">
                 <div className="font-display font-800 text-lg tracking-tight text-white">
-                  KURE'S
+                  SDK
                 </div>
                 <div className="font-code text-[9px] text-white/40 tracking-[0.2em] uppercase -mt-0.5">
                   PHONE STORE

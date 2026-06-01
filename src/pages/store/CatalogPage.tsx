@@ -62,7 +62,7 @@ export default function CatalogPage() {
         <div className="border-b border-white/[0.07] bg-[#0a0a0d]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="text-xs font-code text-lime/60 uppercase tracking-[0.2em] mb-2">KURE'S STORE</div>
+              <div className="text-xs font-code text-lime/60 uppercase tracking-[0.2em] mb-2">SDK STORE</div>
               <h1 className="font-display font-800 text-3xl sm:text-4xl text-white">{title}</h1>
               <p className="text-sm text-white/40 font-ui mt-1">{filtered.length} product{filtered.length !== 1 ? 's' : ''} found</p>
             </motion.div>

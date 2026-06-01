@@ -74,7 +74,7 @@ export default function AIBuyingSection() {
                 <Bot size={18} className="text-black" />
               </div>
               <div>
-                <div className="font-display font-700 text-white text-sm">Kure's AI Assistant</div>
+                <div className="font-display font-700 text-white text-sm">SDK AI Assistant</div>
                 <div className="text-[10px] text-lime font-code">● Always online</div>
               </div>
             </div>
