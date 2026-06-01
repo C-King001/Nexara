@@ -14,9 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        display: ["Space Grotesk", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        sans: ["DM Sans", "sans-serif"],
+        heading: ["Cormorant Garamond", "serif"],
+        display: ["DM Serif Display", "serif"],
+        body: ["DM Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -62,12 +63,26 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        glow: "hsl(var(--glow))",
+        /* Felicia Foods brand tokens */
+        ff: {
+          charcoal: "hsl(28 20% 8%)",
+          "charcoal-mid": "hsl(28 15% 14%)",
+          spice: "hsl(3 68% 32%)",
+          "spice-bright": "hsl(3 75% 42%)",
+          terracotta: "hsl(16 56% 47%)",
+          gold: "hsl(43 78% 45%)",
+          "gold-light": "hsl(43 90% 62%)",
+          cream: "hsl(36 55% 92%)",
+          smoke: "hsl(36 35% 97%)",
+          amber: "hsl(25 85% 55%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
       },
       keyframes: {
         "accordion-down": {
@@ -78,20 +93,30 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "1" },
-        },
-        "slide-up": {
-          from: { opacity: "0", transform: "translateY(30px)" },
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-right": {
+          from: { opacity: "0", transform: "translateX(-16px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.95)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
+        "pulse-warm": {
+          "0%, 100%": { boxShadow: "0 0 0 0 hsl(3 68% 32% / 0.3)" },
+          "50%": { boxShadow: "0 0 0 12px hsl(3 68% 32% / 0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
-        "slide-up": "slide-up 0.6s ease-out forwards",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "slide-right": "slide-right 0.5s ease-out forwards",
+        "scale-in": "scale-in 0.3s ease-out forwards",
+        "pulse-warm": "pulse-warm 2s ease-in-out infinite",
       },
     },
   },
