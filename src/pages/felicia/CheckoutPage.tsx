@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ArrowLeft, ArrowRight, CreditCard, Building2, CheckCircle2, MapPin, Phone, User, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import FeliciaNavbar from "@/components/felicia/FeliciaNavbar";
+import DeliciaNavbar from "@/components/felicia/DeliciaNavbar";
 import { useCart } from "@/context/CartContext";
 import { useOrders } from "@/context/OrderContext";
 import { formatPrice } from "@/data/meals";
@@ -56,7 +56,7 @@ export default function CheckoutPage() {
   if (items.length === 0 && step !== "confirm") {
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        <FeliciaNavbar />
+        <DeliciaNavbar />
         <div className="flex-1 flex items-center justify-center flex-col gap-4 pt-20">
           <div className="text-6xl">🛒</div>
           <h2 className="font-heading text-2xl font-semibold">Your cart is empty</h2>
@@ -102,7 +102,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <FeliciaNavbar />
+      <DeliciaNavbar />
 
       <div className="pt-20">
         {/* Progress bar */}
@@ -269,7 +269,7 @@ export default function CheckoutPage() {
                           <div className="space-y-1 text-sm text-muted-foreground font-body">
                             <p>Bank: <span className="text-foreground font-medium">First Bank Nigeria</span></p>
                             <p>Account: <span className="text-foreground font-medium">3012345678</span></p>
-                            <p>Name: <span className="text-foreground font-medium">Felicia Foods Ltd</span></p>
+                            <p>Name: <span className="text-foreground font-medium">Delicia Foods Ltd</span></p>
                           </div>
                           <p className="text-xs text-muted-foreground mt-2">
                             ⚠️ Order will be processed after payment confirmation.

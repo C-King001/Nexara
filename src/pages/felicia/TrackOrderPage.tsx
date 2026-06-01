@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, ArrowRight } from "lucide-react";
-import FeliciaNavbar from "@/components/felicia/FeliciaNavbar";
-import FeliciaFooter from "@/components/felicia/FeliciaFooter";
+import DeliciaNavbar from "@/components/felicia/DeliciaNavbar";
+import DeliciaFooter from "@/components/felicia/DeliciaFooter";
 import { useOrders } from "@/context/OrderContext";
 
 export default function TrackOrderPage() {
@@ -27,7 +27,7 @@ export default function TrackOrderPage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <FeliciaNavbar />
+      <DeliciaNavbar />
 
       <section className="section-dark pattern-adire flex-1 flex items-center justify-center pt-16">
         <div className="container mx-auto px-4 py-16 flex flex-col items-center text-center">
@@ -66,7 +66,7 @@ export default function TrackOrderPage() {
         </div>
       </section>
 
-      <FeliciaFooter />
+      <DeliciaFooter />
     </div>
   );
 }

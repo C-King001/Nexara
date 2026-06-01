@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { User, MapPin, ShoppingBag, Plus, Trash2, ArrowRight, LogOut } from "lucide-react";
 import { motion } from "framer-motion";
-import FeliciaNavbar from "@/components/felicia/FeliciaNavbar";
-import FeliciaFooter from "@/components/felicia/FeliciaFooter";
+import DeliciaNavbar from "@/components/felicia/DeliciaNavbar";
+import DeliciaFooter from "@/components/felicia/DeliciaFooter";
 import { useAuth } from "@/context/AuthContext";
 import { useOrders } from "@/context/OrderContext";
 import { formatPrice } from "@/data/meals";
@@ -44,7 +44,7 @@ export default function AccountPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <FeliciaNavbar />
+      <DeliciaNavbar />
 
       {/* Header */}
       <section className="section-dark pattern-adire pt-20">
@@ -219,7 +219,7 @@ export default function AccountPage() {
         )}
       </div>
 
-      <FeliciaFooter />
+      <DeliciaFooter />
     </div>
   );
 }

@@ -2,8 +2,8 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, MapPin, Clock, ShieldCheck, Star, ChevronRight } from "lucide-react";
-import FeliciaNavbar from "@/components/felicia/FeliciaNavbar";
-import FeliciaFooter from "@/components/felicia/FeliciaFooter";
+import DeliciaNavbar from "@/components/felicia/DeliciaNavbar";
+import DeliciaFooter from "@/components/felicia/DeliciaFooter";
 import MealCard from "@/components/felicia/MealCard";
 import { categories } from "@/data/categories";
 import { getPopularMeals } from "@/data/meals";
@@ -96,7 +96,7 @@ function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; del
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
-      <FeliciaNavbar />
+      <DeliciaNavbar />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center section-dark pattern-adire overflow-hidden">
@@ -146,7 +146,7 @@ export default function HomePage() {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="text-base sm:text-lg text-ff-cream/70 font-body leading-relaxed max-w-lg"
               >
-                From Felicia's kitchen to your doorstep — authentic Northern Nigerian cuisine, premium quality, and real-time delivery tracking. No compromise.
+                From Delicia's kitchen to your doorstep — authentic Northern Nigerian cuisine, premium quality, and real-time delivery tracking. No compromise.
               </motion.p>
 
               <motion.div
@@ -370,7 +370,7 @@ export default function HomePage() {
                 Our Promise
               </p>
               <h2 className="font-heading text-3xl md:text-4xl font-semibold text-foreground">
-                Why Choose Felicia Foods
+                Why Choose Delicia Foods
               </h2>
             </div>
           </FadeInSection>
@@ -471,7 +471,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <FeliciaFooter />
+      <DeliciaFooter />
     </div>
   );
 }

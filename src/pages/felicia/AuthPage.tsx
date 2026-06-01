@@ -52,7 +52,7 @@ export default function AuthPage() {
     if (success) {
       navigate("/account");
     } else {
-      setError("Invalid email or password. Try demo@feliciafoods.ng");
+      setError("Invalid email or password. Try demo@deliciafoods.ng");
     }
   };
 
@@ -72,7 +72,7 @@ export default function AuthPage() {
           <div className="w-8 h-8 rounded-full flex items-center justify-center text-ff-cream font-heading font-bold text-base" style={{ backgroundColor: "hsl(3 68% 32%)" }}>
             F
           </div>
-          <span className="font-heading text-lg font-semibold text-ff-cream">Felicia Foods</span>
+          <span className="font-heading text-lg font-semibold text-ff-cream">Delicia Foods</span>
         </Link>
         <Link to="/" className="flex items-center gap-1.5 text-sm text-ff-cream/60 hover:text-ff-cream transition-colors font-body">
           <ArrowLeft size={15} /> Back to Home
@@ -153,7 +153,7 @@ export default function AuthPage() {
 
                     <div className="p-3 rounded-xl bg-secondary/60 border border-border">
                       <p className="text-xs text-muted-foreground font-body">
-                        Demo: <span className="font-mono font-semibold">demo@feliciafoods.ng</span> (any password)
+                        Demo: <span className="font-mono font-semibold">demo@deliciafoods.ng</span> (any password)
                       </p>
                     </div>
 
@@ -182,7 +182,7 @@ export default function AuthPage() {
                 >
                   <h2 className="font-heading text-2xl font-semibold text-foreground mb-1">Create account</h2>
                   <p className="text-sm text-muted-foreground font-body mb-6">
-                    Join Felicia Foods and start ordering delicious meals.
+                    Join Delicia Foods and start ordering delicious meals.
                   </p>
 
                   <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">

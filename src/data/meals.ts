@@ -262,7 +262,7 @@ export const meals: Meal[] = [
   {
     id: "loaded-chips",
     name: "Loaded Chips",
-    description: "Crispy golden fries loaded with peppered beef or chicken, topped with ketchup, mayo and special Felicia sauce.",
+    description: "Crispy golden fries loaded with peppered beef or chicken, topped with ketchup, mayo and special Delicia sauce.",
     price: 2200,
     categoryId: "street-food",
     gradient: "from-yellow-500 via-amber-500 to-orange-500",
@@ -291,8 +291,8 @@ export const meals: Meal[] = [
   },
   {
     id: "meat-pie",
-    name: "Felicia Meat Pie",
-    description: "Freshly baked shortcrust pastry filled with seasoned minced beef, diced potatoes and carrots. A Felicia signature.",
+    name: "Delicia Meat Pie",
+    description: "Freshly baked shortcrust pastry filled with seasoned minced beef, diced potatoes and carrots. A Delicia signature.",
     price: 800,
     categoryId: "snacks-pastries",
     gradient: "from-amber-700 via-yellow-600 to-stone-600",

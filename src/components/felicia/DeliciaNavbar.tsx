@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Track Order", href: "/track" },
 ];
 
-export default function FeliciaNavbar() {
+export default function DeliciaNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { itemCount, openCart } = useCart();
@@ -50,7 +50,7 @@ export default function FeliciaNavbar() {
               F
             </div>
             <span className="font-heading text-xl font-semibold text-ff-cream tracking-wide">
-              Felicia Foods
+              Delicia Foods
             </span>
           </Link>
 

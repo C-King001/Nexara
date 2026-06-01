@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import FeliciaNavbar from "@/components/felicia/FeliciaNavbar";
-import FeliciaFooter from "@/components/felicia/FeliciaFooter";
+import DeliciaNavbar from "@/components/felicia/DeliciaNavbar";
+import DeliciaFooter from "@/components/felicia/DeliciaFooter";
 import MealCard from "@/components/felicia/MealCard";
 import CategoryFilter from "@/components/felicia/CategoryFilter";
 import { categories } from "@/data/categories";
@@ -57,7 +57,7 @@ export default function MenuPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <FeliciaNavbar />
+      <DeliciaNavbar />
 
       {/* Page header */}
       <section className="pt-20 pb-8 section-dark pattern-adire">
@@ -168,7 +168,7 @@ export default function MenuPage() {
         </AnimatePresence>
       </main>
 
-      <FeliciaFooter />
+      <DeliciaFooter />
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function AdminSidebar() {
             F
           </div>
           <div>
-            <p className="text-sm font-semibold text-ff-cream font-heading">Felicia Foods</p>
+            <p className="text-sm font-semibold text-ff-cream font-heading">Delicia Foods</p>
             <p className="text-[10px] text-ff-cream/40 font-body uppercase tracking-widest">Admin Panel</p>
           </div>
         </Link>

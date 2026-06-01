@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Phone, MapPin, Clock, KeyRound, CheckCircle2, ArrowRight, Copy, Check } from "lucide-react";
 import { motion } from "framer-motion";
-import FeliciaNavbar from "@/components/felicia/FeliciaNavbar";
-import FeliciaFooter from "@/components/felicia/FeliciaFooter";
+import DeliciaNavbar from "@/components/felicia/DeliciaNavbar";
+import DeliciaFooter from "@/components/felicia/DeliciaFooter";
 import OrderTimeline from "@/components/felicia/OrderTimeline";
 import { useOrders } from "@/context/OrderContext";
 import { formatPrice } from "@/data/meals";
@@ -40,7 +40,7 @@ export default function OrderTrackingPage() {
   if (!order) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        <FeliciaNavbar />
+        <DeliciaNavbar />
         <div className="flex-1 flex items-center justify-center flex-col gap-4 pt-20 text-center px-4">
           <div className="text-6xl">🔍</div>
           <h2 className="font-heading text-2xl font-semibold">Order not found</h2>
@@ -51,7 +51,7 @@ export default function OrderTrackingPage() {
             Place a New Order
           </Link>
         </div>
-        <FeliciaFooter />
+        <DeliciaFooter />
       </div>
     );
   }
@@ -62,7 +62,7 @@ export default function OrderTrackingPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <FeliciaNavbar />
+      <DeliciaNavbar />
 
       {/* Header */}
       <section className="section-dark pattern-adire pt-20 pb-8">
@@ -278,7 +278,7 @@ export default function OrderTrackingPage() {
         </div>
       </div>
 
-      <FeliciaFooter />
+      <DeliciaFooter />
     </div>
   );
 }

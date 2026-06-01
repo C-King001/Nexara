@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
 
-export default function FeliciaFooter() {
+export default function DeliciaFooter() {
   return (
     <footer className="section-dark pattern-adire">
       <div className="container mx-auto px-4 py-16">
@@ -12,7 +12,7 @@ export default function FeliciaFooter() {
               <div className="w-9 h-9 rounded-full bg-ff-spice flex items-center justify-center text-ff-cream font-heading font-bold text-lg">
                 F
               </div>
-              <span className="font-heading text-xl font-semibold text-ff-cream">Felicia Foods</span>
+              <span className="font-heading text-xl font-semibold text-ff-cream">Delicia Foods</span>
             </div>
             <p className="text-sm text-ff-cream/60 leading-relaxed font-body">
               Kaduna's premier food delivery experience. Authentic flavors, premium quality, delivered to your door.
@@ -84,8 +84,8 @@ export default function FeliciaFooter() {
               </li>
               <li className="flex items-center gap-3 text-sm text-ff-cream/60 font-body">
                 <Mail size={15} className="text-ff-terracotta flex-shrink-0" />
-                <a href="mailto:hello@feliciafoods.ng" className="hover:text-ff-cream transition-colors">
-                  hello@feliciafoods.ng
+                <a href="mailto:hello@deliciafoods.ng" className="hover:text-ff-cream transition-colors">
+                  hello@deliciafoods.ng
                 </a>
               </li>
             </ul>
@@ -100,7 +100,7 @@ export default function FeliciaFooter() {
         <div className="ff-divider mt-12 mb-6" style={{ background: "linear-gradient(90deg, transparent, hsl(36 55% 92% / 0.15), transparent)" }} />
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ff-cream/40 font-body">
-          <p>© {new Date().getFullYear()} Felicia Foods. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Delicia Foods. All rights reserved.</p>
           <div className="flex gap-5">
             <Link to="#" className="hover:text-ff-cream/70 transition-colors">Privacy Policy</Link>
             <Link to="#" className="hover:text-ff-cream/70 transition-colors">Terms of Service</Link>

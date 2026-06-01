@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, _password: string): Promise<boolean> => {
     /* In production, call Supabase auth here */
     await new Promise((r) => setTimeout(r, 800));
-    if (email === MOCK_USER.email || email === "demo@feliciafoods.ng") {
+    if (email === MOCK_USER.email || email === "demo@deliciafoods.ng") {
       setUser(MOCK_USER);
       return true;
     }
