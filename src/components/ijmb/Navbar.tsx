@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "@/lib/motion";
 import { useAuth } from "@/lib/ijmb-auth";
 
 const navLinks = [
-  { label: "About", href: "/ijmb/about" },
+  { label: "About",       href: "/ijmb/about" },
   { label: "Departments", href: "/ijmb/departments" },
-  { label: "Admissions", href: "/ijmb/admissions" },
-  { label: "FAQ", href: "/ijmb/faq" },
-  { label: "Contact", href: "/ijmb/contact" },
+  { label: "Admissions",  href: "/ijmb/admissions" },
+  { label: "FAQ",         href: "/ijmb/faq" },
+  { label: "Contact",     href: "/ijmb/contact" },
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen]       = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const location              = useLocation();
   const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 30);
+    const handler = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
   }, []);
@@ -27,90 +27,92 @@ export default function Navbar() {
   useEffect(() => { setOpen(false); }, [location.pathname]);
 
   const dashboardHref =
-    user?.role === "admin"
-      ? "/ijmb/dashboard/admin"
-      : user?.role === "teacher"
-      ? "/ijmb/dashboard/teacher"
-      : "/ijmb/dashboard/student";
+    user?.role === "admin"   ? "/ijmb/dashboard/admin" :
+    user?.role === "teacher" ? "/ijmb/dashboard/teacher" :
+    "/ijmb/dashboard/student";
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-xl border-b border-border/60 shadow-[0_4px_30px_-10px_hsl(43_80%_50%/0.1)]"
-          : "bg-transparent"
-      }`}
+      style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        padding: "1.4rem 4rem",
+        borderBottom: scrolled ? "1px solid rgba(201,120,58,0.18)" : "1px solid transparent",
+        background: scrolled
+          ? "rgba(13,11,8,0.92)"
+          : "linear-gradient(to bottom, rgba(13,11,8,0.9), transparent)",
+        backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
+        transition: "all 0.5s",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/ijmb" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-gold-gradient flex items-center justify-center shadow-[0_0_20px_-5px_hsl(43_80%_50%/0.6)] group-hover:shadow-[0_0_30px_-5px_hsl(43_80%_50%/0.8)] transition-all">
-            <span className="text-background font-bold text-sm font-serif">IJ</span>
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="font-serif font-bold text-foreground text-base tracking-tight">IJMB</span>
-            <span className="text-gold text-[10px] font-sans font-medium tracking-widest uppercase">
-              .program
-            </span>
-          </div>
-        </Link>
+      {/* Logo */}
+      <Link
+        to="/ijmb"
+        style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.5rem", fontWeight: 500, letterSpacing: "0.04em", color: "#f5ede0", textDecoration: "none" }}
+      >
+        IJMB<span style={{ color: "#c9783a" }}>.</span>program
+      </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
+      {/* Desktop links */}
+      <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", margin: 0, padding: 0 }} className="hidden-mobile">
+        {navLinks.map(link => (
+          <li key={link.href}>
             <Link
-              key={link.href}
               to={link.href}
-              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                location.pathname === link.href
-                  ? "text-gold"
-                  : "text-foreground/70 hover:text-foreground"
-              }`}
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: "0.78rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: location.pathname === link.href ? "#d4b896" : "#7a7060",
+                textDecoration: "none",
+                transition: "color 0.3s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#d4b896")}
+              onMouseLeave={e => (e.currentTarget.style.color = location.pathname === link.href ? "#d4b896" : "#7a7060")}
             >
               {link.label}
             </Link>
-          ))}
-        </div>
+          </li>
+        ))}
+      </ul>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          {isAuthenticated ? (
+      {/* CTA */}
+      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }} className="hidden-mobile">
+        {isAuthenticated ? (
+          <Link
+            to={dashboardHref}
+            className="ijmb-nav-cta"
+            style={{ cursor: "none" }}
+          >
+            Dashboard
+          </Link>
+        ) : (
+          <>
             <Link
-              to={dashboardHref}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-1 border border-border hover:border-gold/40 text-sm font-medium transition-all"
+              to="/ijmb/login"
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#7a7060", textDecoration: "none", transition: "color 0.3s" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#d4b896")}
+              onMouseLeave={e => (e.currentTarget.style.color = "#7a7060")}
             >
-              <div className="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center text-gold text-xs font-bold">
-                {user?.avatar}
-              </div>
-              <span className="text-foreground/80">Dashboard</span>
+              Sign In
             </Link>
-          ) : (
-            <>
-              <Link
-                to="/ijmb/login"
-                className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
-              >
-                Sign in
-              </Link>
-              <Link
-                to="/ijmb/apply"
-                className="px-5 py-2.5 rounded-lg bg-gold-gradient text-background text-sm font-semibold hover:opacity-90 transition-all shadow-[0_0_25px_-8px_hsl(43_80%_50%/0.5)] hover:shadow-[0_0_35px_-8px_hsl(43_80%_50%/0.7)]"
-              >
-                Apply Now
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-border hover:border-gold/40 transition-colors"
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-        </button>
+            <Link to="/ijmb/apply" className="ijmb-nav-cta" style={{ cursor: "none" }}>
+              Apply Now
+            </Link>
+          </>
+        )}
       </div>
+
+      {/* Mobile toggle */}
+      <button
+        onClick={() => setOpen(!open)}
+        className="show-mobile"
+        style={{ background: "none", border: "1px solid rgba(201,120,58,0.3)", color: "#c9783a", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "none" }}
+        aria-label="Toggle menu"
+      >
+        {open ? <X size={16} /> : <Menu size={16} />}
+      </button>
 
       {/* Mobile menu */}
       <AnimatePresence>
@@ -120,51 +122,41 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-background/98 backdrop-blur-xl border-b border-border px-6 pb-6 pt-2"
+            style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "rgba(13,11,8,0.97)", borderBottom: "1px solid rgba(201,120,58,0.18)", padding: "1.5rem 2rem 2rem", backdropFilter: "blur(12px)" }}
           >
-            <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={`px-3 py-3 text-base font-medium rounded-lg transition-colors ${
-                    location.pathname === link.href
-                      ? "text-gold bg-gold/5"
-                      : "text-foreground/70 hover:text-foreground hover:bg-surface-1"
-                  }`}
-                >
-                  {link.label}
+            {navLinks.map(link => (
+              <Link
+                key={link.href}
+                to={link.href}
+                style={{ display: "block", fontFamily: "'Space Mono', monospace", fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: location.pathname === link.href ? "#c9783a" : "#7a7060", textDecoration: "none", padding: "0.9rem 0", borderBottom: "1px solid rgba(201,120,58,0.08)" }}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div style={{ marginTop: "1.5rem", display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+              {isAuthenticated ? (
+                <Link to={dashboardHref} className="ijmb-btn" style={{ textAlign: "center" }}>
+                  <span>Dashboard</span>
                 </Link>
-              ))}
-              <div className="mt-4 flex flex-col gap-2 pt-4 border-t border-border">
-                {isAuthenticated ? (
-                  <Link
-                    to={dashboardHref}
-                    className="w-full py-3 rounded-lg bg-surface-1 border border-border text-center text-sm font-medium"
-                  >
-                    Go to Dashboard
-                  </Link>
-                ) : (
-                  <>
-                    <Link
-                      to="/ijmb/login"
-                      className="w-full py-3 rounded-lg bg-surface-1 border border-border text-center text-sm font-medium"
-                    >
-                      Sign in
-                    </Link>
-                    <Link
-                      to="/ijmb/apply"
-                      className="w-full py-3 rounded-lg bg-gold-gradient text-background text-center text-sm font-semibold"
-                    >
-                      Apply Now
-                    </Link>
-                  </>
-                )}
-              </div>
+              ) : (
+                <Link to="/ijmb/apply" className="ijmb-btn" style={{ textAlign: "center" }}>
+                  <span>Apply Now</span>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile   { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .show-mobile { display: none !important; }
+        }
+      `}</style>
     </nav>
   );
 }
