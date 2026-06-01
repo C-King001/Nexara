@@ -1,17 +1,29 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
-import CaseStudyPage from "./pages/CaseStudyPage.tsx";
-import AutomationPage from "./pages/AutomationPage.tsx";
-import SocialMediaPage from "./pages/SocialMediaPage.tsx";
-import SocialMediaResultsPage from "./pages/SocialMediaResultsPage.tsx";
-import AboutPage from "./pages/AboutPage.tsx";
+import { AuthProvider } from "@/lib/ijmb-auth";
+
+// IJMB Public Pages
+import HomePage from "./pages/ijmb/HomePage";
+import AboutPage from "./pages/ijmb/AboutPage";
+import DepartmentsPage from "./pages/ijmb/DepartmentsPage";
+import AdmissionsPage from "./pages/ijmb/AdmissionsPage";
+import FAQPage from "./pages/ijmb/FAQPage";
+import ContactPage from "./pages/ijmb/ContactPage";
+
+// IJMB Auth
+import LoginPage from "./pages/ijmb/auth/LoginPage";
+import RegisterPage from "./pages/ijmb/auth/RegisterPage";
+
+// IJMB Dashboards
+import StudentDashboardPage from "./pages/ijmb/student/DashboardPage";
+import TeacherDashboardPage from "./pages/ijmb/teacher/DashboardPage";
+import AdminDashboardPage from "./pages/ijmb/admin/DashboardPage";
+
+// Legacy pages (kept, not removed)
 import NotFound from "./pages/NotFound.tsx";
-import PersonalPage from "./pages/PersonalPage.tsx";
-import WorkPage from "./pages/WorkPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -21,18 +33,36 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/automation" element={<AutomationPage />} />
-          <Route path="/social-media" element={<SocialMediaPage />} />
-          <Route path="/social-media/results" element={<SocialMediaResultsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/case/:slug" element={<CaseStudyPage />} />
-          <Route path="/fn" element={<PersonalPage />} />
-          <Route path="/work" element={<WorkPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            {/* Root → IJMB home */}
+            <Route path="/" element={<Navigate to="/ijmb" replace />} />
+
+            {/* IJMB Public */}
+            <Route path="/ijmb" element={<HomePage />} />
+            <Route path="/ijmb/about" element={<AboutPage />} />
+            <Route path="/ijmb/departments" element={<DepartmentsPage />} />
+            <Route path="/ijmb/admissions" element={<AdmissionsPage />} />
+            <Route path="/ijmb/apply" element={<RegisterPage />} />
+            <Route path="/ijmb/faq" element={<FAQPage />} />
+            <Route path="/ijmb/contact" element={<ContactPage />} />
+
+            {/* IJMB Auth */}
+            <Route path="/ijmb/login" element={<LoginPage />} />
+            <Route path="/ijmb/register" element={<RegisterPage />} />
+
+            {/* IJMB Dashboards */}
+            <Route path="/ijmb/dashboard/student" element={<StudentDashboardPage />} />
+            <Route path="/ijmb/dashboard/student/*" element={<StudentDashboardPage />} />
+            <Route path="/ijmb/dashboard/teacher" element={<TeacherDashboardPage />} />
+            <Route path="/ijmb/dashboard/teacher/*" element={<TeacherDashboardPage />} />
+            <Route path="/ijmb/dashboard/admin" element={<AdminDashboardPage />} />
+            <Route path="/ijmb/dashboard/admin/*" element={<AdminDashboardPage />} />
+
+            {/* Catch-all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
