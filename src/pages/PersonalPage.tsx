@@ -284,6 +284,7 @@ interface PItem {
   tag: string; name: string; desc: string; metric: string; img: string;
   metrics: PMetric[]; tools: string[]; challenge: string;
   bullets: string[]; results: string[]; images: PImage[];
+  url?: string;
 }
 
 const PORTFOLIO: PItem[] = [
@@ -415,6 +416,71 @@ const PORTFOLIO: PItem[] = [
     images: [
       { src: "/social-media-results/results-book-addicts-analytics.webp", caption: "Book Addicts Pinterest Analytics: 1M monthly impressions, 539K total audience, +140% growth" },
       { src: "/social-media-results/results-book-addicts-profile.webp",   caption: "Book Addicts profile — Creator Hub status, 1M monthly views" },
+    ],
+  },
+  {
+    tag: "Web Design & Dev",
+    name: "Nexara · Agency Site",
+    desc: "Full personal portfolio and agency site — dark/cyan design system, animated hero, 6 automation case studies, social media portfolio, and a secret Easter egg.",
+    metric: "React · TypeScript · Vite · TailwindCSS",
+    img: "/images/websites/nexara-hero.jpeg",
+    url: "https://nexaraai.tech",
+    metrics: [
+      { label: "Pages Built",      value: "7+" },
+      { label: "Case Studies",     value: "6" },
+      { label: "Lines of Code",    value: "3,000+" },
+    ],
+    tools: ["React", "TypeScript", "Vite", "TailwindCSS", "Framer Motion", "shadcn/ui"],
+    challenge: "Build a site that speaks to two completely different audiences — automation clients and social media clients — without blending their worlds. Each audience needed to feel like the site was built for them specifically, with no overlap or distraction.",
+    bullets: [
+      "Built dark/cyan design system from scratch — no templates, no page builders",
+      "Animated hero with live CRM notification cards cycling in real-time on desktop",
+      "6 fully detailed automation case studies with image galleries and metric breakdowns",
+      "Social media portfolio with its own isolated design — white/purple, separate feel entirely",
+      "Personal portfolio page (/fn) with its own design system, marquee strips, and AI video showcase",
+      "Secret Easter egg: a hidden ♥ in the footer links to the social media page — only findable by hovering",
+    ],
+    results: [
+      "Two audience paths with zero overlap — each visitor sees only their world",
+      "Conversion-focused layout: hero → proof → case studies → CTA",
+      "Zero page builders — hand-coded from design to deployment",
+      "Live at nexaraai.tech — fully responsive, fast, and dark-mode ready",
+    ],
+    images: [
+      { src: "/images/websites/nexara-hero.jpeg", caption: "Hero — typewriter animation cycling through the core positioning" },
+    ],
+  },
+  {
+    tag: "Web Design & Dev",
+    name: "Meji Foods · E-Commerce",
+    desc: "E-commerce site for a West African jollof rice brand stocked in 400+ UK retailers including Sainsbury's and Amazon.",
+    metric: "Live · 400+ UK stockists",
+    img: "/images/websites/meji-site.jpeg",
+    url: "https://meji-eight.vercel.app",
+    metrics: [
+      { label: "UK Stockists",  value: "400+" },
+      { label: "Retail Partners", value: "Sainsbury's" },
+      { label: "Flavours",      value: "2" },
+    ],
+    tools: ["React", "Vercel", "E-commerce"],
+    challenge: "Meji Foods is a West African food brand competing on shelves at Sainsbury's and Amazon. The site had to communicate authenticity and convenience at the same time — bold enough to match the brand, clear enough to convert a visitor who's never heard of jollof rice.",
+    bullets: [
+      "Built full e-commerce site with product pages, flavour selection, and bundle builder",
+      "\"Build Your Box\" feature — 15% savings when ordering 6 packs, driving higher order value",
+      "Three-step visual prep guide reinforcing the 90-second cook-time USP throughout the page",
+      "Stockist locator section listing all retail partners — Sainsbury's, Amazon, TikTok Shop",
+      "Newsletter integration for new flavour drops, building a direct audience channel",
+    ],
+    results: [
+      "Live on Vercel — fast, responsive, and mobile-first",
+      "Bold orange/dark brand identity translated directly to web without losing energy",
+      "Available in 400+ UK stockists — site acts as proof layer for new retail pitches",
+      "Founder story and social proof (Idris Elba) woven into the purchase journey",
+    ],
+    images: [
+      { src: "/images/websites/meji-site.jpeg",  caption: "Meji Foods homepage — Classic Chicken Jollof hero" },
+      { src: "/images/websites/meji1.png",        caption: "The founders with the product" },
+      { src: "/images/websites/meji2.png",        caption: "Brand activations and stockist events" },
     ],
   },
 ];
@@ -554,7 +620,12 @@ function PortfolioModal({ item, onClose }: { item: PItem | null; onClose: () => 
         <div className="fn3-modal-body">
           <span className="fn3-porttag">{item.tag}</span>
           <h2 className="fn3-h2" style={{ margin: "10px 0 10px" }}>{item.name}</h2>
-          <p style={{ fontSize: "15px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "24px" }}>{item.desc}</p>
+          <p style={{ fontSize: "15px", lineHeight: "1.75", color: "var(--t2)", marginBottom: item.url ? "16px" : "24px" }}>{item.desc}</p>
+          {item.url && (
+            <a href={item.url} target="_blank" rel="noopener noreferrer" className="fn3-btn fn3-btn-pri" style={{ marginBottom: "24px", display: "inline-flex" }}>
+              Visit site <ArrowRight size={13} />
+            </a>
+          )}
 
           {/* Metrics */}
           <div className="fn3-modal-metrics">
@@ -679,7 +750,7 @@ function Hero({ word }: { word: string }) {
           I{" "}
           <span style={{ color: "var(--pri)", fontStyle: "italic" }}>{word}</span>
           <span className="fn3-cursor" />
-          {" "}what's broken<br />in your business,<br />then build what fixes it.
+          {" "}what's broken<br />in your business.
         </h1>
         <p className="fn3-hero-sub">
           I study how a business runs, find what's scattered or painful, and build systems that fix it permanently.

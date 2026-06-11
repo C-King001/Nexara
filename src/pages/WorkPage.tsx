@@ -501,7 +501,10 @@ const AI_VIDEOS = [
   { src: "/videos/moodring-hype-video.mp4", title: "MoodRing · Brand Hype",  tool: "Claude" },
   { src: "/videos/morning-after-video.mp4", title: "The Morning After",      tool: "Higgsfield" },
   { src: "/videos/new-review-video.mp4",    title: "Client Review Showcase", tool: "Higgsfield · HeyGen" },
-  { src: "/videos/review-video.mp4",        title: "Review Video",           tool: "Claude" },
+  { src: "/videos/review-video.mp4",               title: "Review Video",           tool: "Claude" },
+  { src: "/videos/sonia-health-video.mp4",         title: "Sonia · Health",         tool: "Claude" },
+  { src: "/videos/sonia-mental-health-video.mp4",  title: "Sonia · Mental Health",  tool: "Claude" },
+  { src: "/videos/sonia-testimonial-video.mp4",    title: "Sonia · Testimonial",    tool: "Claude" },
 ];
 
 // ─── BUILDS SECTION ───────────────────────────────────────────────────────────
