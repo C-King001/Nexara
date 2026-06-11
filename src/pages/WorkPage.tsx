@@ -617,7 +617,11 @@ function BuildsSection() {
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function WorkPage() {
   const { theme, toggle } = useTheme();
-  const [tab, setTab] = useState<"automation" | "social" | "builds">("automation");
+  const [tab, setTab] = useState<"automation" | "social" | "builds">(() => {
+    if (typeof window === "undefined") return "automation";
+    const p = new URLSearchParams(window.location.search).get("tab");
+    return (p === "social" || p === "builds") ? p : "automation";
+  });
 
   return (
     <div className={`wp wp-${theme}`}>

@@ -230,20 +230,20 @@ const LOGOS = [
 ];
 
 const AUTO_IMAGES = [
-  { src: "/images/automations/kcr/01-workflow-list.png",          title: "Franchise Pipeline · GoHighLevel" },
-  { src: "/images/automations/real-estate/wf1-concierge.jpeg",    title: "Real Estate Lifecycle · n8n" },
-  { src: "/images/automations/publishing/facebook.jpeg",          title: "AI Receptionist · 4 Channels" },
-  { src: "/images/automations/coaching/lead-automation.jpeg",     title: "Lead Scoring & Routing · n8n" },
-  { src: "/images/automations/job-alert/system.jpeg",             title: "Job Alert Engine · Telegram" },
-  { src: "/images/automations/spreadsheet/with-ai.jpeg",          title: "AI Data Processing · n8n" },
+  { src: "/images/automations/kcr/01-workflow-list.png",          title: "Franchise Pipeline · GoHighLevel", href: "/case/kcr-franchise-pipeline" },
+  { src: "/images/automations/real-estate/wf1-concierge.jpeg",    title: "Real Estate Lifecycle · n8n",      href: "/case/real-estate-lifecycle" },
+  { src: "/images/automations/publishing/facebook.jpeg",          title: "AI Receptionist · 4 Channels",     href: "/case/publishing-ai-receptionist" },
+  { src: "/images/automations/coaching/lead-automation.jpeg",     title: "Lead Scoring & Routing · n8n",     href: "/case/coaching-lead-automation" },
+  { src: "/images/automations/job-alert/system.jpeg",             title: "Job Alert Engine · Telegram",      href: "/case/job-alert-system" },
+  { src: "/images/automations/spreadsheet/with-ai.jpeg",          title: "AI Data Processing · n8n",         href: "/case/spreadsheet-intelligence" },
 ];
 
 const SOCIAL_RESULTS = [
-  { src: "/social-media-results/results-instagram.png",              label: "Kaminskiy · Instagram Reach" },
-  { src: "/social-media-results/IMG_9313.PNG",                       label: "Kaminskiy · 495K Views in 30 Days" },
-  { src: "/social-media-results/results-book-addicts-analytics.webp",label: "Book Addicts · Pinterest Analytics" },
-  { src: "/social-media-results/results-book-addicts-profile.webp",  label: "Book Addicts · 1M Monthly Views" },
-  { src: "/social-media-results/results-pinterest-glow.webp",        label: "GlowVibe · +326% Impressions" },
+  { src: "/social-media-results/results-instagram.png",              label: "Kaminskiy · Instagram Reach",      href: "/work?tab=social" },
+  { src: "/social-media-results/IMG_9313.PNG",                       label: "Kaminskiy · 495K Views in 30 Days",href: "/work?tab=social" },
+  { src: "/social-media-results/results-book-addicts-analytics.webp",label: "Book Addicts · Pinterest Analytics",href: "/work?tab=social" },
+  { src: "/social-media-results/results-book-addicts-profile.webp",  label: "Book Addicts · 1M Monthly Views",  href: "/work?tab=social" },
+  { src: "/social-media-results/results-pinterest-glow.webp",        label: "GlowVibe · +326% Impressions",     href: "/work?tab=social" },
 ];
 
 const TESTIMONIALS = [
@@ -679,11 +679,12 @@ function Hero({ word }: { word: string }) {
           I{" "}
           <span style={{ color: "var(--pri)", fontStyle: "italic" }}>{word}</span>
           <span className="fn3-cursor" />
-          {" "}growth<br />systems for brands.
+          {" "}what's broken<br />in your business,<br />then build what fixes it.
         </h1>
         <p className="fn3-hero-sub">
-          Revenue systems architect and automation strategist. I build the backend infrastructure
-          that helps brands grow, convert, and retain — on autopilot.
+          I study how a business runs, find what's scattered or painful, and build systems that fix it permanently.
+          Sometimes that's a CRM pipeline. Sometimes an AI receptionist. Sometimes a CMS.
+          The through-line is always the same.
         </p>
         <div className="fn3-hero-actions">
           <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer" className="fn3-btn fn3-btn-pri">
@@ -734,16 +735,18 @@ function About() {
           <div style={{ flex: 1, minWidth: 0 }}>
             <span className="fn3-label">About me</span>
             <h2 className="fn3-h2" style={{ marginBottom: "18px" }}>
-              Building systems that{" "}
-              <span style={{ fontStyle: "italic", color: "var(--pri)" }}>work without you.</span>
+              I see the problem before{" "}
+              <span style={{ fontStyle: "italic", color: "var(--pri)" }}>most people name it.</span>
             </h2>
             <p style={{ fontSize: "15px", lineHeight: "1.78", color: "var(--t2)", marginBottom: "14px" }}>
-              I'm Faithful — a revenue systems architect and automation strategist. I help brands
-              build the backend infrastructure that turns attention into revenue, and leads into loyal customers.
+              I go into businesses, find what's scattered or broken, and build systems that fix it permanently.
+              I study how a business actually runs, find the processes that are painful, repetitive, or slowing
+              everything down, and build AI and automation systems that replace all of that.
             </p>
             <p style={{ fontSize: "15px", lineHeight: "1.78", color: "var(--t2)", marginBottom: "24px" }}>
-              From GoHighLevel franchise pipelines to n8n AI receptionists, I design systems that run 24/7 —
-              so you can focus on the vision, not the machine.
+              The team stops doing the same thing a thousand times and can focus on what actually moves things forward.
+              Sometimes that system is a content operation. Sometimes an AI receptionist. Sometimes a CMS.
+              But the through-line is always the same.
             </p>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
               {tags.map((tag) => (
@@ -778,10 +781,13 @@ function AutomationStrip() {
       </div>
       <Marquee speed="med">
         {AUTO_IMAGES.map((a, i) => (
-          <div key={i} className="fn3-auto-card">
+          <Link key={i} to={a.href} className="fn3-auto-card" style={{ textDecoration: "none", display: "block" }}>
             <img src={a.src} alt={a.title} />
-            <div className="fn3-auto-card-label">{a.title}</div>
-          </div>
+            <div className="fn3-auto-card-label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              {a.title}
+              <span style={{ fontSize: "11px", color: "var(--pri)", flexShrink: 0, marginLeft: "8px" }}>View →</span>
+            </div>
+          </Link>
         ))}
       </Marquee>
     </div>
@@ -801,10 +807,13 @@ function SocialStrip() {
       </div>
       <Marquee reverse speed="slow">
         {SOCIAL_RESULTS.map((r, i) => (
-          <div key={i} className="fn3-social-card">
+          <Link key={i} to={r.href} className="fn3-social-card" style={{ textDecoration: "none", display: "block" }}>
             <img src={r.src} alt={r.label} />
-            <div className="fn3-social-card-label">{r.label}</div>
-          </div>
+            <div className="fn3-social-card-label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              {r.label}
+              <span style={{ fontSize: "11px", color: "var(--pri)", flexShrink: 0, marginLeft: "8px" }}>View →</span>
+            </div>
+          </Link>
         ))}
       </Marquee>
     </div>
@@ -834,7 +843,7 @@ function Services() {
         <span className="fn3-label">What I do</span>
         <h2 className="fn3-h2" style={{ marginBottom: "8px" }}>Services</h2>
         <p style={{ fontSize: "15px", color: "var(--t2)", marginBottom: "36px", maxWidth: "480px" }}>
-          Two core offerings built to automate your revenue and grow your brand.
+          Two expressions of the same approach: find what's slowing you down, build the system that removes it.
         </p>
       </Reveal>
       <div className="fn3-g2">
@@ -843,8 +852,7 @@ function Services() {
             <div className="fn3-svcicon"><Zap size={20} /></div>
             <h3 className="fn3-h3" style={{ marginBottom: "12px" }}>Revenue Automation Systems</h3>
             <p style={{ fontSize: "14.5px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "20px" }}>
-              End-to-end backend infrastructure using GoHighLevel and n8n. CRM setups, automated
-              lead nurturing, follow-up sequences, and AI-powered intake systems that convert while you sleep.
+              Your business has workflows someone is doing manually right now. I map them, automate them with GoHighLevel and n8n, and remove the person from the equation. The system runs 24/7 — they focus on work that actually moves things forward.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "9px", marginBottom: "28px" }}>
               {SVC_FEATURES_1.map((f) => (
@@ -863,8 +871,7 @@ function Services() {
             <div className="fn3-svcicon"><TrendingUp size={20} /></div>
             <h3 className="fn3-h3" style={{ marginBottom: "12px" }}>Social Media Growth</h3>
             <p style={{ fontSize: "14.5px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "20px" }}>
-              Strategic content systems and community growth for Instagram and Pinterest. Content
-              strategies, account management, and organic growth engines that turn followers into buyers.
+              Content built on a system, not a schedule. I build the strategy, manage the accounts, and create content that compounds month over month — without it falling apart when things get busy.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "9px", marginBottom: "28px" }}>
               {SVC_FEATURES_2.map((f) => (
@@ -922,7 +929,7 @@ function BuildsPreview() {
       </div>
       <Reveal delay={100}>
         <div style={{ marginTop: "20px" }}>
-          <Link to="/work" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px" }}>
+          <Link to="/work?tab=builds" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px" }}>
             View all 6 videos <ArrowRight size={13} />
           </Link>
         </div>
@@ -949,7 +956,7 @@ function BuildsPreview() {
                   </div>
                 ))}
               </div>
-              <Link to="/work" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px", width: "fit-content" }}>
+              <Link to="/work?tab=builds" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px", width: "fit-content" }}>
                 See the full build <ArrowRight size={13} />
               </Link>
             </div>
@@ -1100,7 +1107,7 @@ function PageFooter({ theme, onToggle }: { theme: string; onToggle: () => void }
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function PersonalPage() {
   const { theme, toggle } = useTheme();
-  const word = useTypewriter(["build", "design", "create", "launch"]);
+  const word = useTypewriter(["find", "map", "study", "solve"]);
   const [active, setActive] = useState("home");
   const [selectedPortfolio, setSelectedPortfolio] = useState<PItem | null>(null);
 
