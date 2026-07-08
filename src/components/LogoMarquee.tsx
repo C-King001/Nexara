@@ -2,12 +2,14 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const logos = [
-  { src: "/logos/logo1.png", alt: "Client logo 1" },
-  { src: "/logos/logo2.png", alt: "Client logo 2" },
-  { src: "/logos/logo3.png", alt: "Client logo 3" },
-  { src: "/logos/logo4.png", alt: "Client logo 4" },
-  { src: "/logos/logo5.png", alt: "Client logo 5" },
-  { src: "/logos/logo6.png", alt: "Client logo 6" },
+  { src: "/logos/kaminskiy-logo.png", alt: "Kaminskiy Care & Repair" },
+  { src: "/logos/popin-logo.png", alt: "POPIN" },
+  { src: "/logos/logo1.png", alt: "Client logo" },
+  { src: "/logos/logo2.png", alt: "Client logo" },
+  { src: "/logos/logo3.png", alt: "Client logo" },
+  { src: "/logos/logo4.png", alt: "Client logo" },
+  { src: "/logos/logo5.png", alt: "Client logo" },
+  { src: "/logos/logo6.png", alt: "Client logo" },
 ];
 
 const LogoMarquee = () => {

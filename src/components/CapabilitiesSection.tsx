@@ -102,9 +102,9 @@ const CapabilitiesSection = () => {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { step: "01", title: "System Audit", desc: "We map your current lead journey in a free 15-minute call — and find exactly where money is slipping through." },
+              { step: "01", title: "System Audit", desc: "We map your current lead journey in a free 30-minute call — and find exactly where money is slipping through." },
               { step: "02", title: "Revenue Blueprint", desc: "We design your custom 3-part system: inbound capture, follow-up engine, and post-sale hub." },
-              { step: "03", title: "Build & Deploy", desc: "We build, test, and hand over a fully operational system. You start capturing revenue you were leaving behind." },
+              { step: "03", title: "Build & Deploy", desc: "We build it first — nothing to sign, nothing to pay yet. You only pay after it's run for 7 days and proven itself." },
             ].map((item, i) => (
               <div key={item.step} className="flex flex-col gap-3">
                 <span className="font-mono text-3xl font-bold text-primary/20">{item.step}</span>
@@ -113,6 +113,13 @@ const CapabilitiesSection = () => {
               </div>
             ))}
           </div>
+
+          <div className="mt-10 p-5 md:p-6 rounded-lg bg-primary/5 border border-primary/20 text-center">
+            <p className="font-display font-semibold text-foreground">
+              Free 30-minute audit. We build it first. You pay after 7 days of proven results.
+            </p>
+          </div>
+
           <div className="text-center mt-10">
             <a
               href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
@@ -125,7 +132,7 @@ const CapabilitiesSection = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
-            <p className="mt-3 font-mono text-xs text-dim">15 min · No pitch · Just clarity</p>
+            <p className="mt-3 font-mono text-xs text-dim">30 min · No pitch · Just clarity</p>
           </div>
         </motion.div>
 

@@ -17,10 +17,10 @@ const AnimatedCounter = ({ to, suffix = "" }: { to: number; suffix?: string }) =
 };
 
 const stats = [
-  { display: "24/7", label: "AI Receptionist, Every Channel", animate: false },
-  { display: "0", label: "Leads Lost to Slow Response", animate: false },
+  { display: "60s", label: "Missed Call → Text Reply", animate: false },
+  { display: "0", label: "Manual Follow-ups at Kaminskiy Care & Repair", animate: false },
   { display: null, value: 100, suffix: "%", label: "Follow-ups Running Automatically", animate: true },
-  { display: null, value: 10, suffix: "", label: "Workflows Powering One Pipeline", animate: true },
+  { display: null, value: 10, suffix: "", label: "Workflows Powering the KCR Pipeline", animate: true },
 ];
 
 const ProofStrip = () => {

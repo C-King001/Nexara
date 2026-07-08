@@ -156,7 +156,7 @@ const AutomationPage = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-display font-semibold rounded-md hover:shadow-glow transition-all text-base"
             >
-              Book a 15-Minute System Audit
+              Book a 30-Minute System Audit
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -274,9 +274,12 @@ const AutomationPage = () => {
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               Ready to stop leaking revenue?
             </h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-              In 15 minutes, we'll map your current setup, find the biggest bottleneck, and show you
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-4 leading-relaxed">
+              In 30 minutes, we'll map your current setup, find the biggest bottleneck, and show you
               exactly what a system audit could unlock for your business.
+            </p>
+            <p className="font-display font-semibold text-foreground mb-10">
+              We build it first. You pay after 7 days of proven results.
             </p>
             <a
               href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting"
@@ -284,12 +287,12 @@ const AutomationPage = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-primary-foreground font-display font-bold text-lg rounded-lg shadow-glow hover:shadow-[0_0_50px_-5px_hsl(170_100%_45%_/_0.5)] transition-shadow"
             >
-              Book a 15-Minute System Audit
+              Book a 30-Minute System Audit
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
-            <p className="mt-6 font-mono text-xs text-dim">15 min · No pitch · Just clarity</p>
+            <p className="mt-6 font-mono text-xs text-dim">30 min · No pitch · Just clarity</p>
           </AutomationSection>
         </div>
       </section>

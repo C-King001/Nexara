@@ -28,9 +28,13 @@ const CTASection = () => {
             <span className="text-dim">just because you need to rest.</span>
           </h2>
 
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-12 leading-relaxed">
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-6 leading-relaxed">
             We'll map your journey, find the bottlenecks, and build a backend
             that actually supports your ambition.
+          </p>
+
+          <p className="font-display font-semibold text-foreground text-lg max-w-xl mx-auto mb-12">
+            Free 30-minute audit. We build it first. You pay after 7 days of proven results.
           </p>
 
           <motion.a
@@ -42,14 +46,14 @@ const CTASection = () => {
             className="inline-flex items-center gap-3 px-12 py-5 font-display font-bold text-lg rounded-xl text-primary-foreground cta-pulse"
             style={{ background: "linear-gradient(135deg, hsl(var(--primary)), hsl(190 100% 50%))" }}
           >
-            Book a 15-Minute System Audit
+            Book a 30-Minute System Audit
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </motion.a>
 
           <p className="mt-8 font-mono text-xs text-dim">
-            15 min · No pitch · Just clarity
+            30 min · No pitch · Just clarity
           </p>
         </motion.div>
       </div>

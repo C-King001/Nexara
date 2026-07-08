@@ -935,7 +935,7 @@ const SocialMediaPage = () => {
               Start the Conversation
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </a>
-            <p className="mt-5 text-xs font-mono text-gray-600">15 min · No pitch · Just clarity</p>
+            <p className="mt-5 text-xs font-mono text-gray-600">30 min · No pitch · Just clarity</p>
           </Reveal>
         </div>
       </section>

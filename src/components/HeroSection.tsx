@@ -89,7 +89,7 @@ const HeroSection = () => {
             rel="noopener noreferrer"
             className="px-8 py-4 bg-primary text-primary-foreground font-display font-semibold rounded-md hover:shadow-glow transition-all text-base"
           >
-            Book a 15-Minute System Audit
+            Book a 30-Minute System Audit
           </a>
           <a
             href="#cases"
