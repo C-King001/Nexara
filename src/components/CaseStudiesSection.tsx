@@ -42,6 +42,8 @@ const CaseStudiesSection = () => {
                     <img
                       src={item.coverImage}
                       alt={item.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-top opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-1/30 to-surface-1" />

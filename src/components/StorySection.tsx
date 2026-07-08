@@ -1,21 +1,22 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Wine, Radio, Building2 } from "lucide-react";
 
 const miniCases = [
   {
-    icon: "🍷",
+    icon: Wine,
     title: "No Data Left Behind",
     body: "Sustaina Wines was migrating off a platform and couldn't take their customer records with them. We scraped every contact and detail into their own Google Sheets — fully owned, clean, and accessible from anywhere.",
     metric: "Full database recovered, 0 records lost",
   },
   {
-    icon: "📡",
+    icon: Radio,
     title: "The Always-On Receptionist",
     body: "A publishing company was losing leads across Facebook, Instagram, WhatsApp, and phone calls. We built one AI brain that answers every message, transcribes every voice note, and pings the boss the moment a hot lead appears.",
     metric: "4 channels covered, 0 missed inquiries",
   },
   {
-    icon: "🏢",
+    icon: Building2,
     title: "The Leakproof Pipeline",
     body: "A real estate agency had no unified system — leads arrived from multiple sources, follow-ups were forgotten, and post-sale paperwork was fully manual. We built 3 interconnected workflows that handle intake, follow-up, and document collection automatically.",
     metric: "3 workflows, 0 manual admin steps",
@@ -135,7 +136,9 @@ const StorySection = () => {
               transition={{ duration: 0.5, delay: 0.7 + i * 0.15 }}
               className="module-border bg-surface-1 p-6 hover:border-primary/40 transition-colors flex flex-col"
             >
-              <span className="text-2xl mb-3 block">{c.icon}</span>
+              <span className="inline-flex w-10 h-10 mb-4 items-center justify-center rounded-lg bg-primary/10 border border-primary/20">
+                <c.icon className="w-5 h-5 text-primary" strokeWidth={1.75} aria-hidden="true" />
+              </span>
               <h4 className="font-display font-semibold text-foreground text-sm mb-2">{c.title}</h4>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">{c.body}</p>
               <div className="mt-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/20 self-start">
