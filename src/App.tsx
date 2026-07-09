@@ -12,6 +12,7 @@ import AboutPage from "./pages/AboutPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PersonalPage from "./pages/PersonalPage.tsx";
 import WorkPage from "./pages/WorkPage.tsx";
+import BookingPage from "./pages/BookingPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/book" element={<BookingPage />} />
           <Route path="/automation" element={<AutomationPage />} />
           <Route path="/social-media" element={<SocialMediaPage />} />
           <Route path="/social-media/results" element={<SocialMediaResultsPage />} />
