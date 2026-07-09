@@ -17,10 +17,14 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const BOOKING = {
+  // Live n8n production webhooks (workflow "Nexara Booking System").
+  // These respond once the workflow is Active and Google Calendar is connected.
   availabilityUrl:
-    (import.meta.env.VITE_BOOKING_AVAILABILITY_URL as string | undefined) ?? "",
+    (import.meta.env.VITE_BOOKING_AVAILABILITY_URL as string | undefined) ??
+    "https://n8n.faithfulnyamasn8n.me/webhook/nexara-availability",
   bookingUrl:
-    (import.meta.env.VITE_BOOKING_CREATE_URL as string | undefined) ?? "",
+    (import.meta.env.VITE_BOOKING_CREATE_URL as string | undefined) ??
+    "https://n8n.faithfulnyamasn8n.me/webhook/nexara-book",
 
   // Call length shown in the UI (minutes). Matches the free audit offer.
   callLengthMin: 30,
