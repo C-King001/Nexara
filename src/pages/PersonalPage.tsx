@@ -1,9 +1,11 @@
-import { useRef, useState, useEffect, type ReactNode } from "react";
+import { useRef, useState, useEffect, useMemo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import {
   Home, User, Zap, Briefcase, Star, Mail,
-  Sun, Moon, ArrowRight, Instagram, Linkedin, TrendingUp, BarChart3, Globe,
+  Sun, Moon, ArrowRight, Instagram, Linkedin, TrendingUp, Globe, CalendarCheck,
+  ChevronLeft, ChevronRight,
 } from "lucide-react";
+import { BOOKING, isBookingBackendLive } from "@/config/booking";
 
 // ─── STYLES ──────────────────────────────────────────────────────────────────
 const STYLES = `
@@ -215,6 +217,72 @@ const STYLES = `
 @media(max-width:768px){ .fn3-cms-shot { min-height:180px; } }
 .fn3-cms-body { padding:32px 28px; display:flex; flex-direction:column; justify-content:center; }
 @media(max-width:768px){ .fn3-cms-body { padding:24px 20px; } }
+
+/* ── Chapter headers (numbered sections) ── */
+.fn3-chap { display:flex; align-items:baseline; gap:14px; margin-bottom:8px; }
+.fn3-chap-num { font-size:13px; font-weight:600; letter-spacing:.1em; color:var(--t3); font-variant-numeric:tabular-nums; }
+.fn3-chap-bar { width:1.5px; height:20px; background:var(--b1); align-self:center; }
+.fn3-chap-title { font-size:13px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--t1); }
+.fn3-chap-hint { margin-left:auto; font-size:12.5px; color:var(--t3); }
+@media(max-width:540px){ .fn3-chap-hint{ display:none; } }
+
+/* ── Stack ("Tools I live in") ── */
+.fn3-stack-board { position:relative; border-radius:20px; background:var(--pri); overflow:hidden; padding:64px 32px; min-height:460px; }
+.fn3-light .fn3-stack-board { background:#12281c; }
+.fn3-stack-board::before { content:''; position:absolute; inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.14) 1px, transparent 1px);
+  background-size:26px 26px; opacity:.35; }
+.fn3-stack-center { position:relative; z-index:2; text-align:center; max-width:420px; margin:0 auto; }
+.fn3-stack-h { font-family:'Cormorant Garamond',serif; font-size:clamp(34px,4.5vw,52px); font-weight:700; line-height:1.1; color:#f2eee2; }
+.fn3-stack-pills { display:flex; gap:8px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+.fn3-stack-pill { padding:4px 14px; border:1px solid rgba(242,238,226,.35); border-radius:100px; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:rgba(242,238,226,.85); }
+.fn3-stack-field { position:absolute; inset:0; z-index:1; }
+.fn3-tile-wrap { position:absolute; display:flex; flex-direction:column; align-items:center; gap:7px; transform:translate(-50%,-50%); }
+@keyframes fn3-float { 0%,100%{ transform:translate(-50%,-50%) translateY(0);} 50%{ transform:translate(-50%,-50%) translateY(-7px);} }
+.fn3-tile-wrap { animation:fn3-float 5.5s ease-in-out infinite; }
+.fn3-tile { position:relative; width:64px; height:64px; border-radius:17px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:19px; letter-spacing:-.02em; color:#fff;
+  box-shadow:0 10px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .22s ease; cursor:default; }
+.fn3-tile-wrap:hover .fn3-tile { transform:scale(1.12) rotate(-3deg); }
+.fn3-tile-badge { position:absolute; top:-8px; right:-10px; min-width:22px; height:22px; padding:0 6px; border-radius:100px; background:#e2453a; color:#fff; font-size:10.5px; font-weight:700; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(0,0,0,.35); font-variant-numeric:tabular-nums; }
+.fn3-tile-label { font-size:11px; font-weight:600; color:rgba(242,238,226,.75); white-space:nowrap; }
+.fn3-stack-lines { position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+.fn3-stack-lines line { stroke:rgba(242,238,226,.22); stroke-width:1.2; stroke-dasharray:4 6; }
+/* Mobile: tidy grid instead of scatter */
+.fn3-stack-grid-mob { display:none; }
+@media(max-width:820px){
+  .fn3-stack-field, .fn3-stack-lines { display:none; }
+  .fn3-stack-board { min-height:unset; padding:44px 20px; }
+  .fn3-stack-grid-mob { display:grid; grid-template-columns:repeat(3,1fr); gap:26px 10px; margin-top:36px; position:relative; z-index:2; }
+  .fn3-stack-grid-mob .fn3-tile-wrap { position:static; transform:none; animation:none; }
+}
+
+/* ── Inline booking ── */
+.fn3-book-tabs { display:inline-flex; gap:4px; padding:4px; background:var(--card2); border:1px solid var(--b0); border-radius:100px; flex-wrap:wrap; }
+.fn3-book-tab { padding:8px 18px; border-radius:100px; border:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; color:var(--t2); cursor:pointer; transition:all .2s ease; white-space:nowrap; }
+.fn3-book-tab.active { background:var(--pri); color:var(--bg); }
+.fn3-book-grid { display:grid; grid-template-columns:340px 1fr; gap:20px; align-items:start; }
+@media(max-width:820px){ .fn3-book-grid{ grid-template-columns:1fr; } }
+.fn3-cal { padding:22px; }
+.fn3-cal-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.fn3-cal-month { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; }
+.fn3-cal-nav { width:30px; height:30px; border-radius:50%; border:1.5px solid var(--b0); background:var(--card); color:var(--t2); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s ease; }
+.fn3-cal-nav:hover:not(:disabled) { border-color:var(--pri); color:var(--pri); }
+.fn3-cal-nav:disabled { opacity:.35; cursor:default; }
+.fn3-cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.fn3-cal-dow { font-size:10.5px; font-weight:600; letter-spacing:.08em; color:var(--t3); text-align:center; padding:6px 0; text-transform:uppercase; }
+.fn3-cal-day { aspect-ratio:1; border:none; background:transparent; border-radius:9px; font-family:'DM Sans',sans-serif; font-size:13.5px; color:var(--t1); cursor:pointer; transition:all .15s ease; font-variant-numeric:tabular-nums; }
+.fn3-cal-day:hover:not(:disabled) { background:var(--card2); }
+.fn3-cal-day:disabled { color:var(--t3); opacity:.38; cursor:default; }
+.fn3-cal-day.sel { background:var(--pri); color:var(--bg); font-weight:700; }
+.fn3-slot-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(86px,1fr)); gap:8px; }
+.fn3-slot { height:38px; border-radius:9px; border:1.5px solid var(--b0); background:var(--card); font-family:'DM Sans',sans-serif; font-size:12.5px; font-weight:600; color:var(--t1); cursor:pointer; transition:all .15s ease; }
+.fn3-slot:hover { border-color:var(--pri); color:var(--pri); }
+.fn3-slot.sel { background:var(--pri); border-color:var(--pri); color:var(--bg); }
+.fn3-slot-skel { height:38px; border-radius:9px; background:var(--card2); animation:fn3-skel 1.2s ease-in-out infinite; }
+@keyframes fn3-skel { 0%,100%{opacity:.55} 50%{opacity:1} }
+.fn3-book-panel { padding:24px; }
 `;
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -485,8 +553,66 @@ const PORTFOLIO: PItem[] = [
   },
 ];
 
-const SVC_FEATURES_1 = ["CRM Setup & Configuration", "Automated Lead Nurturing", "Sales Funnel Build-out", "Email & SMS Sequences", "No-Show Recovery Flows"];
-const SVC_FEATURES_2 = ["Content Strategy & Planning", "Instagram & Pinterest Management", "Community Building", "Viral Campaign Design", "Brand Voice Development"];
+// ─── SERVICES (each books its own session type) ──────────────────────────────
+interface Service {
+  id: string;
+  Icon: typeof Zap;
+  title: string;
+  blurb: string;
+  features: string[];
+  session: string; // label used in the booking section
+}
+
+const SERVICES: Service[] = [
+  {
+    id: "automation",
+    Icon: Zap,
+    title: "Revenue Automation Systems",
+    blurb:
+      "Your business has workflows someone is doing manually right now. I map them, automate them with GoHighLevel and n8n, and remove the person from the equation. The system runs 24/7.",
+    features: ["CRM Setup & Configuration", "Automated Lead Nurturing", "Sales Funnel Build-out", "Email & SMS Sequences", "No-Show Recovery Flows"],
+    session: "System Audit",
+  },
+  {
+    id: "social",
+    Icon: TrendingUp,
+    title: "Social Media Growth",
+    blurb:
+      "Content built on a system, not a schedule. I build the strategy, manage the accounts, and create content that compounds month over month — without falling apart when things get busy.",
+    features: ["Content Strategy & Planning", "Instagram & Pinterest Management", "Community Building", "Viral Campaign Design", "Brand Voice Development"],
+    session: "Growth Session",
+  },
+  {
+    id: "web",
+    Icon: Globe,
+    title: "Web Design & AI Builds",
+    blurb:
+      "Hand-coded sites and AI-powered builds — no templates, no page builders. From e-commerce for a brand in 400+ UK stores to a custom CMS with AI baked in.",
+    features: ["Custom Website Design & Dev", "E-commerce Builds", "AI Video Production", "Custom CMS & Internal Tools", "Landing Pages that Convert"],
+    session: "Project Call",
+  },
+];
+
+// ─── STACK ("Tools I live in") ───────────────────────────────────────────────
+interface StackTool {
+  name: string;
+  mono: string;      // monogram on the tile
+  bg: string;        // tile background
+  badge: string;     // notification badge text
+  x: number; y: number; // % position on the desktop board
+  delay: number;     // float animation offset (s)
+}
+
+const STACK_TOOLS: StackTool[] = [
+  { name: "n8n",         mono: "n8n", bg: "#ea4b71", badge: "40+", x: 12, y: 26, delay: 0   },
+  { name: "GoHighLevel", mono: "GHL", bg: "#1f7aeb", badge: "10",  x: 26, y: 68, delay: 0.8 },
+  { name: "Claude",      mono: "C\\", bg: "#d97757", badge: "∞",   x: 8,  y: 78, delay: 1.6 },
+  { name: "Pinterest",   mono: "P",   bg: "#e60023", badge: "1M",  x: 88, y: 30, delay: 0.4 },
+  { name: "Instagram",   mono: "IG",  bg: "#c13584", badge: "470", x: 76, y: 72, delay: 1.2 },
+  { name: "Higgsfield",  mono: "H",   bg: "#b5e315", badge: "6",   x: 92, y: 62, delay: 2   },
+  { name: "React",       mono: "</>", bg: "#087ea4", badge: "3",   x: 22, y: 12, delay: 2.4 },
+  { name: "Supabase",    mono: "S",   bg: "#3ecf8e", badge: "2",   x: 80, y: 10, delay: 2.8 },
+];
 
 // ─── HOOKS ───────────────────────────────────────────────────────────────────
 function useTheme(): { theme: string; toggle: () => void } {
@@ -546,6 +672,19 @@ function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }
     return () => obs.disconnect();
   }, [delay]);
   return <div ref={ref} className="fn3-rev">{children}</div>;
+}
+
+function ChapterHead({ num, title, hint }: { num: string; title: string; hint?: string }) {
+  return (
+    <Reveal>
+      <div className="fn3-chap">
+        <span className="fn3-chap-num">{num}</span>
+        <span className="fn3-chap-bar" />
+        <span className="fn3-chap-title">{title}</span>
+        {hint && <span className="fn3-chap-hint">{hint}</span>}
+      </div>
+    </Reveal>
+  );
 }
 
 function StatCard({ value, prefix = "", suffix, label }: { value: number; prefix?: string; suffix: string; label: string }) {
@@ -698,7 +837,7 @@ function Navbar({ theme, onToggle }: { theme: string; onToggle: () => void }) {
     <nav className="fn3-nav">
       <a href="#home" className="fn3-serif" style={{ fontSize: "22px", fontWeight: 700, color: "var(--pri)", textDecoration: "none" }}>FN</a>
       <div className="fn3-navlinks">
-        {[["#about","About"],["#services","Services"],["#reviews","Reviews"],["#contact","Contact"]].map(([href, label]) => (
+        {[["#about","About"],["#portfolio","Work"],["#services","Services"],["#stack","Stack"],["#reviews","Reviews"],["#book","Book"]].map(([href, label]) => (
           <a key={href} href={href} className="fn3-navlink">{label}</a>
         ))}
         <Link to="/work" className="fn3-navlink">Portfolio</Link>
@@ -714,10 +853,10 @@ function Navbar({ theme, onToggle }: { theme: string; onToggle: () => void }) {
 const MOB_TABS = [
   { id: "home",      label: "Home",     Icon: Home,     href: null },
   { id: "about",     label: "About",    Icon: User,     href: null },
+  { id: "portfolio", label: "Work",     Icon: Briefcase, href: null },
   { id: "services",  label: "Services", Icon: Zap,      href: null },
-  { id: "portfolio", label: "Work",     Icon: Briefcase, href: "/work" },
   { id: "reviews",   label: "Reviews",  Icon: Star,     href: null },
-  { id: "contact",   label: "Contact",  Icon: Mail,     href: null },
+  { id: "book",      label: "Book",     Icon: CalendarCheck, href: null },
 ];
 
 function MobileNav({ theme, onToggle, active, setActive }: { theme: string; onToggle: () => void; active: string; setActive: (s: string) => void }) {
@@ -758,8 +897,8 @@ function Hero({ word }: { word: string }) {
           The through-line is always the same.
         </p>
         <div className="fn3-hero-actions">
-          <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer" className="fn3-btn fn3-btn-pri">
-            Book a System Audit <ArrowRight size={15} />
+          <a href="#book" className="fn3-btn fn3-btn-pri">
+            Book a Session <ArrowRight size={15} />
           </a>
           <a href="#portfolio" className="fn3-btn fn3-btn-out">View my work</a>
         </div>
@@ -801,6 +940,7 @@ function About() {
   const highlights = [["1M+", "Monthly organic views"], ["470+", "Businesses engaged"], ["6", "Case studies built"]];
   return (
     <div id="about" className="fn3-sec">
+      <ChapterHead num="02" title="About" />
       <Reveal>
         <div className="fn3-card fn3-about-inner">
           <div style={{ flex: 1, minWidth: 0 }}>
@@ -844,8 +984,8 @@ function AutomationStrip() {
   return (
     <div className="fn3-strip">
       <div className="fn3-strip-hd">
+        <ChapterHead num="03" title="Work" hint="Systems · Social · Web" />
         <Reveal>
-          <span className="fn3-label">Real systems I've built</span>
           <h2 className="fn3-h2" style={{ marginBottom: "6px" }}>Automation work</h2>
           <p style={{ fontSize: "15px", color: "var(--t2)" }}>Live n8n and GoHighLevel workflows deployed for real clients.</p>
         </Reveal>
@@ -910,52 +1050,40 @@ function Stats() {
 function Services() {
   return (
     <div id="services" className="fn3-sec">
+      <ChapterHead num="04" title="Services" hint="3 ways to work with me" />
       <Reveal>
-        <span className="fn3-label">What I do</span>
         <h2 className="fn3-h2" style={{ marginBottom: "8px" }}>Services</h2>
         <p style={{ fontSize: "15px", color: "var(--t2)", marginBottom: "36px", maxWidth: "480px" }}>
-          Two expressions of the same approach: find what's slowing you down, build the system that removes it.
+          Three expressions of the same approach: find what's slowing you down, build the system that removes it.
         </p>
       </Reveal>
-      <div className="fn3-g2">
-        <Reveal>
-          <div className="fn3-card fn3-svccard">
-            <div className="fn3-svcicon"><Zap size={20} /></div>
-            <h3 className="fn3-h3" style={{ marginBottom: "12px" }}>Revenue Automation Systems</h3>
-            <p style={{ fontSize: "14.5px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "20px" }}>
-              Your business has workflows someone is doing manually right now. I map them, automate them with GoHighLevel and n8n, and remove the person from the equation. The system runs 24/7 — they focus on work that actually moves things forward.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "9px", marginBottom: "28px" }}>
-              {SVC_FEATURES_1.map((f) => (
-                <div key={f} style={{ display: "flex", alignItems: "center", gap: "9px", fontSize: "13.5px", color: "var(--t2)" }}>
-                  <span style={{ width: "6px", height: "6px", background: "var(--pri)", borderRadius: "50%", flexShrink: 0 }} />{f}
-                </div>
-              ))}
+      <div className="fn3-g3" style={{ gap: "16px" }}>
+        {SERVICES.map((svc, i) => (
+          <Reveal key={svc.id} delay={i * 90}>
+            <div className="fn3-card fn3-svccard" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <div className="fn3-svcicon"><svc.Icon size={20} /></div>
+              <h3 className="fn3-h3" style={{ marginBottom: "12px" }}>{svc.title}</h3>
+              <p style={{ fontSize: "14px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "20px" }}>{svc.blurb}</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "9px", marginBottom: "26px", flex: 1 }}>
+                {svc.features.map((f) => (
+                  <div key={f} style={{ display: "flex", alignItems: "center", gap: "9px", fontSize: "13px", color: "var(--t2)" }}>
+                    <span style={{ width: "6px", height: "6px", background: "var(--pri)", borderRadius: "50%", flexShrink: 0 }} />{f}
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent("fn3-book-service", { detail: svc.id }));
+                  document.getElementById("book")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`fn3-btn ${i === 0 ? "fn3-btn-pri" : "fn3-btn-out"}`}
+                style={{ width: "100%", justifyContent: "center" }}
+              >
+                Book a {svc.session} <ArrowRight size={14} />
+              </button>
             </div>
-            <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer" className="fn3-btn fn3-btn-pri" style={{ width: "100%", justifyContent: "center" }}>
-              Book a System Audit <ArrowRight size={14} />
-            </a>
-          </div>
-        </Reveal>
-        <Reveal delay={100}>
-          <div className="fn3-card fn3-svccard">
-            <div className="fn3-svcicon"><TrendingUp size={20} /></div>
-            <h3 className="fn3-h3" style={{ marginBottom: "12px" }}>Social Media Growth</h3>
-            <p style={{ fontSize: "14.5px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "20px" }}>
-              Content built on a system, not a schedule. I build the strategy, manage the accounts, and create content that compounds month over month — without it falling apart when things get busy.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "9px", marginBottom: "28px" }}>
-              {SVC_FEATURES_2.map((f) => (
-                <div key={f} style={{ display: "flex", alignItems: "center", gap: "9px", fontSize: "13.5px", color: "var(--t2)" }}>
-                  <span style={{ width: "6px", height: "6px", background: "var(--pri)", borderRadius: "50%", flexShrink: 0 }} />{f}
-                </div>
-              ))}
-            </div>
-            <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer" className="fn3-btn fn3-btn-out" style={{ width: "100%", justifyContent: "center" }}>
-              Start Growing <ArrowRight size={14} />
-            </a>
-          </div>
-        </Reveal>
+          </Reveal>
+        ))}
       </div>
     </div>
   );
@@ -1085,8 +1213,8 @@ function Testimonials() {
   return (
     <div id="reviews" className="fn3-strip">
       <div className="fn3-strip-hd">
+        <ChapterHead num="06" title="Testimonials" hint="What clients say" />
         <Reveal>
-          <span className="fn3-label">Client Stories</span>
           <h2 className="fn3-h2" style={{ marginBottom: "6px" }}>What clients say</h2>
           <p style={{ fontSize: "15px", color: "var(--t2)" }}>Real feedback from real projects.</p>
         </Reveal>
@@ -1114,48 +1242,326 @@ function Testimonials() {
   );
 }
 
-// ─── CONTACT ─────────────────────────────────────────────────────────────────
-function Contact() {
+// ─── STACK ("Tools I live in") ───────────────────────────────────────────────
+function StackTile({ tool }: { tool: StackTool }) {
   return (
-    <div id="contact" className="fn3-sec">
-      <div className="fn3-contact-grid">
-        <Reveal>
-          <span className="fn3-label">Get in touch</span>
-          <h2 className="fn3-h2" style={{ marginBottom: "16px" }}>
-            Let's build something{" "}
-            <span style={{ fontStyle: "italic", color: "var(--pri)" }}>worth growing.</span>
-          </h2>
-          <p style={{ fontSize: "15px", lineHeight: "1.75", color: "var(--t2)", marginBottom: "28px" }}>
-            Whether you need a full revenue automation system or a social media growth strategy,
-            I'd love to hear about your brand.
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-            <a href="mailto:faithfulnyama@gmail.com" style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "var(--t2)", textDecoration: "none" }}>
-              <Mail size={15} style={{ color: "var(--pri)" }} /> faithfulnyama@gmail.com
-            </a>
-            <a href="https://www.instagram.com/faithfulnyama" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "var(--t2)", textDecoration: "none" }}>
-              <Instagram size={15} style={{ color: "var(--pri)" }} /> @faithfulnyama
-            </a>
-            <a href="https://www.linkedin.com/in/faithfulnyama" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "var(--t2)", textDecoration: "none" }}>
-              <Linkedin size={15} style={{ color: "var(--pri)" }} /> linkedin.com/in/faithfulnyama
-            </a>
+    <div
+      className="fn3-tile-wrap"
+      style={{ left: `${tool.x}%`, top: `${tool.y}%`, animationDelay: `${tool.delay}s` }}
+    >
+      <div className="fn3-tile" style={{ background: tool.bg }}>
+        {tool.mono}
+        <span className="fn3-tile-badge">{tool.badge}</span>
+      </div>
+      <span className="fn3-tile-label">{tool.name}</span>
+    </div>
+  );
+}
+
+function StackSection() {
+  return (
+    <div id="stack" className="fn3-sec">
+      <ChapterHead num="05" title="My Stack" hint={`${STACK_TOOLS.length} tools`} />
+      <Reveal>
+        <h2 className="fn3-h2" style={{ marginBottom: "36px" }}>
+          The tools do the work.{" "}
+          <span style={{ fontStyle: "italic", color: "var(--pri)" }}>I do the thinking.</span>
+        </h2>
+      </Reveal>
+      <Reveal delay={80}>
+        <div className="fn3-stack-board">
+          {/* dashed connector lines (desktop) */}
+          <svg className="fn3-stack-lines" aria-hidden="true">
+            {STACK_TOOLS.map((t) => (
+              <line key={t.name} x1={`${t.x}%`} y1={`${t.y}%`} x2="50%" y2="50%" />
+            ))}
+          </svg>
+          {/* scattered tiles (desktop) */}
+          <div className="fn3-stack-field">
+            {STACK_TOOLS.map((t) => <StackTile key={t.name} tool={t} />)}
           </div>
-        </Reveal>
-        <Reveal delay={120}>
-          <div className="fn3-card" style={{ padding: "32px" }}>
-            <h3 className="fn3-h3" style={{ marginBottom: "6px" }}>Book a free audit</h3>
-            <p style={{ fontSize: "13.5px", color: "var(--t2)", marginBottom: "22px" }}>30 minutes. No pitch. Just strategy.</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <input className="fn3-input" placeholder="Your name" />
-              <input className="fn3-input" placeholder="Email address" type="email" />
-              <textarea className="fn3-input" placeholder="Tell me about your business and goals..." rows={4} />
-              <a href="https://calendly.com/faithfulnyama/30-minute-one-on-one-meeting" target="_blank" rel="noopener noreferrer" className="fn3-btn fn3-btn-pri" style={{ justifyContent: "center" }}>
-                Schedule on Calendly <ArrowRight size={14} />
-              </a>
+          {/* center statement */}
+          <div className="fn3-stack-center">
+            <h3 className="fn3-stack-h">Tools I<br />live in.</h3>
+            <div className="fn3-stack-pills">
+              {["Map", "Automate", "Grow"].map((p) => <span key={p} className="fn3-stack-pill">{p}</span>)}
             </div>
+          </div>
+          {/* mobile grid */}
+          <div className="fn3-stack-grid-mob">
+            {STACK_TOOLS.map((t) => <StackTile key={t.name} tool={t} />)}
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  );
+}
+
+// ─── BOOK A SESSION (inline, per-service, powered by n8n) ────────────────────
+const visitorTz = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+
+const demoSlotsFor = (d: Date): string[] => {
+  const out: string[] = [];
+  for (let h = 9; h < 16; h++) for (const m of [0, 30]) {
+    const s = new Date(d); s.setHours(h, m, 0, 0); out.push(s.toISOString());
+  }
+  return out;
+};
+
+function BookSection() {
+  const [service, setService] = useState<Service>(SERVICES[0]);
+  const [month, setMonth] = useState(() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); });
+  const [date, setDate] = useState<Date | null>(null);
+  const [slots, setSlots] = useState<string[]>([]);
+  const [slotState, setSlotState] = useState<"idle" | "loading" | "ready" | "error">("idle");
+  const [slot, setSlot] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [note, setNote] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [done, setDone] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const live = isBookingBackendLive();
+
+  // Service cards above can preselect a service
+  useEffect(() => {
+    const h = (e: Event) => {
+      const id = (e as CustomEvent).detail as string;
+      const svc = SERVICES.find((s) => s.id === id);
+      if (svc) setService(svc);
+    };
+    window.addEventListener("fn3-book-service", h);
+    return () => window.removeEventListener("fn3-book-service", h);
+  }, []);
+
+  const today = useMemo(() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }, []);
+  const maxDay = useMemo(() => { const d = new Date(today); d.setDate(d.getDate() + BOOKING.bookingWindowDays); return d; }, [today]);
+
+  const monthDays = useMemo(() => {
+    const first = new Date(month);
+    const startPad = (first.getDay() + 6) % 7; // Monday-first
+    const count = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+    const cells: (Date | null)[] = Array.from({ length: startPad }, () => null);
+    for (let i = 1; i <= count; i++) cells.push(new Date(month.getFullYear(), month.getMonth(), i));
+    return cells;
+  }, [month]);
+
+  const dayDisabled = (d: Date) =>
+    d <= today || d > maxDay || BOOKING.disabledWeekdays.includes(d.getDay() as 0 | 6);
+
+  const pickDate = async (d: Date) => {
+    setDate(d); setSlot(null); setDone(false); setSubmitError(null);
+    setSlotState("loading");
+    try {
+      if (!live) {
+        await new Promise((r) => setTimeout(r, 450));
+        setSlots(demoSlotsFor(d)); setSlotState("ready"); return;
+      }
+      const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      const res = await fetch(BOOKING.availabilityUrl, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date: iso, timezone: visitorTz }),
+      });
+      if (!res.ok) throw new Error("bad response");
+      const data = await res.json();
+      setSlots(Array.isArray(data?.slots) ? data.slots : []);
+      setSlotState("ready");
+    } catch {
+      setSlotState("error");
+    }
+  };
+
+  const fmtTime = (iso: string) =>
+    new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit", timeZone: visitorTz }).format(new Date(iso));
+
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const canSubmit = slot && name.trim().length > 1 && validEmail && !submitting;
+
+  const submit = async () => {
+    if (!canSubmit || !slot) return;
+    setSubmitting(true); setSubmitError(null);
+    try {
+      if (!live) {
+        await new Promise((r) => setTimeout(r, 800));
+        setDone(true); return;
+      }
+      const res = await fetch(BOOKING.bookingUrl, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          start: slot, timezone: visitorTz, name, email,
+          business: "", phone: "",
+          goal: note, service: `${service.title} (${service.session})`,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data?.ok === false) throw new Error("failed");
+      setDone(true);
+    } catch {
+      setSubmitError("That time may have just been taken — pick another slot or book via Calendly below.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const monthLabel = month.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+  const prevDisabled = month <= new Date(today.getFullYear(), today.getMonth(), 1);
+
+  return (
+    <div id="book" className="fn3-sec">
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+        <div>
+          <ChapterHead num="07" title="Book a Session" />
+          <Reveal>
+            <p style={{ fontSize: "15px", color: "var(--t2)", marginBottom: "28px" }}>
+              Pick a date and time — 30 minutes, no pitch.{" "}
+              <span style={{ color: "var(--pri)", fontStyle: "italic", fontFamily: "'Cormorant Garamond',serif", fontSize: "17px" }}>Let's build something together.</span>
+            </p>
+          </Reveal>
+        </div>
+        <Reveal delay={60}>
+          <div className="fn3-book-tabs" role="tablist" aria-label="Session type">
+            {SERVICES.map((s) => (
+              <button
+                key={s.id}
+                role="tab"
+                aria-selected={service.id === s.id}
+                className={`fn3-book-tab${service.id === s.id ? " active" : ""}`}
+                onClick={() => { setService(s); setDone(false); }}
+              >
+                {s.title.split(" ")[0] === "Revenue" ? "Automation" : s.title.split(" & ")[0]}
+              </button>
+            ))}
           </div>
         </Reveal>
       </div>
+
+      <Reveal delay={100}>
+        <div className="fn3-book-grid">
+          {/* Calendar */}
+          <div className="fn3-card fn3-cal">
+            <div className="fn3-cal-head">
+              <button className="fn3-cal-nav" disabled={prevDisabled} onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))} aria-label="Previous month">
+                <ChevronLeft size={15} />
+              </button>
+              <span className="fn3-cal-month">{monthLabel}</span>
+              <button className="fn3-cal-nav" onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() + 1, 1))} aria-label="Next month">
+                <ChevronRight size={15} />
+              </button>
+            </div>
+            <div className="fn3-cal-grid">
+              {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => <span key={d} className="fn3-cal-dow">{d}</span>)}
+              {monthDays.map((d, i) =>
+                d === null
+                  ? <span key={`p${i}`} />
+                  : <button
+                      key={d.toISOString()}
+                      className={`fn3-cal-day${date?.getTime() === d.getTime() ? " sel" : ""}`}
+                      disabled={dayDisabled(d)}
+                      onClick={() => pickDate(d)}
+                    >
+                      {d.getDate()}
+                    </button>
+              )}
+            </div>
+            <p style={{ fontSize: "11.5px", color: "var(--t3)", marginTop: "12px", textAlign: "center" }}>
+              Times in your timezone · {visitorTz.replace(/_/g, " ")}
+            </p>
+          </div>
+
+          {/* Times + details */}
+          <div className="fn3-card fn3-book-panel">
+            {done ? (
+              <div style={{ textAlign: "center", padding: "36px 12px" }}>
+                <div style={{ width: "52px", height: "52px", margin: "0 auto 18px", borderRadius: "50%", background: "var(--card2)", border: "1.5px solid var(--b1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--pri)" }}>
+                  <CalendarCheck size={22} />
+                </div>
+                <h3 className="fn3-h3" style={{ marginBottom: "8px" }}>You're booked{name ? `, ${name.split(" ")[0]}` : ""}.</h3>
+                <p style={{ fontSize: "14px", color: "var(--t2)", marginBottom: "4px" }}>
+                  {service.title} · {date && slot && `${date.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })} at ${fmtTime(slot)}`}
+                </p>
+                <p style={{ fontSize: "13px", color: "var(--t3)" }}>
+                  A confirmation email and calendar invite are on their way.
+                  {!live && " (Preview only — no real booking was made.)"}
+                </p>
+              </div>
+            ) : (
+              <>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
+                  <span className="fn3-dot" />
+                  <span style={{ fontSize: "13px", fontWeight: 600 }}>Available times</span>
+                  <span style={{ marginLeft: "auto", fontSize: "12px", color: "var(--t3)" }}>{service.session} · 30 min</span>
+                </div>
+
+                {slotState === "idle" && (
+                  <p style={{ fontSize: "13.5px", color: "var(--t3)", padding: "22px 0", textAlign: "center" }}>
+                    Select a date on the left to see open slots
+                  </p>
+                )}
+                {slotState === "loading" && (
+                  <div className="fn3-slot-grid">
+                    {Array.from({ length: 8 }).map((_, i) => <div key={i} className="fn3-slot-skel" />)}
+                  </div>
+                )}
+                {slotState === "error" && (
+                  <p style={{ fontSize: "13.5px", color: "var(--t2)", padding: "18px 0", textAlign: "center" }}>
+                    Couldn't load times for that day —{" "}
+                    <a href={BOOKING.fallbackCalendly} target="_blank" rel="noopener noreferrer" style={{ color: "var(--pri)" }}>book via Calendly</a>{" "}
+                    or try another date.
+                  </p>
+                )}
+                {slotState === "ready" && (
+                  slots.length === 0 ? (
+                    <p style={{ fontSize: "13.5px", color: "var(--t3)", padding: "18px 0", textAlign: "center" }}>
+                      Fully booked that day — try another date.
+                    </p>
+                  ) : (
+                    <div className="fn3-slot-grid">
+                      {slots.map((s) => (
+                        <button key={s} className={`fn3-slot${slot === s ? " sel" : ""}`} onClick={() => setSlot(s)}>
+                          {fmtTime(s)}
+                        </button>
+                      ))}
+                    </div>
+                  )
+                )}
+
+                <div style={{ borderTop: "1px solid var(--b0)", margin: "20px 0" }} />
+
+                <div className="fn3-g2" style={{ gap: "12px", marginBottom: "12px" }}>
+                  <div>
+                    <label style={{ fontSize: "11px", fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--t3)", display: "block", marginBottom: "6px" }}>Full name</label>
+                    <input className="fn3-input" placeholder="Jane Doe" value={name} onChange={(e) => setName(e.target.value)} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: "11px", fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--t3)", display: "block", marginBottom: "6px" }}>Email address</label>
+                    <input className="fn3-input" type="email" placeholder="jane@company.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  </div>
+                </div>
+                <textarea className="fn3-input" rows={2} placeholder={`What should we focus on in your ${service.session.toLowerCase()}?`} value={note} onChange={(e) => setNote(e.target.value)} style={{ marginBottom: "14px" }} />
+
+                {submitError && <p style={{ fontSize: "13px", color: "#e2453a", marginBottom: "12px" }} role="alert">{submitError}</p>}
+
+                <button className="fn3-btn fn3-btn-pri" style={{ width: "100%", justifyContent: "center", opacity: canSubmit ? 1 : 0.5, cursor: canSubmit ? "pointer" : "not-allowed" }} disabled={!canSubmit} onClick={submit}>
+                  {submitting ? "Booking…" : <>Book a {service.session} <ArrowRight size={14} /></>}
+                </button>
+
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "18px", marginTop: "18px", flexWrap: "wrap" }}>
+                  <a href="mailto:faithfulnyama@gmail.com" style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12.5px", color: "var(--t3)", textDecoration: "none" }}>
+                    <Mail size={13} style={{ color: "var(--pri)" }} /> faithfulnyama@gmail.com
+                  </a>
+                  <a href="https://www.instagram.com/faithfulnyama" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12.5px", color: "var(--t3)", textDecoration: "none" }}>
+                    <Instagram size={13} style={{ color: "var(--pri)" }} /> @faithfulnyama
+                  </a>
+                  <a href="https://www.linkedin.com/in/faithfulnyama" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12.5px", color: "var(--t3)", textDecoration: "none" }}>
+                    <Linkedin size={13} style={{ color: "var(--pri)" }} /> LinkedIn
+                  </a>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </Reveal>
     </div>
   );
 }
@@ -1183,7 +1589,7 @@ export default function PersonalPage() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<PItem | null>(null);
 
   useEffect(() => {
-    const ids = ["home", "about", "services", "portfolio", "reviews", "contact"];
+    const ids = ["home", "about", "services", "portfolio", "stack", "reviews", "book"];
     const observers = ids.map((id) => {
       const el = document.getElementById(id);
       if (!el) return null;
@@ -1205,14 +1611,15 @@ export default function PersonalPage() {
         <Hero word={word} />
         <LogoMarquee />
         <About />
+        <Stats />
         <AutomationStrip />
         <SocialStrip />
-        <Stats />
-        <Services />
-        <BuildsPreview />
         <Portfolio onOpen={setSelectedPortfolio} />
+        <BuildsPreview />
+        <Services />
+        <StackSection />
         <Testimonials />
-        <Contact />
+        <BookSection />
       </main>
       <PageFooter theme={theme} onToggle={toggle} />
       <MobileNav theme={theme} onToggle={toggle} active={active} setActive={setActive} />
