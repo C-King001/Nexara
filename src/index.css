@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── SDK Phone Store — Deep Graphite + Electric Lime ── */
+    --background: 240 8% 4%;
+    --foreground: 0 0% 93%;
+
+    --card: 240 6% 7%;
+    --card-foreground: 0 0% 93%;
+
+    --popover: 240 5% 8%;
+    --popover-foreground: 0 0% 93%;
+
+    --primary: 76 100% 50%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 240 5% 13%;
+    --secondary-foreground: 0 0% 82%;
+
+    --muted: 240 5% 10%;
+    --muted-foreground: 240 4% 46%;
+
+    --accent: 35 100% 52%;
+    --accent-foreground: 0 0% 5%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 14%;
+    --input: 240 5% 14%;
+    --ring: 76 100% 50%;
+    --radius: 0.75rem;
+
+    --sidebar-background: 240 6% 7%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 76 100% 50%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 240 5% 12%;
+    --sidebar-accent-foreground: 0 0% 85%;
+    --sidebar-border: 240 5% 14%;
+    --sidebar-ring: 76 100% 50%;
+
+    /* ── Kure Custom ── */
+    --kure-lime: 76 100% 50%;
+    --kure-amber: 35 100% 52%;
+    --kure-silver: 0 0% 78%;
+    --kure-bg: #070709;
+    --kure-surface: #0f0f13;
+    --kure-card: #141418;
+    --kure-border: rgba(255, 255, 255, 0.07);
+
+    --glow-lime: 0 0 40px -8px hsl(76 100% 50% / 0.5);
+    --glow-amber: 0 0 40px -8px hsl(35 100% 52% / 0.4);
+    --gradient-lime: linear-gradient(135deg, hsl(76 100% 50%), hsl(120 100% 60%));
+    --gradient-dark: linear-gradient(180deg, #070709 0%, #0d0d12 100%);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply antialiased;
+    background-color: var(--kure-bg);
+    color: hsl(var(--foreground));
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Syne', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-mono, code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ── Utility classes ── */
+@layer utilities {
+  .font-display { font-family: 'Syne', sans-serif; }
+  .font-ui { font-family: 'Space Grotesk', sans-serif; }
+  .font-code { font-family: 'JetBrains Mono', monospace; }
+
+  .text-lime { color: hsl(var(--kure-lime)); }
+  .text-amber { color: hsl(var(--kure-amber)); }
+  .bg-lime { background-color: hsl(var(--kure-lime)); }
+  .bg-amber { background-color: hsl(var(--kure-amber)); }
+
+  .text-gradient-lime {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-lime);
+  }
+
+  .glow-lime { box-shadow: var(--glow-lime); }
+  .glow-amber { box-shadow: var(--glow-amber); }
+
+  .kure-card {
+    background-color: var(--kure-card);
+    border: 1px solid var(--kure-border);
+  }
+
+  .kure-surface {
+    background-color: var(--kure-surface);
+    border: 1px solid var(--kure-border);
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .noise-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .text-dim { color: hsl(240 4% 46%); }
+  .text-bright { color: #f0f0f0; }
+}
+
+/* ── Animations ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.marquee-track { animation: marquee 35s linear infinite; width: max-content; }
+.marquee-track-reverse { animation: marquee-reverse 35s linear infinite; width: max-content; }
+.marquee-track:hover,
+.marquee-track-reverse:hover { animation-play-state: paused; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float { animation: float 5s ease-in-out infinite; }
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Product image hover ── */
+.product-img-wrap {
+  overflow: hidden;
+}
+.product-img-wrap img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.product-img-wrap:hover img {
+  transform: scale(1.06);
+}
+
+/* ── Lime button ── */
+.btn-lime {
+  background-color: hsl(var(--kure-lime));
+  color: #050505;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: all 0.2s;
+}
+.btn-lime:hover {
+  background-color: hsl(76 100% 45%);
+  box-shadow: var(--glow-lime);
+}
