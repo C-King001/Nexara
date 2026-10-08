@@ -438,7 +438,7 @@ function SocialSection() {
               </div>
 
               {/* Headline */}
-              <p style={{ fontSize: "15px", fontWeight: 600, color: "var(--pri)", fontFamily: "'Cormorant Garamond', serif", fontSize: "18px", lineHeight: "1.35", marginBottom: "12px" }}>
+              <p style={{ fontWeight: 600, color: "var(--pri)", fontFamily: "'Cormorant Garamond', serif", fontSize: "18px", lineHeight: "1.35", marginBottom: "12px" }}>
                 {item.headline}
               </p>
 
@@ -528,6 +528,21 @@ const AI_VIDEOS = [
   { src: "/videos/sonia-testimonial-video.mp4",    title: "Sonia · Testimonial",    tool: "Claude" },
 ];
 
+// Kaminskiy Care & Repair AI campaign. Titles are the clip names as delivered;
+// tool attributions to be added once confirmed.
+const KCR_VIDEOS = [
+  { src: "/videos/kcr/street-interview-1.mp4",         title: "Street interview 1" },
+  { src: "/videos/kcr/street-interview-5.mp4",         title: "Street interview 5" },
+  { src: "/videos/kcr/2-done-once-and-done-right.mp4", title: "Done once and done right" },
+  { src: "/videos/kcr/showing-how-clean-kcr-is.mp4",   title: "Showing how clean KCR is" },
+  { src: "/videos/kcr/the-silent-treatment.mp4",       title: "The silent treatment" },
+  { src: "/videos/kcr/the-busy-executive.mp4",         title: "The busy executive" },
+  { src: "/videos/kcr/the-caring-father.mp4",          title: "The caring father" },
+  { src: "/videos/kcr/the-blue-collar-worker.mp4",     title: "The blue-collar worker" },
+  { src: "/videos/kcr/diy-fail-2.mp4",                 title: "DIY fail" },
+  { src: "/videos/kcr/montage-of-ai-home-repairs.mp4", title: "Montage of AI home repairs" },
+].map((v) => ({ ...v, poster: v.src.replace(/\.mp4$/, ".jpg") }));
+
 // ─── CMS SECTION ──────────────────────────────────────────────────────────────
 function CmsSection() {
   const [lightbox, setLightbox] = useState<string | null>(null);
@@ -603,6 +618,40 @@ function VideosSection() {
   return (
     <div className="wp-sec">
       <Reveal>
+        <div className="wp-build-block">
+          <div className="wp-build-block-title">
+            <span className="wp-label" style={{ margin: 0 }}>Kaminskiy Care &amp; Repair</span>
+          </div>
+          <h2 className="wp-h2" style={{ marginBottom: "14px" }}>
+            A full short-form campaign<br />
+            <span style={{ color: "var(--pri)", fontStyle: "italic" }}>for a home services brand.</span>
+          </h2>
+          <p className="wp-build-block-desc">
+            Street interviews, homeowner portraits, DIY-fail cautionary pieces and craft montages — written,
+            generated and cut for a franchise home repair brand. Ten of the set are shown here.
+          </p>
+
+          <div className="wp-video-grid">
+            {KCR_VIDEOS.map((v) => (
+              <div key={v.src} className="wp-video-card">
+                <video
+                  className="wp-video-player"
+                  src={v.src}
+                  poster={v.poster}
+                  controls
+                  preload="none"
+                  playsInline
+                />
+                <div className="wp-video-info">
+                  <div className="wp-video-title">{v.title}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={120}>
         <div className="wp-build-block">
           <div className="wp-build-block-title">
             <span className="wp-label" style={{ margin: 0 }}>AI Video Production</span>
@@ -696,7 +745,7 @@ const TABS: { id: Tab; label: string; count?: number }[] = [
   { id: "websites",   label: "Websites",          count: WEBSITES.length },
   { id: "automation", label: "Automation Systems", count: caseStudies.length },
   { id: "social",     label: "Social Media",       count: SOCIAL_PORTFOLIO.length },
-  { id: "videos",     label: "AI Videos",          count: AI_VIDEOS.length },
+  { id: "videos",     label: "AI Videos",          count: AI_VIDEOS.length + KCR_VIDEOS.length },
   { id: "cms",        label: "CMS" },
 ];
 
