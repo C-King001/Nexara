@@ -6,6 +6,7 @@ import {
   ChevronLeft, ChevronRight,
 } from "lucide-react";
 import { BOOKING, isBookingBackendLive } from "@/config/booking";
+import { WEBSITES } from "@/data/websites";
 
 // ─── STYLES ──────────────────────────────────────────────────────────────────
 const STYLES = `
@@ -18,7 +19,7 @@ const STYLES = `
 .fn3.fn3-light {
   --bg: #f8f7f4; --card: #ffffff; --card2: #f0ede6;
   --pri: #1a3d2b; --pri2: #2d5c42;
-  --t1: #18181a; --t2: #585850; --t3: #9b9b92;
+  --t1: #18181a; --t2: #585850; --t3: #70706a;
   --b0: rgba(26,61,43,.10); --b1: rgba(26,61,43,.28);
   --sh: rgba(0,0,0,.07);
   background: var(--bg); color: var(--t1);
@@ -27,7 +28,7 @@ const STYLES = `
 .fn3.fn3-dark {
   --bg: #0c0c0b; --card: #141413; --card2: #1c1c1a;
   --pri: #c9a84c; --pri2: #e8c97a;
-  --t1: #ede9df; --t2: #a5a59a; --t3: #66665a;
+  --t1: #ede9df; --t2: #a5a59a; --t3: #7e7e72;
   --b0: rgba(201,168,76,.12); --b1: rgba(201,168,76,.36);
   --sh: rgba(0,0,0,.5);
   background: var(--bg); color: var(--t1);
@@ -76,6 +77,14 @@ const STYLES = `
 .fn3-social-card:hover { transform:translateY(-3px); box-shadow:0 10px 30px var(--sh); }
 .fn3-social-card img { width:100%; height:220px; object-fit:cover; object-position:top; display:block; }
 .fn3-social-card-label { padding:10px 14px; font-size:12px; font-weight:500; color:var(--t2); }
+
+.fn3-site-card { width:360px; flex-shrink:0; margin:0 10px; border-radius:12px; overflow:hidden; background:var(--card); border:1px solid var(--b0); transition:transform .22s ease, box-shadow .22s ease; }
+.fn3-site-card:hover { transform:translateY(-3px); box-shadow:0 10px 30px var(--sh); }
+.fn3-site-card img { width:100%; height:215px; object-fit:cover; object-position:top; display:block; border-bottom:1px solid var(--b0); }
+.fn3-site-card-label { padding:12px 15px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.fn3-site-card-name { display:block; font-size:13px; font-weight:600; color:var(--t1); }
+.fn3-site-card-desc { display:block; font-size:11.5px; color:var(--t2); margin-top:3px; }
+@media(max-width:480px){ .fn3-site-card { width:280px; } .fn3-site-card img { height:170px; } }
 
 /* Testimonial marquee cards */
 .fn3-tm-card { width:340px; flex-shrink:0; margin:0 10px; padding:24px; background:var(--card); border:1px solid var(--b0); border-radius:14px; }
@@ -304,14 +313,6 @@ const AUTO_IMAGES = [
   { src: "/images/automations/coaching/lead-automation.jpeg",     title: "Lead Scoring & Routing · n8n",     href: "/case/coaching-lead-automation" },
   { src: "/images/automations/job-alert/system.jpeg",             title: "Job Alert Engine · Telegram",      href: "/case/job-alert-system" },
   { src: "/images/automations/spreadsheet/with-ai.jpeg",          title: "AI Data Processing · n8n",         href: "/case/spreadsheet-intelligence" },
-];
-
-const SOCIAL_RESULTS = [
-  { src: "/social-media-results/results-instagram.png",              label: "Kaminskiy · Instagram Reach",      href: "/work?tab=social" },
-  { src: "/social-media-results/IMG_9313.PNG",                       label: "Kaminskiy · 495K Views in 30 Days",href: "/work?tab=social" },
-  { src: "/social-media-results/results-book-addicts-analytics.webp",label: "Book Addicts · Pinterest Analytics",href: "/work?tab=social" },
-  { src: "/social-media-results/results-book-addicts-profile.webp",  label: "Book Addicts · 1M Monthly Views",  href: "/work?tab=social" },
-  { src: "/social-media-results/results-pinterest-glow.webp",        label: "GlowVibe · +326% Impressions",     href: "/work?tab=social" },
 ];
 
 const TESTIMONIALS = [
@@ -1005,28 +1006,47 @@ function AutomationStrip() {
   );
 }
 
-// ─── SOCIAL RESULTS STRIP ────────────────────────────────────────────────────
-function SocialStrip() {
+// ─── WEBSITE STRIP ───────────────────────────────────────────────────────────
+function WebsiteStrip() {
   return (
     <div className="fn3-strip">
       <div className="fn3-strip-hd">
         <Reveal>
-          <span className="fn3-label">Social media results</span>
-          <h2 className="fn3-h2" style={{ marginBottom: "6px" }}>Numbers don't lie</h2>
-          <p style={{ fontSize: "15px", color: "var(--t2)" }}>Real analytics and growth results from client accounts.</p>
+          <span className="fn3-label">Websites</span>
+          <h2 className="fn3-h2" style={{ marginBottom: "6px" }}>Sites I've built</h2>
+          <p style={{ fontSize: "15px", color: "var(--t2)" }}>
+            Live sites, shown as they look right now. Every screenshot links to the real thing.
+          </p>
         </Reveal>
       </div>
       <Marquee reverse speed="slow">
-        {SOCIAL_RESULTS.map((r, i) => (
-          <Link key={i} to={r.href} className="fn3-social-card" style={{ textDecoration: "none", display: "block" }}>
-            <img src={r.src} alt={r.label} />
-            <div className="fn3-social-card-label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              {r.label}
-              <span style={{ fontSize: "11px", color: "var(--pri)", flexShrink: 0, marginLeft: "8px" }}>View →</span>
+        {WEBSITES.map((w) => (
+          <a
+            key={w.slug}
+            href={w.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fn3-site-card"
+            style={{ textDecoration: "none", display: "block" }}
+          >
+            <img src={w.img} alt={`${w.name} website`} loading="lazy" />
+            <div className="fn3-site-card-label">
+              <span>
+                <span className="fn3-site-card-name">{w.name}</span>
+                <span className="fn3-site-card-desc">{w.short}</span>
+              </span>
+              <span style={{ fontSize: "11px", color: "var(--pri)", flexShrink: 0 }}>Visit →</span>
             </div>
-          </Link>
+          </a>
         ))}
       </Marquee>
+      <div className="fn3-strip-hd" style={{ marginTop: "26px", marginBottom: 0 }}>
+        <Reveal>
+          <Link to="/work?tab=websites" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px" }}>
+            See all {WEBSITES.length} websites <ArrowRight size={13} />
+          </Link>
+        </Reveal>
+      </div>
     </div>
   );
 }
@@ -1613,7 +1633,7 @@ export default function PersonalPage() {
         <About />
         <Stats />
         <AutomationStrip />
-        <SocialStrip />
+        <WebsiteStrip />
         <Portfolio onOpen={setSelectedPortfolio} />
         <BuildsPreview />
         <Services />

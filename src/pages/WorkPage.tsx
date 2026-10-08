@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Sun, Moon, ArrowLeft, ArrowRight } from "lucide-react";
 import { caseStudies } from "../data/caseStudies";
+import { WEBSITES } from "../data/websites";
 
 // ─── STYLES ──────────────────────────────────────────────────────────────────
 const STYLES = `
@@ -13,7 +14,7 @@ const STYLES = `
 .wp.wp-light {
   --bg: #f8f7f4; --card: #ffffff; --card2: #f0ede6;
   --pri: #1a3d2b; --pri2: #2d5c42;
-  --t1: #18181a; --t2: #585850; --t3: #9b9b92;
+  --t1: #18181a; --t2: #585850; --t3: #70706a;
   --b0: rgba(26,61,43,.10); --b1: rgba(26,61,43,.28);
   --sh: rgba(0,0,0,.07);
   background: var(--bg); color: var(--t1);
@@ -21,7 +22,7 @@ const STYLES = `
 .wp.wp-dark {
   --bg: #0c0c0b; --card: #141413; --card2: #1c1c1a;
   --pri: #c9a84c; --pri2: #e8c97a;
-  --t1: #ede9df; --t2: #a5a59a; --t3: #66665a;
+  --t1: #ede9df; --t2: #a5a59a; --t3: #7e7e72;
   --b0: rgba(201,168,76,.12); --b1: rgba(201,168,76,.36);
   --sh: rgba(0,0,0,.5);
   background: var(--bg); color: var(--t1);
@@ -170,6 +171,26 @@ const STYLES = `
 .wp-video-info { padding: 10px 12px 12px; }
 .wp-video-title { font-size: 13px; font-weight: 600; color: var(--t1); margin-bottom: 4px; }
 .wp-video-tool { font-size: 11px; color: var(--pri); font-weight: 500; }
+
+/* Websites */
+.wp-site-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; }
+@media(max-width:760px){ .wp-site-grid { grid-template-columns: 1fr; } }
+.wp-site-card { background: var(--card); border: 1px solid var(--b0); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; }
+.wp-site-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px var(--sh); }
+.wp-site-shot { display: block; position: relative; overflow: hidden; border-bottom: 1px solid var(--b0); }
+.wp-site-shot img { width: 100%; height: 230px; object-fit: cover; object-position: top; display: block; transition: transform .4s ease; }
+.wp-site-card:hover .wp-site-shot img { transform: scale(1.03); }
+@media(max-width:480px){ .wp-site-shot img { height: 180px; } }
+.wp-site-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+.wp-site-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.wp-site-name { font-size: 18px; font-weight: 600; color: var(--t1); font-family: 'Cormorant Garamond', serif; }
+.wp-site-tag { font-size: 10.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--t2); white-space: nowrap; }
+.wp-site-desc { font-size: 13.5px; line-height: 1.72; color: var(--t2); margin-bottom: 16px; flex: 1; }
+.wp-site-links { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 4px; }
+.wp-site-link { font-size: 13px; font-weight: 500; color: var(--pri); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.wp-site-link:hover { text-decoration: underline; }
+.wp-site-link-2 { font-size: 12.5px; color: var(--t2); text-decoration: none; }
+.wp-site-link-2:hover { color: var(--t1); text-decoration: underline; }
 `;
 
 // ─── SOCIAL PORTFOLIO DATA ────────────────────────────────────────────────────
@@ -617,13 +638,65 @@ function BuildsSection() {
   );
 }
 
+// ─── WEBSITES SECTION ─────────────────────────────────────────────────────────
+function WebsitesSection() {
+  return (
+    <div className="wp-sec">
+      <Reveal>
+        <p className="wp-build-intro">
+          Sites designed and built end to end — careers platforms, product stores, community sites and landing pages.
+          Each screenshot is the live site, captured as it looks today.
+        </p>
+      </Reveal>
+
+      <div className="wp-site-grid">
+        {WEBSITES.map((w, i) => (
+          <Reveal key={w.slug} delay={i * 70}>
+            <div className="wp-site-card">
+              <a className="wp-site-shot" href={w.url} target="_blank" rel="noopener noreferrer">
+                <img src={w.img} alt={`${w.name} website`} loading="lazy" />
+              </a>
+              <div className="wp-site-body">
+                <div className="wp-site-head">
+                  <span className="wp-site-name">{w.name}</span>
+                  <span className="wp-site-tag">{w.tag}</span>
+                </div>
+                <p className="wp-site-desc">{w.desc}</p>
+
+                <div className="wp-tools-row">
+                  {w.stack.map((t) => (
+                    <span key={t} className="wp-tool-badge">{t}</span>
+                  ))}
+                </div>
+
+                <div className="wp-site-links">
+                  <a className="wp-site-link" href={w.url} target="_blank" rel="noopener noreferrer">
+                    Visit site <ArrowRight size={13} />
+                  </a>
+                  {w.extra && (
+                    <a className="wp-site-link-2" href={w.extra.href} target="_blank" rel="noopener noreferrer">
+                      {w.extra.label} →
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
+type Tab = "websites" | "automation" | "social" | "builds";
+
 export default function WorkPage() {
   const { theme, toggle } = useTheme();
-  const [tab, setTab] = useState<"automation" | "social" | "builds">(() => {
-    if (typeof window === "undefined") return "automation";
+  const [tab, setTab] = useState<Tab>(() => {
+    if (typeof window === "undefined") return "websites";
     const p = new URLSearchParams(window.location.search).get("tab");
-    return (p === "social" || p === "builds") ? p : "automation";
+    return (p === "social" || p === "builds" || p === "automation") ? p : "websites";
   });
 
   return (
@@ -653,7 +726,7 @@ export default function WorkPage() {
             <span style={{ color: "var(--pri)", fontStyle: "italic" }}>Results verified.</span>
           </h1>
           <p style={{ fontSize: "16px", lineHeight: "1.78", color: "var(--t2)", maxWidth: "480px" }}>
-            Automation systems and social media strategies — built for real clients, with real outcomes you can read below.
+            Websites, automation systems, social media strategies and AI video — built for real clients, with real outcomes you can read below.
           </p>
         </Reveal>
       </div>
@@ -661,6 +734,9 @@ export default function WorkPage() {
       {/* Tabs */}
       <div className="wp-tabs">
         <div className="wp-tabs-inner">
+          <button className={`wp-tab${tab === "websites" ? " active" : ""}`} onClick={() => setTab("websites")}>
+            Websites <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({WEBSITES.length})</span>
+          </button>
           <button className={`wp-tab${tab === "automation" ? " active" : ""}`} onClick={() => setTab("automation")}>
             Automation Systems <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({caseStudies.length})</span>
           </button>
@@ -668,12 +744,13 @@ export default function WorkPage() {
             Social Media <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({SOCIAL_PORTFOLIO.length})</span>
           </button>
           <button className={`wp-tab${tab === "builds" ? " active" : ""}`} onClick={() => setTab("builds")}>
-            Builds & Media
+            AI Video & CMS <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({AI_VIDEOS.length})</span>
           </button>
         </div>
       </div>
 
       {/* Content */}
+      {tab === "websites" && <WebsitesSection />}
       {tab === "automation" && <AutomationSection />}
       {tab === "social" && <SocialSection />}
       {tab === "builds" && <BuildsSection />}
