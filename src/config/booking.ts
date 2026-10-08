@@ -1,13 +1,9 @@
 // Central config for the in-app booking flow.
 //
-// The booking UI talks to two n8n webhooks. Until those are live, leave the
-// URLs blank and the UI falls back to the Calendly link automatically, so the
-// site is never broken.
+// The booking UI talks to two Vercel functions in api/, which read and write
+// Google Calendar directly. Working hours and notice live in api/_lib/slots.ts.
 //
-// To go live: paste your n8n Production webhook URLs below (or set the matching
-// VITE_ env vars in Vercel), then the CTAs can be switched from Calendly to /book.
-//
-// ── Webhook contract the n8n side must implement ─────────────────────────────
+// ── API contract ─────────────────────────────────────────────────────────────
 // availabilityUrl  POST { date: "YYYY-MM-DD", timezone: "Area/City" }
 //                  -> 200 { slots: string[] }   // each slot an ISO-8601 UTC start time
 //
@@ -17,14 +13,9 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const BOOKING = {
-  // Live n8n production webhooks (workflow "Nexara Booking System").
-  // These respond once the workflow is Active and Google Calendar is connected.
   availabilityUrl:
-    (import.meta.env.VITE_BOOKING_AVAILABILITY_URL as string | undefined) ??
-    "https://n8n.faithfulnyamasn8n.me/webhook/nexara-availability",
-  bookingUrl:
-    (import.meta.env.VITE_BOOKING_CREATE_URL as string | undefined) ??
-    "https://n8n.faithfulnyamasn8n.me/webhook/nexara-book",
+    (import.meta.env.VITE_BOOKING_AVAILABILITY_URL as string | undefined) ?? "/api/availability",
+  bookingUrl: (import.meta.env.VITE_BOOKING_CREATE_URL as string | undefined) ?? "/api/book",
 
   // Call length shown in the UI (minutes). Matches the free audit offer.
   callLengthMin: 30,
@@ -33,7 +24,7 @@ export const BOOKING = {
   bookingWindowDays: 21,
 
   // Days of week that are never bookable (0 = Sun … 6 = Sat). Real per-day
-  // availability still comes from your Google Calendar via n8n; this only hides
+  // availability still comes from your Google Calendar via api/; this only hides
   // obviously-off days in the date picker for a cleaner first impression.
   disabledWeekdays: [0, 6],
 

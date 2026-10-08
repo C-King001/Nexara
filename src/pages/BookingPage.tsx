@@ -22,7 +22,7 @@ const emptyDetails: Details = { name: "", email: "", business: "", phone: "", go
 const visitorTimezone =
   Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
 
-// Demo slots for previewing the flow before the n8n backend is wired up.
+// Demo slots for previewing the flow before the booking API is configured.
 // Generates 9:00–16:00 local, every 30 min, for the given date.
 const demoSlots = (date: Date): string[] => {
   const out: string[] = [];
