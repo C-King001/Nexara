@@ -907,9 +907,9 @@ function Hero({ word }: { word: string }) {
       <div
         className="fn3-hero-img"
         style={{
-          backgroundImage: "url('/images/faithful.jpg')",
-          backgroundSize: "150%",
-          backgroundPosition: "50% 15%",
+          backgroundImage: "url('/images/faithful-2026.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "50% 20%",
           backgroundRepeat: "no-repeat",
         }}
       />
@@ -1148,8 +1148,8 @@ function BuildsPreview() {
       </div>
       <Reveal delay={100}>
         <div style={{ marginTop: "20px" }}>
-          <Link to="/work?tab=builds" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px" }}>
-            View all 6 videos <ArrowRight size={13} />
+          <Link to="/work?tab=videos" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px" }}>
+            View all videos <ArrowRight size={13} />
           </Link>
         </div>
       </Reveal>
@@ -1175,7 +1175,7 @@ function BuildsPreview() {
                   </div>
                 ))}
               </div>
-              <Link to="/work?tab=builds" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px", width: "fit-content" }}>
+              <Link to="/work?tab=cms" className="fn3-btn fn3-btn-out" style={{ fontSize: "13px", padding: "9px 20px", width: "fit-content" }}>
                 See the full build <ArrowRight size={13} />
               </Link>
             </div>

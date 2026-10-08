@@ -13,8 +13,6 @@ export interface WebsiteItem {
   /** Fuller description for the Websites tab. */
   desc: string;
   stack: string[];
-  /** A second page of the same site worth linking to. */
-  extra?: { label: string; href: string; img: string };
 }
 
 export const WEBSITES: WebsiteItem[] = [
@@ -27,11 +25,26 @@ export const WEBSITES: WebsiteItem[] = [
     short: "Honest UK career sessions, live",
     desc: "Two hours live with two people from the same career — one senior, one much closer to the start — answering the same five questions on pay, progression, reality and breaking in. The site covers how a session runs, the industries on offer, and a waiting list for industries not yet scheduled.",
     stack: ["Next.js"],
-    extra: {
-      label: "See inside the working world",
-      href: "https://www.expertlinc.com/experience",
-      img: "/images/websites/expertlinc-experience.jpg",
-    },
+  },
+  {
+    slug: "expertlinc-experience",
+    name: "ExpertLinc · Experience",
+    tag: "Campaign page",
+    url: "https://www.expertlinc.com/experience",
+    img: "/images/websites/expertlinc-experience.jpg",
+    short: "See inside the working world",
+    desc: "A second route into the same product, built as a scrolling argument rather than a brochure: the 9–5 isn't the problem, going in blind is. Moves from confusion to clarity through the five questions, the two voices, and the session mapped minute by minute.",
+    stack: ["Next.js"],
+  },
+  {
+    slug: "getyourcrib",
+    name: "Crib",
+    tag: "Rental marketplace",
+    url: "https://www.getyourcrib.app/",
+    img: "/images/websites/getyourcrib.jpg",
+    short: "Verified student lodges, no scams",
+    desc: "Helps students near Federal University of Lafia find verified lodges without the \"pay before viewing\" trap. Verified listings, free in-person viewings, direct chat with landlords, a map of properties nearby, and reviews from renters who have actually lived there.",
+    stack: ["Vite"],
   },
   {
     slug: "moodring",
@@ -80,12 +93,17 @@ export const WEBSITES: WebsiteItem[] = [
     url: "https://nexaraai.tech/",
     img: "/images/websites/nexara.jpg",
     short: "My own agency site",
-    desc: "The agency site you are reading now: automation case studies with full workflow breakdowns, a social media portfolio with its own separate design, and a booking flow built on Google Calendar.",
+    desc: "The agency site: automation case studies with full workflow breakdowns, a social media portfolio with its own separate design, and a booking flow built on Google Calendar.",
     stack: ["React", "TypeScript", "Vite", "TailwindCSS"],
-    extra: {
-      label: "My personal portfolio",
-      href: "https://nexaraai.tech/fn",
-      img: "/images/websites/nexara-fn.jpg",
-    },
+  },
+  {
+    slug: "nexara-fn",
+    name: "FN · Personal portfolio",
+    tag: "Personal portfolio",
+    url: "https://nexaraai.tech/fn",
+    img: "/images/websites/nexara-fn.jpg",
+    short: "The portfolio you're reading",
+    desc: "My own portfolio, built as a separate design system from the agency site: serif and gold in dark mode, deep green in light, marquee strips of live work, and a booking section that books a different session type per service.",
+    stack: ["React", "TypeScript", "Vite"],
   },
 ];

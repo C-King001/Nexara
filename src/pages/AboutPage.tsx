@@ -83,10 +83,10 @@ const AboutPage = () => {
           >
             <div className="w-36 h-36 rounded-full border-2 border-primary/40 shadow-glow mx-auto overflow-hidden">
               <img
-                src="/images/founder.jpg"
+                src="/images/faithful-2026.jpg"
                 alt="Faithful Nyama"
                 className="w-full h-full object-cover"
-                style={{ transform: "scale(1.8)", transformOrigin: "center 5%" }}
+                style={{ transform: "scale(1.25)", transformOrigin: "center 20%" }}
               />
             </div>
             <p className="font-mono text-xs text-dim mt-3">Faithful Nyama · Founder, Nexara</p>

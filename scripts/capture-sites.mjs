@@ -24,6 +24,7 @@ const SITES = [
   ["nexara-fn", "https://nexaraai.tech/fn"],
   ["meji", "https://meji-eight.vercel.app/"],
   ["momsandmore", "https://momsandmore.com.ng/"],
+  ["getyourcrib", "https://www.getyourcrib.app/"],
 ];
 
 const dir = "public/images/websites";

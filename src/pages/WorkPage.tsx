@@ -528,8 +528,8 @@ const AI_VIDEOS = [
   { src: "/videos/sonia-testimonial-video.mp4",    title: "Sonia · Testimonial",    tool: "Claude" },
 ];
 
-// ─── BUILDS SECTION ───────────────────────────────────────────────────────────
-function BuildsSection() {
+// ─── CMS SECTION ──────────────────────────────────────────────────────────────
+function CmsSection() {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   useEffect(() => {
@@ -543,7 +543,7 @@ function BuildsSection() {
     <div className="wp-sec">
       <Reveal>
         <p className="wp-build-intro">
-          Beyond automation and social — a custom content operations system and a collection of AI-generated video content built with the latest generative tools.
+          A custom content operations system, built from scratch to run a franchise brand's entire social media pipeline.
         </p>
       </Reveal>
 
@@ -587,8 +587,22 @@ function BuildsSection() {
         </div>
       </Reveal>
 
-      {/* ── AI VIDEOS ── */}
-      <Reveal delay={120}>
+      {/* Lightbox */}
+      {lightbox && (
+        <div className="wp-lightbox" onClick={() => setLightbox(null)}>
+          <span className="wp-lightbox-close" onClick={() => setLightbox(null)}>×</span>
+          <img src={lightbox} alt="Screenshot" onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── AI VIDEO SECTION ─────────────────────────────────────────────────────────
+function VideosSection() {
+  return (
+    <div className="wp-sec">
+      <Reveal>
         <div className="wp-build-block">
           <div className="wp-build-block-title">
             <span className="wp-label" style={{ margin: 0 }}>AI Video Production</span>
@@ -626,14 +640,6 @@ function BuildsSection() {
           </div>
         </div>
       </Reveal>
-
-      {/* Lightbox */}
-      {lightbox && (
-        <div className="wp-lightbox" onClick={() => setLightbox(null)}>
-          <span className="wp-lightbox-close" onClick={() => setLightbox(null)}>×</span>
-          <img src={lightbox} alt="Screenshot" onClick={(e) => e.stopPropagation()} />
-        </div>
-      )}
     </div>
   );
 }
@@ -673,11 +679,6 @@ function WebsitesSection() {
                   <a className="wp-site-link" href={w.url} target="_blank" rel="noopener noreferrer">
                     Visit site <ArrowRight size={13} />
                   </a>
-                  {w.extra && (
-                    <a className="wp-site-link-2" href={w.extra.href} target="_blank" rel="noopener noreferrer">
-                      {w.extra.label} →
-                    </a>
-                  )}
                 </div>
               </div>
             </div>
@@ -689,15 +690,32 @@ function WebsitesSection() {
 }
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
-type Tab = "websites" | "automation" | "social" | "builds";
+type Tab = "websites" | "automation" | "social" | "videos" | "cms";
+
+const TABS: { id: Tab; label: string; count?: number }[] = [
+  { id: "websites",   label: "Websites",          count: WEBSITES.length },
+  { id: "automation", label: "Automation Systems", count: caseStudies.length },
+  { id: "social",     label: "Social Media",       count: SOCIAL_PORTFOLIO.length },
+  { id: "videos",     label: "AI Videos",          count: AI_VIDEOS.length },
+  { id: "cms",        label: "CMS" },
+];
 
 export default function WorkPage() {
   const { theme, toggle } = useTheme();
+  const tabsRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<Tab>(() => {
     if (typeof window === "undefined") return "websites";
     const p = new URLSearchParams(window.location.search).get("tab");
-    return (p === "social" || p === "builds" || p === "automation") ? p : "websites";
+    if (p === "builds") return "videos"; // old links from before the split
+    return TABS.some((t) => t.id === p) ? (p as Tab) : "websites";
   });
+
+  // Switching tab from halfway down the page should start the new tab at its top.
+  const selectTab = (next: Tab) => {
+    setTab(next);
+    const top = (tabsRef.current?.offsetTop ?? 0) - 60;
+    if (window.scrollY > top) window.scrollTo({ top, behavior: "smooth" });
+  };
 
   return (
     <div className={`wp wp-${theme}`}>
@@ -732,20 +750,20 @@ export default function WorkPage() {
       </div>
 
       {/* Tabs */}
-      <div className="wp-tabs">
+      <div className="wp-tabs" ref={tabsRef}>
         <div className="wp-tabs-inner">
-          <button className={`wp-tab${tab === "websites" ? " active" : ""}`} onClick={() => setTab("websites")}>
-            Websites <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({WEBSITES.length})</span>
-          </button>
-          <button className={`wp-tab${tab === "automation" ? " active" : ""}`} onClick={() => setTab("automation")}>
-            Automation Systems <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({caseStudies.length})</span>
-          </button>
-          <button className={`wp-tab${tab === "social" ? " active" : ""}`} onClick={() => setTab("social")}>
-            Social Media <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({SOCIAL_PORTFOLIO.length})</span>
-          </button>
-          <button className={`wp-tab${tab === "builds" ? " active" : ""}`} onClick={() => setTab("builds")}>
-            AI Video & CMS <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({AI_VIDEOS.length})</span>
-          </button>
+          {TABS.map((t) => (
+            <button
+              key={t.id}
+              className={`wp-tab${tab === t.id ? " active" : ""}`}
+              onClick={() => selectTab(t.id)}
+            >
+              {t.label}
+              {t.count !== undefined && (
+                <span style={{ fontSize: "11px", color: "var(--t3)", marginLeft: "4px" }}>({t.count})</span>
+              )}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -753,7 +771,8 @@ export default function WorkPage() {
       {tab === "websites" && <WebsitesSection />}
       {tab === "automation" && <AutomationSection />}
       {tab === "social" && <SocialSection />}
-      {tab === "builds" && <BuildsSection />}
+      {tab === "videos" && <VideosSection />}
+      {tab === "cms" && <CmsSection />}
 
       {/* CTA */}
       <div className="wp-cta">
