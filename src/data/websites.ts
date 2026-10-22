@@ -87,6 +87,16 @@ export const WEBSITES: WebsiteItem[] = [
     stack: ["Next.js"],
   },
   {
+    slug: "bibire",
+    name: "BIBIRÉ",
+    tag: "E-commerce",
+    url: "https://bibire-six.vercel.app/",
+    img: "/images/websites/bibire.jpg",
+    short: "UK activewear, built for motion",
+    desc: "Storefront for a UK activewear brand: Collection 003 of training jackets, sports bras, leggings and shorts, opened by a motion strip of the campaign film. Product detail down to adjustable straps and removable cups, a size guide and shipping terms, a bag and account, and a sessions list for first access to each drop.",
+    stack: ["Next.js"],
+  },
+  {
     slug: "nexara",
     name: "Nexara",
     tag: "Agency site",

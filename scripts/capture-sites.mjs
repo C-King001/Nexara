@@ -25,6 +25,7 @@ const SITES = [
   ["meji", "https://meji-eight.vercel.app/"],
   ["momsandmore", "https://momsandmore.com.ng/"],
   ["getyourcrib", "https://www.getyourcrib.app/"],
+  ["bibire", "https://bibire-six.vercel.app/"],
 ];
 
 const dir = "public/images/websites";
