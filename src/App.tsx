@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound.tsx";
 import PersonalPage from "./pages/PersonalPage.tsx";
 import WorkPage from "./pages/WorkPage.tsx";
 import BookingPage from "./pages/BookingPage.tsx";
+import WebsitesPage from "./pages/WebsitesPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/automation" element={<AutomationPage />} />
           <Route path="/social-media" element={<SocialMediaPage />} />
           <Route path="/social-media/results" element={<SocialMediaResultsPage />} />
+          <Route path="/websites" element={<WebsitesPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/case/:slug" element={<CaseStudyPage />} />
           <Route path="/fn" element={<PersonalPage />} />

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { addDays, format, isBefore, startOfDay } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import Navbar from "@/components/Navbar";
@@ -43,7 +43,9 @@ const BookingPage = () => {
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [slotError, setSlotError] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [details, setDetails] = useState<Details>(emptyDetails);
+  // /websites sends what the visitor picked as ?goal=, so they don't retype it.
+  const [searchParams] = useSearchParams();
+  const [details, setDetails] = useState<Details>({ ...emptyDetails, goal: searchParams.get("goal") ?? "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
