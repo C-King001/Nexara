@@ -43,6 +43,7 @@ const App = () => (
           <Route path="/social-media" element={<SocialMediaPage />} />
           <Route path="/social-media/results" element={<SocialMediaResultsPage />} />
           <Route path="/websites" element={<WebsitesPage />} />
+          <Route path="/studio" element={<WebsitesPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/case/:slug" element={<CaseStudyPage />} />
           <Route path="/fn" element={<PersonalPage />} />
