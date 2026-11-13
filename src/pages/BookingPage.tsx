@@ -46,6 +46,7 @@ const BookingPage = () => {
   // /websites sends what the visitor picked as ?goal=, so they don't retype it.
   const [searchParams] = useSearchParams();
   const [details, setDetails] = useState<Details>({ ...emptyDetails, goal: searchParams.get("goal") ?? "" });
+  const fromStudio = searchParams.get("goal")?.startsWith("Studio") ?? false;
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -353,12 +354,12 @@ const BookingPage = () => {
                     />
                     <div>
                       <label className="font-mono text-xs text-dim tracking-wide block mb-2">
-                        What do you want to automate?
+                        {fromStudio ? "What do you want to build?" : "What do you want to automate?"}
                       </label>
                       <textarea
                         value={details.goal}
                         onChange={(e) => setDetails({ ...details, goal: e.target.value })}
-                        rows={3}
+                        rows={fromStudio ? 8 : 3}
                         placeholder="e.g. we miss calls during jobs and lose the lead"
                         className="w-full rounded-md border border-border bg-surface-2 px-4 py-3 text-sm text-foreground placeholder:text-dim focus:border-primary focus:outline-none resize-none"
                       />
