@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { STYLES } from "@/studio/styles";
 import {
-  ADDONS, EMAIL, FAQS, LAUNCH, LINKEDIN, PACKAGES, PROCESS, PROJECTS, SERVICES, THIRD_PARTY, WORK_ROWS, host, project,
+  ADDONS, EMAIL, FAQS, INSTAGRAM, LAUNCH, LINKEDIN, PACKAGES, PROCESS, PROJECTS, SERVICES, THIRD_PARTY, WORK_ROWS, host, project,
 } from "@/studio/data";
 import type { Project } from "@/studio/data";
 import { ClientMarquee, Comp, Countries, FilmPlayer, HeroStage, Inbox, Phone, Planner, StudioNav, Words } from "@/studio/parts";
@@ -476,6 +476,7 @@ const WebsitesPage = () => {
                 <li><a href="#faq">FAQs</a></li>
                 <li><a href="#start">Start a project</a></li>
                 <li><a href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={13} aria-hidden="true" /></a></li>
+                <li><a href={INSTAGRAM} target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={13} aria-hidden="true" /></a></li>
                 <li><Link to="/">Nexara automation</Link></li>
               </ul>
             </div>

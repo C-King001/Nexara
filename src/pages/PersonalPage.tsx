@@ -1570,7 +1570,7 @@ function BookSection() {
                   <a href="mailto:faithfulnyama@gmail.com" style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12.5px", color: "var(--t3)", textDecoration: "none" }}>
                     <Mail size={13} style={{ color: "var(--pri)" }} /> faithfulnyama@gmail.com
                   </a>
-                  <a href="https://www.instagram.com/faithfulnyama" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12.5px", color: "var(--t3)", textDecoration: "none" }}>
+                  <a href="https://www.instagram.com/iam_faithfulnyama" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12.5px", color: "var(--t3)", textDecoration: "none" }}>
                     <Instagram size={13} style={{ color: "var(--pri)" }} /> @faithfulnyama
                   </a>
                   <a href="https://www.linkedin.com/in/faithfulnyama" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "12.5px", color: "var(--t3)", textDecoration: "none" }}>

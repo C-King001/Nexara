@@ -183,9 +183,9 @@ html:has(.st) { scroll-padding-top: 84px; }
 .st-marquee-track { display: flex; gap: 12px; width: max-content; animation: st-marq 48s linear infinite; }
 .st-marquee:hover .st-marquee-track, .st-marquee:focus-within .st-marquee-track { animation-play-state: paused; }
 @keyframes st-marq { to { transform: translateX(-50%); } }
-.st-logo-tile { flex: none; position: relative; width: 176px; height: 88px; border-radius: 8px; overflow: hidden; }
-.st-logo-tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(246,241,234,.12); pointer-events: none; }
-.st-logo-tile img { width: 100%; height: 100%; object-fit: cover; }
+.st-logo-tile { flex: none; display: flex; align-items: center; justify-content: center; width: 176px; height: 88px; padding: 14px 22px; border-radius: 10px; background: #fffdf9 !important; transition: transform .35s var(--out); }
+.st-logo-tile:hover { transform: translateY(-3px); }
+.st-logo-tile img { width: 100%; height: 100%; object-fit: contain; }
 @media (prefers-reduced-motion: reduce) {
   .st-marquee { -webkit-mask-image: none; mask-image: none; }
   .st-marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: flex-start; }

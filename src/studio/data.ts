@@ -40,7 +40,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "moodring", name: "Moodring", category: "Product story site", kind: "landing", url: "https://moodring-five.vercel.app/",
     desc: "A scroll-led story for a smart ring built around women's lives. It follows one woman's day hour by hour, shows how the same number can mean two different nights, and ends on the waitlist.",
-    services: ["Website design & build", "Welcome email series", "Product film"], bg: "#ffe8c8", fg: "#5e3b24",
+    services: ["Website design & build", "Welcome email series", "Product film"], bg: "#9a4716", fg: "#fff3e4",
   },
   {
     slug: "momsandmore", name: "Mom's Best Choice", category: "Product landing page", kind: "landing", url: "https://momsandmore.com.ng/",
@@ -57,12 +57,17 @@ export const PROJECTS: Project[] = [
     desc: "Women in God's Prophetic Alliance, a global community marking its Silver Jubilee. The site covers leadership, events, messages, partnership and the academy, with two membership routes and an induction for new members.",
     services: ["Website design & build"], bg: "#3b0508", fg: "#fff6ec",
   },
+  {
+    slug: "throneroom", name: "The Throneroom", category: "Ministry website", kind: "business", url: "https://the-throneroom.vercel.app/",
+    desc: "A house of prayer in Kafanchan, Nigeria, since 1991. The site carries teaching from its vision pioneer, a ministry picker covering missions, a hospital, a nursing college, radio and a guest house, plus gatherings, giving and a live stream.",
+    services: ["Website design & build"], bg: "#15103a", fg: "#f6efe0",
+  },
 ];
 
 export const project = (slug: string) => PROJECTS.find((p) => p.slug === slug)!;
 
 /** Shown in the hero, in this order. */
-export const HERO_SET = ["bibire", "expertlinc", "getyourcrib", "moodring", "momsandmore"].map(project);
+export const HERO_SET = ["bibire", "expertlinc", "getyourcrib", "moodring", "momsandmore", "wigpa"].map(project);
 
 /** Work grid rows: spans out of 12 on desktop. */
 export const WORK_ROWS: [string, number][][] = [
@@ -70,6 +75,7 @@ export const WORK_ROWS: [string, number][][] = [
   [["expertlinc", 7], ["getyourcrib", 5]],
   [["moodring", 5], ["momsandmore", 7]],
   [["meji", 6], ["wigpa", 6]],
+  [["throneroom", 12]],
 ];
 
 export const COUNTRIES = ["India", "Bulgaria", "Germany", "United States", "United Kingdom", "Nigeria"];
@@ -241,3 +247,4 @@ export const NAV = [
 
 export const EMAIL = "faithfulnyama@gmail.com";
 export const LINKEDIN = "https://www.linkedin.com/in/faithfulnyama";
+export const INSTAGRAM = "https://www.instagram.com/iam_faithfulnyama";
