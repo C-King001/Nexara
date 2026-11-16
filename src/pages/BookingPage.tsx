@@ -148,8 +148,17 @@ const BookingPage = () => {
   const stepIndex = { date: 0, time: 1, details: 2, success: 3 }[step];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
+    <div className={`min-h-screen bg-background${fromStudio ? " st-book" : ""}`}>
+      {fromStudio ? (
+        <>
+          <style>{STUDIO_BOOK_STYLES}</style>
+          <header className="st-book-nav">
+            <Link to="/studio">← Nexara <span>Studio</span></Link>
+          </header>
+        </>
+      ) : (
+        <Navbar />
+      )}
 
       <main className="pt-28 pb-24 px-6 relative overflow-hidden">
         {/* ambient glow */}
@@ -159,14 +168,15 @@ const BookingPage = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <span className="font-mono text-xs text-primary tracking-widest uppercase block mb-4">
-              // Book Your Free Audit
+              {fromStudio ? "Nexara Studio · Project call" : "// Book Your Free Audit"}
             </span>
             <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
               Grab a {BOOKING.callLengthMin}-minute slot
             </h1>
             <p className="text-muted-foreground">
-              No pitch — we map your lead flow and find where revenue is leaking. We build it
-              first, you pay after 7 days of results.
+              {fromStudio
+                ? "We'll talk through your business, the website it needs and what's involved. Your answers are already in the form, so we start with your project."
+                : "No pitch — we map your lead flow and find where revenue is leaking. We build it first, you pay after 7 days of results."}
             </p>
             {!live && (
               <span className="inline-block mt-4 px-3 py-1 rounded-full bg-accent/10 border border-accent/30 font-mono text-[10px] tracking-widest uppercase text-accent">
@@ -416,10 +426,10 @@ const BookingPage = () => {
                     A confirmation email and calendar invite are on their way. See you then.
                   </p>
                   <Link
-                    to="/"
+                    to={fromStudio ? "/studio" : "/"}
                     className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-md font-display font-medium text-foreground hover:border-primary/50 transition-colors"
                   >
-                    ← Back to home
+                    {fromStudio ? "← Back to Nexara Studio" : "← Back to home"}
                   </Link>
                   {!live && (
                     <p className="mt-6 font-mono text-[10px] text-dim tracking-widest uppercase">
@@ -448,10 +458,36 @@ const BookingPage = () => {
         </div>
       </main>
 
-      <Footer />
+      {fromStudio ? (
+        <footer className="st-book-foot">© {new Date().getFullYear()} Nexara Creative Studio</footer>
+      ) : (
+        <Footer />
+      )}
     </div>
   );
 };
+
+// Visitors coming from /studio keep the studio's look: same fonts and palette,
+// applied by re-pointing the theme variables the booking UI already uses.
+const STUDIO_BOOK_STYLES = `
+@import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+.st-book {
+  --background: 14 48% 5%; --foreground: 35 39% 94%;
+  --primary: 70 87% 62%; --primary-foreground: 14 48% 5%; --ring: 70 87% 62%;
+  --accent: 21 100% 55%; --accent-foreground: 14 48% 5%;
+  --border: 20 28% 17%; --input: 20 28% 17%; --muted: 21 40% 10%; --muted-foreground: 30 18% 70%;
+  --card: 19 40% 8%; --popover: 19 40% 8%; --secondary: 21 40% 12%; --secondary-foreground: 35 39% 90%;
+  --surface-1: 19 40% 8%; --surface-2: 21 40% 11%; --surface-3: 21 35% 15%; --text-dim: 28 14% 60%;
+  --shadow-glow: 0 0 30px -5px hsl(70 87% 62% / 0.3);
+  font-family: 'Familjen Grotesk', system-ui, sans-serif;
+}
+.st-book .font-display, .st-book h1, .st-book h2 { font-family: 'Familjen Grotesk', system-ui, sans-serif; letter-spacing: -0.03em; }
+.st-book .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+.st-book-nav { position: fixed; inset: 0 0 auto 0; z-index: 50; height: 72px; display: flex; align-items: center; padding: 0 clamp(16px, 4vw, 56px); background: hsl(14 48% 5% / .86); backdrop-filter: blur(14px); border-bottom: 1px solid hsl(20 28% 17%); }
+.st-book-nav a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; font-size: 20px; letter-spacing: -.04em; color: hsl(35 39% 94%); text-decoration: none; }
+.st-book-nav a span { font-family: 'Geist Mono', monospace; font-weight: 400; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 4px 8px; border: 1px solid hsl(20 28% 22%); border-radius: 999px; color: hsl(30 18% 70%); }
+.st-book-foot { padding: 28px clamp(16px, 4vw, 56px); border-top: 1px solid hsl(20 28% 17%); color: hsl(30 18% 70%); font-size: 14px; text-align: center; }
+`;
 
 interface FieldProps {
   label: string;
